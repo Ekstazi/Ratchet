@@ -13,7 +13,7 @@ use Ratchet\RFC6455\Messaging\MessageBuffer;
 use Ratchet\RFC6455\Messaging\CloseFrameChecker;
 use Ratchet\RFC6455\Handshake\ServerNegotiator;
 use Ratchet\RFC6455\Handshake\RequestVerifier;
-use React\EventLoop\LoopInterface;
+use Amp\Loop\Driver as LoopInterface;
 use GuzzleHttp\Psr7 as gPsr;
 
 /**
@@ -206,7 +206,7 @@ class WsServer implements HttpServerInterface {
             }
         };
 
-        $loop->addPeriodicTimer((int)$interval, function() use ($pingedConnections, &$lastPing, $splClearer) {
+        $loop->repeat((int)$interval, function() use ($pingedConnections, &$lastPing, $splClearer) {
             foreach ($pingedConnections as $wsConn) {
                 $wsConn->close();
             }

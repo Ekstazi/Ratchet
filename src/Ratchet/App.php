@@ -1,9 +1,8 @@
 <?php
 namespace Ratchet;
-use React\EventLoop\LoopInterface;
-use React\EventLoop\Factory as LoopFactory;
-use React\Socket\Server as Reactor;
-use React\Socket\SecureServer as SecureReactor;
+use Amp\Loop\Driver as LoopInterface;
+use Amp\Loop\DriverFactory as LoopFactory;
+use Amp\Socket\Server as Reactor;
 use Ratchet\Http\HttpServerInterface;
 use Ratchet\Http\OriginCheck;
 use Ratchet\Wamp\WampServerInterface;
@@ -67,13 +66,13 @@ class App {
         }
 
         if (null === $loop) {
-            $loop = LoopFactory::create();
+            $loop = (new LoopFactory)->create();
         }
 
         $this->httpHost = $httpHost;
         $this->port = $port;
 
-        $socket = new Reactor($address . ':' . $port, $loop);
+        $socket = \Amp\Socket\listen($address . ':' . $port);
 
         $this->routes  = new RouteCollection;
         $this->_server = new IoServer(new HttpServer(new Router(new UrlMatcher($this->routes, new RequestContext))), $socket, $loop);
@@ -87,7 +86,7 @@ class App {
         } else {
             $flashUri = 8843;
         }
-        $flashSock = new Reactor($flashUri, $loop);
+        $flashSock = \Amp\Socket\listen($flashUri);
         $this->flashServer = new IoServer($policy, $flashSock);
     }
 

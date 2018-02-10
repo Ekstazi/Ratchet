@@ -25,7 +25,7 @@ class IoServer
 
 	/**
 	 * The socket server the Ratchet Application is run off of
-	 * @var \React\Socket\ServerInterface
+	 * @var ServerInterface
 	 */
 	public $socket;
 

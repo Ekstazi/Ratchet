@@ -1,19 +1,22 @@
 <?php
 namespace Ratchet\Server;
 use Amp\Loop;
+use Amp\Socket\Server;
 use Amp\Socket\ServerSocket;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use Ratchet\Server\IoServer;
-use React\Socket\Server;
 
 /**
  * @covers Ratchet\Server\IoServer
  */
 class IoServerTest extends TestCase  {
-	/** @var  IoServer */
+
+	/**
+	 * @var  IoServer
+	 */
     protected $server;
 
 	/**
