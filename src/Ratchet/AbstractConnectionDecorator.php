@@ -38,4 +38,16 @@ abstract class AbstractConnectionDecorator implements ConnectionInterface {
     public function __unset($name) {
         unset($this->wrappedConn->$name);
     }
+
+	public function id()
+	{
+		return $this->wrappedConn->id();
+	}
+
+	public function getRemoteAddress()
+	{
+		return $this->wrappedConn->getRemoteAddress();
+	}
+
+
 }

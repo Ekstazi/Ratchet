@@ -1,6 +1,7 @@
 <?php
 namespace Ratchet\Http;
 use Ratchet\AbstractMessageComponentTestCase;
+use Ratchet\ConnectionInterface;
 
 /**
  * @covers Ratchet\Http\HttpServer
@@ -12,15 +13,15 @@ class HttpServerTest extends AbstractMessageComponentTestCase {
     }
 
     public function getConnectionClassString() {
-        return '\Ratchet\ConnectionInterface';
+        return ConnectionInterface::class;
     }
 
     public function getDecoratorClassString() {
-        return '\Ratchet\Http\HttpServer';
+        return HttpServer::class;
     }
 
     public function getComponentClassString() {
-        return '\Ratchet\Http\HttpServerInterface';
+        return HttpServerInterface::class;
     }
 
     public function testOpen() {

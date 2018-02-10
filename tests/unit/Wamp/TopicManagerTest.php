@@ -1,10 +1,13 @@
 <?php
 namespace Ratchet\Wamp;
+use PHPUnit\Framework\TestCase;
+use Ratchet\ConnectionInterface;
+use Ratchet\Wamp\Stub\WsWampServerInterface;
 
 /**
  * @covers Ratchet\Wamp\TopicManager
  */
-class TopicManagerTest extends \PHPUnit_Framework_TestCase {
+class TopicManagerTest extends TestCase  {
     private $mock;
 
     /**
@@ -18,28 +21,28 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
     private $conn;
 
     public function setUp() {
-        $this->conn = $this->getMock('\Ratchet\ConnectionInterface');
-        $this->mock = $this->getMock('\Ratchet\Wamp\WampServerInterface');
+        $this->conn = $this->createMock(ConnectionInterface::class);
+        $this->mock = $this->createMock(WampServerInterface::class);
         $this->mngr = new TopicManager($this->mock);
 
-        $this->conn->WAMP = new \StdClass;
+        $this->conn->WAMP = new \stdClass();
         $this->mngr->onOpen($this->conn);
     }
 
     public function testGetTopicReturnsTopicObject() {
-        $class  = new \ReflectionClass('Ratchet\Wamp\TopicManager');
+        $class  = new \ReflectionClass(TopicManager::class);
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
         $topic = $method->invokeArgs($this->mngr, array('The Topic'));
 
-        $this->assertInstanceOf('Ratchet\Wamp\Topic', $topic);
+        $this->assertInstanceOf(Topic::class, $topic);
     }
 
     public function testGetTopicCreatesTopicWithSameName() {
         $name = 'The Topic';
 
-        $class  = new \ReflectionClass('Ratchet\Wamp\TopicManager');
+        $class  = new \ReflectionClass(TopicManager::class);
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
@@ -49,7 +52,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetTopicReturnsSameObject() {
-        $class  = new \ReflectionClass('Ratchet\Wamp\TopicManager');
+        $class  = new \ReflectionClass(TopicManager::class);
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
@@ -70,7 +73,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
         $this->mock->expects($this->once())->method('onCall')->with(
             $this->conn
           , $id
-          , $this->isInstanceOf('Ratchet\Wamp\Topic')
+          , $this->isInstanceOf(Topic::class)
           , array()
         );
 
@@ -79,7 +82,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
 
     public function testOnSubscribeCreatesTopicObject() {
         $this->mock->expects($this->once())->method('onSubscribe')->with(
-            $this->conn, $this->isInstanceOf('Ratchet\Wamp\Topic')
+            $this->conn, $this->isInstanceOf(Topic::class)
         );
 
         $this->mngr->onSubscribe($this->conn, 'new topic');
@@ -88,7 +91,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
     public function testTopicIsInConnectionOnSubscribe() {
         $name = 'New Topic';
 
-        $class  = new \ReflectionClass('Ratchet\Wamp\TopicManager');
+        $class  = new \ReflectionClass(TopicManager::class);
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
@@ -109,7 +112,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
     public function testUnsubscribeEvent() {
         $name = 'in and out';
         $this->mock->expects($this->once())->method('onUnsubscribe')->with(
-            $this->conn, $this->isInstanceOf('Ratchet\Wamp\Topic')
+            $this->conn, $this->isInstanceOf(Topic::class)
         );
 
         $this->mngr->onSubscribe($this->conn, $name);
@@ -128,7 +131,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
     public function testUnsubscribeRemovesTopicFromConnection() {
         $name = 'Bye Bye Topic';
 
-        $class  = new \ReflectionClass('Ratchet\Wamp\TopicManager');
+        $class  = new \ReflectionClass(TopicManager::class);
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
@@ -145,7 +148,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
 
         $this->mock->expects($this->once())->method('onPublish')->with(
             $this->conn
-          , $this->isInstanceOf('Ratchet\Wamp\Topic')
+          , $this->isInstanceOf(Topic::class)
           , $msg
           , $this->isType('array')
           , $this->isType('array')
@@ -160,7 +163,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     protected function topicProvider($name) {
-        $class  = new \ReflectionClass('Ratchet\Wamp\TopicManager');
+        $class  = new \ReflectionClass(TopicManager::class);
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
@@ -217,7 +220,7 @@ class TopicManagerTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetSubProtocolsBubbles() {
         $subs = array('hello', 'world');
-        $app  = $this->getMock('Ratchet\Wamp\Stub\WsWampServerInterface');
+        $app  = $this->createMock(WsWampServerInterface::class);
         $app->expects($this->once())->method('getSubProtocols')->will($this->returnValue($subs));
         $mngr = new TopicManager($app);
 

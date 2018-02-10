@@ -1,6 +1,8 @@
 <?php
 namespace Ratchet\Http;
+use Psr\Http\Message\RequestInterface;
 use Ratchet\AbstractMessageComponentTestCase;
+use Ratchet\ConnectionInterface;
 
 /**
  * @covers Ratchet\Http\OriginCheck
@@ -9,7 +11,7 @@ class OriginCheckTest extends AbstractMessageComponentTestCase {
     protected $_reqStub;
 
     public function setUp() {
-        $this->_reqStub = $this->getMock('Psr\Http\Message\RequestInterface');
+        $this->_reqStub = $this->createMock(RequestInterface::class);
         $this->_reqStub->expects($this->any())->method('getHeader')->will($this->returnValue(['localhost']));
 
         parent::setUp();
@@ -22,15 +24,15 @@ class OriginCheckTest extends AbstractMessageComponentTestCase {
     }
 
     public function getConnectionClassString() {
-        return '\Ratchet\ConnectionInterface';
+        return ConnectionInterface::class;
     }
 
     public function getDecoratorClassString() {
-        return '\Ratchet\Http\OriginCheck';
+        return OriginCheck::class;
     }
 
     public function getComponentClassString() {
-        return '\Ratchet\Http\HttpServerInterface';
+        return HttpServerInterface::class;
     }
 
     public function testCloseOnNonMatchingOrigin() {

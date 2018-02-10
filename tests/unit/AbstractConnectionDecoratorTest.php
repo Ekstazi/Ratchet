@@ -1,18 +1,20 @@
 <?php
 namespace Ratchet;
+use PHPUnit\Framework\Error\Error;
+use PHPUnit\Framework\TestCase;
 use Ratchet\Mock\ConnectionDecorator;
 
 /**
  * @covers Ratchet\AbstractConnectionDecorator
  * @covers Ratchet\ConnectionInterface
  */
-class AbstractConnectionDecoratorTest extends \PHPUnit_Framework_TestCase {
+class AbstractConnectionDecoratorTest extends TestCase  {
     protected $mock;
     protected $l1;
     protected $l2;
 
     public function setUp() {
-        $this->mock = $this->getMock('\Ratchet\ConnectionInterface');
+        $this->mock = $this->createMock(ConnectionInterface::class);
         $this->l1   = new ConnectionDecorator($this->mock);
         $this->l2   = new ConnectionDecorator($this->l1);
     }
@@ -84,7 +86,7 @@ class AbstractConnectionDecoratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetConnection() {
-        $class  = new \ReflectionClass('\\Ratchet\\AbstractConnectionDecorator');
+        $class  = new \ReflectionClass(AbstractConnectionDecorator::class);
         $method = $class->getMethod('getConnection');
         $method->setAccessible(true);
 
@@ -94,7 +96,7 @@ class AbstractConnectionDecoratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGetConnectionLevel2() {
-        $class  = new \ReflectionClass('\\Ratchet\\AbstractConnectionDecorator');
+        $class  = new \ReflectionClass(AbstractConnectionDecorator::class);
         $method = $class->getMethod('getConnection');
         $method->setAccessible(true);
 
@@ -131,17 +133,17 @@ class AbstractConnectionDecoratorTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testWarningGettingNothing() {
-        $this->setExpectedException('PHPUnit_Framework_Error');
+        $this->expectException(Error::class);
         $var = $this->mock->nonExistant;
     }
 
     public function testWarningGettingNothingLevel1() {
-        $this->setExpectedException('PHPUnit_Framework_Error');
+        $this->expectException(Error::class);
         $var = $this->l1->nonExistant;
     }
 
     public function testWarningGettingNothingLevel2() {
-        $this->setExpectedException('PHPUnit_Framework_Error');
+        $this->expectException(Error::class);
         $var = $this->l2->nonExistant;
     }
 }

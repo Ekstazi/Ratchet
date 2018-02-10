@@ -1,16 +1,18 @@
 <?php
 namespace Ratchet\Application\Server;
+use Amp\Socket\ServerSocket;
+use PHPUnit\Framework\TestCase;
 use Ratchet\Server\IoConnection;
 
 /**
  * @covers Ratchet\Server\IoConnection
  */
-class IoConnectionTest extends \PHPUnit_Framework_TestCase {
+class IoConnectionTest extends TestCase  {
     protected $sock;
     protected $conn;
 
     public function setUp() {
-        $this->sock = $this->getMock('\\React\\Socket\\ConnectionInterface');
+        $this->sock = $this->createMock(ServerSocket::class);
         $this->conn = new IoConnection($this->sock);
     }
 

@@ -1,22 +1,22 @@
 <?php
 namespace Ratchet\Server;
 use Ratchet\ConnectionInterface;
-use React\Socket\ConnectionInterface as ReactConn;
+use Amp\Socket\ServerSocket as AmpConn;
 
 /**
  * {@inheritdoc}
  */
 class IoConnection implements ConnectionInterface {
     /**
-     * @var \React\Socket\ConnectionInterface
+     * @var AmpConn
      */
     protected $conn;
 
 
     /**
-     * @param \React\Socket\ConnectionInterface $conn
+     * @param AmpConn $conn
      */
-    public function __construct(ReactConn $conn) {
+    public function __construct(AmpConn $conn) {
         $this->conn = $conn;
     }
 
@@ -35,4 +35,16 @@ class IoConnection implements ConnectionInterface {
     public function close() {
         $this->conn->end();
     }
+
+    public function id()
+	{
+		return (int) $this->conn->getResource();
+	}
+
+	public function getRemoteAddress()
+	{
+		return $this->conn->getRemoteAddress();
+	}
+
+
 }
