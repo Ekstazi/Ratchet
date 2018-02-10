@@ -99,7 +99,7 @@ class App {
      * @param string             $httpHost Override the $httpHost variable provided in the __construct
      * @return ComponentInterface|WsServer
      */
-    public function route($path, ComponentInterface $controller, array $allowedOrigins = array(), $httpHost = null) {
+    public function route($path, ComponentInterface $controller, array $allowedOrigins = [], $httpHost = null) {
         if ($controller instanceof HttpServerInterface || $controller instanceof WsServer) {
             $decorated = $controller;
         } elseif ($controller instanceof WampServerInterface) {
@@ -131,7 +131,18 @@ class App {
             }
         }
 
-        $this->routes->add('rr-' . ++$this->_routeCounter, new Route($path, array('_controller' => $decorated), array('Origin' => $this->httpHost), array(), $httpHost, array(), array('GET')));
+        $this->routes->add(
+        	'rr-' . ++$this->_routeCounter,
+			new Route(
+				$path,
+				['_controller' => $decorated],
+				['Origin' => $this->httpHost],
+				[],
+				$httpHost,
+				[],
+				['GET']
+			)
+		);
 
         return $decorated;
     }

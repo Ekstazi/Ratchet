@@ -14,14 +14,14 @@ class HttpRequestParserTest extends TestCase  {
     }
 
     public function headersProvider() {
-        return array(
-            array(false, "GET / HTTP/1.1\r\nHost: socketo.me\r\n")
-          , array(true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n")
-          , array(true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n1")
-          , array(true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie✖")
-          , array(true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie✖\r\n\r\n")
-          , array(true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie\r\n")
-        );
+        return [
+            [false, "GET / HTTP/1.1\r\nHost: socketo.me\r\n"]
+          , [true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n"]
+          , [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n1"]
+          , [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie✖"]
+          , [true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie✖\r\n\r\n"]
+          , [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie\r\n"]
+        ];
     }
 
     /**

@@ -20,9 +20,9 @@ class NullComponent implements MessageComponentInterface, WsServerInterface, Wam
 
     public function onUnSubscribe(ConnectionInterface $conn, $topic) {}
 
-    public function onPublish(ConnectionInterface $conn, $topic, $event, array $exclude = array(), array $eligible = array()) {}
+    public function onPublish(ConnectionInterface $conn, $topic, $event, array $exclude = [], array $eligible = []) {}
 
     public function getSubProtocols() {
-        return array();
+        return [];
     }
 }

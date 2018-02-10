@@ -7,7 +7,7 @@ class PhpHandler implements HandlerInterface {
      * {@inheritdoc}
      */
     function serialize(array $data) {
-        $preSerialized = array();
+        $preSerialized = [];
         $serialized = '';
 
         if (count($data)) {
@@ -26,7 +26,7 @@ class PhpHandler implements HandlerInterface {
      * @throws \UnexpectedValueException If there is a problem parsing the data
      */
     public function unserialize($raw) {
-        $returnData = array();
+        $returnData = [];
         $offset     = 0;
 
         while ($offset < strlen($raw)) {

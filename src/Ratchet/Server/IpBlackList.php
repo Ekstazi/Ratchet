@@ -7,7 +7,7 @@ class IpBlackList implements MessageComponentInterface {
     /**
      * @var array
      */
-    protected $_blacklist = array();
+    protected $_blacklist = [];
 
     /**
      * @var \Ratchet\MessageComponentInterface

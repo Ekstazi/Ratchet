@@ -44,7 +44,7 @@ class SessionProvider implements HttpServerInterface {
      * @param \Ratchet\Session\Serialize\HandlerInterface $serializer
      * @throws \RuntimeException
      */
-    public function __construct(HttpServerInterface $app, \SessionHandlerInterface $handler, array $options = array(), HandlerInterface $serializer = null) {
+    public function __construct(HttpServerInterface $app, \SessionHandlerInterface $handler, array $options = [], HandlerInterface $serializer = null) {
         $this->_app     = $app;
         $this->_handler = $handler;
         $this->_null    = new NullSessionHandler;
@@ -129,7 +129,7 @@ class SessionProvider implements HttpServerInterface {
      * @return array
      */
     protected function setOptions(array $options) {
-        $all = array(
+        $all = [
             'auto_start', 'cache_limiter', 'cookie_domain', 'cookie_httponly',
             'cookie_lifetime', 'cookie_path', 'cookie_secure',
             'entropy_file', 'entropy_length', 'gc_divisor',
@@ -139,7 +139,7 @@ class SessionProvider implements HttpServerInterface {
             'use_only_cookies', 'use_trans_sid', 'upload_progress.enabled',
             'upload_progress.cleanup', 'upload_progress.prefix', 'upload_progress.name',
             'upload_progress.freq', 'upload_progress.min-freq', 'url_rewriter.tags'
-        );
+        ];
 
         foreach ($all as $key) {
             if (!array_key_exists($key, $options)) {
@@ -163,7 +163,7 @@ class SessionProvider implements HttpServerInterface {
     /**
      * Taken from Guzzle3
      */
-    private static $cookieParts = array(
+    private static $cookieParts = [
         'domain'      => 'Domain',
         'path'        => 'Path',
         'max_age'     => 'Max-Age',
@@ -175,7 +175,7 @@ class SessionProvider implements HttpServerInterface {
         'comment'     => 'Comment',
         'comment_url' => 'Comment-Url',
         'http_only'   => 'HttpOnly'
-    );
+    ];
 
     /**
      * Taken from Guzzle3
@@ -190,14 +190,14 @@ class SessionProvider implements HttpServerInterface {
         }
 
         // Create the default return array
-        $data = array_merge(array_fill_keys(array_keys(self::$cookieParts), null), array(
-            'cookies'   => array(),
-            'data'      => array(),
+        $data = array_merge(array_fill_keys(array_keys(self::$cookieParts), null), [
+            'cookies'   => [],
+            'data'      => [],
             'path'      => $path ?: '/',
             'http_only' => false,
             'discard'   => false,
             'domain'    => $host
-        ));
+        ]);
         $foundNonCookies = 0;
 
         // Add the cookie pieces into the parsed data array

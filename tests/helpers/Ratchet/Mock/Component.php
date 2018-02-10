@@ -6,9 +6,9 @@ use Ratchet\WebSocket\WsServerInterface;
 use Ratchet\ConnectionInterface;
 
 class Component implements MessageComponentInterface, WsServerInterface {
-    public $last = array();
+    public $last = [];
 
-    public $protocols = array();
+    public $protocols = [];
 
     public function __construct(ComponentInterface $app = null) {
         $this->last[__FUNCTION__] = func_get_args();

@@ -12,7 +12,7 @@ class TopicManager implements WsServerInterface, WampServerInterface {
     /**
      * @var array
      */
-    protected $topicLookup = array();
+    protected $topicLookup = [];
 
     public function __construct(WampServerInterface $app) {
         $this->app = $app;
@@ -96,7 +96,7 @@ class TopicManager implements WsServerInterface, WampServerInterface {
             return $this->app->getSubProtocols();
         }
 
-        return array();
+        return [];
     }
 
     /**

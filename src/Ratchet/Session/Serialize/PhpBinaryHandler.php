@@ -14,7 +14,7 @@ class PhpBinaryHandler implements HandlerInterface {
      * @link http://ca2.php.net/manual/en/function.session-decode.php#108037 Code from this comment on php.net
      */
     public function unserialize($raw) {
-        $returnData = array();
+        $returnData = [];
         $offset     = 0;
 
         while ($offset < strlen($raw)) {

@@ -46,9 +46,6 @@ class IoServer
 		$this->loop = $loop;
 		$this->app = $app;
 		$this->socket = $socket;
-
-
-		//$socket->on('connection', array($this, 'handleConnect'));
 	}
 
 	/**

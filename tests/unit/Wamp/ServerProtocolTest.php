@@ -60,7 +60,7 @@ class ServerProtocolTest extends TestCase  {
 
     public function testSubscribe() {
         $uri = 'http://example.com';
-        $clientMessage = array(5, $uri);
+        $clientMessage = [5, $uri];
 
         $conn = $this->newConn();
 
@@ -72,7 +72,7 @@ class ServerProtocolTest extends TestCase  {
 
     public function testUnSubscribe() {
         $uri = 'http://example.com/endpoint';
-        $clientMessage = array(6, $uri);
+        $clientMessage = [6, $uri];
 
         $conn = $this->newConn();
 
@@ -104,7 +104,7 @@ class ServerProtocolTest extends TestCase  {
 
         $uri = 'http://example.com/endpoint/' . rand(1, 100);
         $id  = uniqid('', false);
-        $clientMessage = array_merge(array(2, $id, $uri), $args);
+        $clientMessage = array_merge([2, $id, $uri], $args);
 
         $conn = $this->newConn();
 
@@ -123,22 +123,22 @@ class ServerProtocolTest extends TestCase  {
         $topic = 'pubsubhubbub';
         $event = 'Here I am, publishing data';
 
-        $clientMessage = array(7, $topic, $event);
+        $clientMessage = [7, $topic, $event];
 
         $this->_comp->onOpen($conn);
         $this->_comp->onMessage($conn, json_encode($clientMessage));
 
         $this->assertEquals($topic, $this->_app->last['onPublish'][1]);
         $this->assertEquals($event, $this->_app->last['onPublish'][2]);
-        $this->assertEquals(array(), $this->_app->last['onPublish'][3]);
-        $this->assertEquals(array(), $this->_app->last['onPublish'][4]);
+        $this->assertEquals([], $this->_app->last['onPublish'][3]);
+        $this->assertEquals([], $this->_app->last['onPublish'][4]);
     }
 
     public function testPublishAndExcludeMe() {
         $conn = $this->newConn();
 
         $this->_comp->onOpen($conn);
-        $this->_comp->onMessage($conn, json_encode(array(7, 'topic', 'event', true)));
+        $this->_comp->onMessage($conn, json_encode([7, 'topic', 'event', true]));
 
         $this->assertEquals($conn->WAMP->sessionId, $this->_app->last['onPublish'][3][0]);
     }
@@ -150,17 +150,17 @@ class ServerProtocolTest extends TestCase  {
         $friend = uniqid('', false);
 
         $this->_comp->onOpen($conn);
-        $this->_comp->onMessage($conn, json_encode(array(7, 'topic', 'event', false, array($buddy, $friend))));
+        $this->_comp->onMessage($conn, json_encode([7, 'topic', 'event', false, [$buddy, $friend]]));
 
-        $this->assertEquals(array(), $this->_app->last['onPublish'][3]);
+        $this->assertEquals([], $this->_app->last['onPublish'][3]);
         $this->assertEquals(2, count($this->_app->last['onPublish'][4]));
     }
 
     public function eventProvider() {
-        return array(
-            array('http://example.com', array('one', 'two'))
-          , array('curie', array(array('hello' => 'world', 'herp' => 'derp')))
-        );
+        return [
+            ['http://example.com', ['one', 'two']]
+          , ['curie', [['hello' => 'world', 'herp' => 'derp']]]
+        ];
     }
 
     /**
@@ -172,7 +172,7 @@ class ServerProtocolTest extends TestCase  {
 
         $eventString = $conn->last['send'];
 
-        $this->assertSame(array(8, $topic, $payload), json_decode($eventString, true));
+        $this->assertSame([8, $topic, $payload], json_decode($eventString, true));
     }
 
     public function testOnClosePropagation() {
@@ -185,7 +185,7 @@ class ServerProtocolTest extends TestCase  {
         $method = $class->getMethod('getConnection');
         $method->setAccessible(true);
 
-        $check = $method->invokeArgs($this->_app->last['onClose'][0], array());
+        $check = $method->invokeArgs($this->_app->last['onClose'][0], []);
 
         $this->assertSame($conn, $check);
     }
@@ -202,7 +202,7 @@ class ServerProtocolTest extends TestCase  {
         $method = $class->getMethod('getConnection');
         $method->setAccessible(true);
 
-        $check = $method->invokeArgs($this->_app->last['onError'][0], array());
+        $check = $method->invokeArgs($this->_app->last['onError'][0], []);
 
         $this->assertSame($conn, $check);
         $this->assertSame($e, $this->_app->last['onError'][1]);
@@ -216,7 +216,7 @@ class ServerProtocolTest extends TestCase  {
         $fullURI   = "http://example.com/$prefix";
         $method = 'call';
 
-        $this->_comp->onMessage($conn, json_encode(array(1, $prefix, $fullURI)));
+        $this->_comp->onMessage($conn, json_encode([1, $prefix, $fullURI]));
 
         $this->assertEquals($fullURI, $conn->WAMP->prefixes[$prefix]);
         $this->assertEquals("$fullURI#$method", $conn->getUri("$prefix:$method"));
@@ -236,7 +236,7 @@ class ServerProtocolTest extends TestCase  {
     }
 
     public function testGetSubProtocolsGetFromApp() {
-        $this->_app->protocols = array('hello', 'world');
+        $this->_app->protocols = ['hello', 'world'];
 
         $this->assertGreaterThanOrEqual(3, count($this->_comp->getSubProtocols()));
     }
@@ -249,11 +249,11 @@ class ServerProtocolTest extends TestCase  {
     }
 
     public function badFormatProvider() {
-        return array(
-            array(json_encode(true))
-          , array('{"valid":"json", "invalid": "message"}')
-          , array('{"0": "fail", "hello": "world"}')
-        );
+        return [
+            [json_encode(true)]
+          , ['{"valid":"json", "invalid": "message"}']
+          , ['{"0": "fail", "hello": "world"}']
+        ];
     }
 
     /**

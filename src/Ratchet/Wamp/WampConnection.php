@@ -18,9 +18,9 @@ class WampConnection extends AbstractConnectionDecorator {
 
         $this->WAMP            = new \StdClass;
         $this->WAMP->sessionId = str_replace('.', '', uniqid(mt_rand(), true));
-        $this->WAMP->prefixes  = array();
+        $this->WAMP->prefixes  = [];
 
-        $this->send(json_encode(array(WAMP::MSG_WELCOME, $this->WAMP->sessionId, 1, \Ratchet\VERSION)));
+        $this->send(json_encode([WAMP::MSG_WELCOME, $this->WAMP->sessionId, 1, \Ratchet\VERSION]));
     }
 
     /**
@@ -29,8 +29,8 @@ class WampConnection extends AbstractConnectionDecorator {
      * @param array $data an object or array
      * @return WampConnection
      */
-    public function callResult($id, $data = array()) {
-        return $this->send(json_encode(array(WAMP::MSG_CALL_RESULT, $id, $data)));
+    public function callResult($id, $data = []) {
+        return $this->send(json_encode([WAMP::MSG_CALL_RESULT, $id, $data]));
     }
 
     /**
@@ -46,7 +46,7 @@ class WampConnection extends AbstractConnectionDecorator {
             $errorUri = (string)$errorUri;
         }
 
-        $data = array(WAMP::MSG_CALL_ERROR, $id, $errorUri, $desc);
+        $data = [WAMP::MSG_CALL_ERROR, $id, $errorUri, $desc];
 
         if (null !== $details) {
             $data[] = $details;
@@ -61,7 +61,7 @@ class WampConnection extends AbstractConnectionDecorator {
      * @return WampConnection
      */
     public function event($topic, $msg) {
-        return $this->send(json_encode(array(WAMP::MSG_EVENT, (string)$topic, $msg)));
+        return $this->send(json_encode([WAMP::MSG_EVENT, (string)$topic, $msg]));
     }
 
     /**
@@ -72,7 +72,7 @@ class WampConnection extends AbstractConnectionDecorator {
     public function prefix($curie, $uri) {
         $this->WAMP->prefixes[$curie] = (string)$uri;
 
-        return $this->send(json_encode(array(WAMP::MSG_PREFIX, $curie, (string)$uri)));
+        return $this->send(json_encode([WAMP::MSG_PREFIX, $curie, (string)$uri]));
     }
 
     /**

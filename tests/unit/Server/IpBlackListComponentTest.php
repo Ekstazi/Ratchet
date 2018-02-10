@@ -87,7 +87,7 @@ class IpBlackListTest extends TestCase  {
             ->blockAddress($blockTwo)
         ;
 
-        $this->assertEquals(array($blockOne, $blockTwo), $this->blocker->getBlockedAddresses());
+        $this->assertEquals([$blockOne, $blockTwo], $this->blocker->getBlockedAddresses());
     }
 
     public function testDecoratorPassesErrors() {
@@ -100,12 +100,12 @@ class IpBlackListTest extends TestCase  {
     }
 
     public function addressProvider() {
-        return array(
-            array('127.0.0.1', '127.0.0.1')
-          , array('localhost', 'localhost')
-          , array('fe80::1%lo0', 'fe80::1%lo0')
-          , array('127.0.0.1', '127.0.0.1:6392')
-        );
+        return [
+            ['127.0.0.1', '127.0.0.1']
+          , ['localhost', 'localhost']
+          , ['fe80::1%lo0', 'fe80::1%lo0']
+          , ['127.0.0.1', '127.0.0.1:6392']
+        ];
     }
 
     /**

@@ -26,11 +26,11 @@ class WampServerTest extends AbstractMessageComponentTestCase {
             $this->isExpectedConnection()
           , new IsInstanceOf(Topic::class)
           , $published
-          , array()
-          , array()
+          , []
+          , []
         );
 
-        $this->_serv->onMessage($this->_conn, json_encode(array(7, 'topic', $published)));
+        $this->_serv->onMessage($this->_conn, json_encode([7, 'topic', $published]));
     }
 
     public function testGetSubProtocols() {
@@ -45,6 +45,6 @@ class WampServerTest extends AbstractMessageComponentTestCase {
 
     public function testConnectionClosesOnProtocolError() {
         $this->_conn->expects($this->once())->method('close');
-        $this->_serv->onMessage($this->_conn, json_encode(array('valid' => 'json', 'invalid' => 'protocol')));
+        $this->_serv->onMessage($this->_conn, json_encode(['valid' => 'json', 'invalid' => 'protocol']));
     }
 }

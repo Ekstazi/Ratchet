@@ -36,7 +36,7 @@ class Topic implements \IteratorAggregate, \Countable {
      * @param array $eligible A list of session Ids the message should be send to (whitelist)
      * @return Topic The same Topic object to chain
      */
-    public function broadcast($msg, array $exclude = array(), array $eligible = array()) {
+    public function broadcast($msg, array $exclude = [], array $eligible = []) {
         $useEligible = (bool)count($eligible);
         foreach ($this->subscribers as $client) {
             if (in_array($client->WAMP->sessionId, $exclude)) {

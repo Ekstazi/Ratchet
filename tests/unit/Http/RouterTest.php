@@ -66,19 +66,19 @@ class RouterTest extends TestCase  {
 
     public function testControllerIsMessageComponentInterface() {
         $this->expectException('\UnexpectedValueException');
-        $this->_matcher->expects($this->any())->method('match')->will($this->returnValue(array('_controller' => new \StdClass)));
+        $this->_matcher->expects($this->any())->method('match')->will($this->returnValue(['_controller' => new \StdClass]));
         $this->_router->onOpen($this->_conn, $this->_req);
     }
 
     public function testControllerOnOpen() {
         $controller = $this->getMockBuilder(WsServer::class)->disableOriginalConstructor()->getMock();
-        $this->_matcher->expects($this->any())->method('match')->will($this->returnValue(array('_controller' => $controller)));
+        $this->_matcher->expects($this->any())->method('match')->will($this->returnValue(['_controller' => $controller]));
         $this->_router->onOpen($this->_conn, $this->_req);
 
         $expectedConn = new IsInstanceOf(ConnectionInterface::class);
         $controller->expects($this->once())->method('onOpen')->with($expectedConn, $this->_req);
 
-        $this->_matcher->expects($this->any())->method('match')->will($this->returnValue(array('_controller' => $controller)));
+        $this->_matcher->expects($this->any())->method('match')->will($this->returnValue(['_controller' => $controller]));
         $this->_router->onOpen($this->_conn, $this->_req);
     }
 

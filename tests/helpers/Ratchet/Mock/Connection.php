@@ -3,10 +3,10 @@ namespace Ratchet\Mock;
 use Ratchet\ConnectionInterface;
 
 class Connection implements ConnectionInterface {
-    public $last = array(
+    public $last = [
         'send'  => ''
       , 'close' => false
-    );
+    ];
 
     public $remoteAddress = '127.0.0.1';
 

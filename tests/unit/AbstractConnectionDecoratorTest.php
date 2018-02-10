@@ -90,7 +90,7 @@ class AbstractConnectionDecoratorTest extends TestCase  {
         $method = $class->getMethod('getConnection');
         $method->setAccessible(true);
 
-        $conn = $method->invokeArgs($this->l1, array());
+        $conn = $method->invokeArgs($this->l1, []);
 
         $this->assertSame($this->mock, $conn);
     }
@@ -100,7 +100,7 @@ class AbstractConnectionDecoratorTest extends TestCase  {
         $method = $class->getMethod('getConnection');
         $method->setAccessible(true);
 
-        $conn = $method->invokeArgs($this->l2, array());
+        $conn = $method->invokeArgs($this->l2, []);
 
         $this->assertSame($this->l1, $conn);
     }

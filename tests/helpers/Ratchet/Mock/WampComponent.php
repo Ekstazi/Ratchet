@@ -5,9 +5,9 @@ use Ratchet\WebSocket\WsServerInterface;
 use Ratchet\ConnectionInterface;
 
 class WampComponent implements WampServerInterface, WsServerInterface {
-    public $last = array();
+    public $last = [];
 
-    public $protocols = array();
+    public $protocols = [];
 
     public function getSubProtocols() {
         return $this->protocols;

@@ -14,18 +14,18 @@ class PhpHandlerTest extends TestCase  {
     }
 
     public function serializedProvider() {
-        return array(
-            array(
+        return [
+            [
                 '_sf2_attributes|a:2:{s:5:"hello";s:5:"world";s:4:"last";i:1332872102;}_sf2_flashes|a:0:{}'
-              , array(
-                    '_sf2_attributes' => array(
+              , [
+                    '_sf2_attributes' => [
                         'hello' => 'world'
                       , 'last'  => 1332872102
-                    )
-                  , '_sf2_flashes' => array()
-                )
-            )
-        );
+                    ]
+                  , '_sf2_flashes' => []
+                ]
+            ]
+        ];
     }
 
     /**

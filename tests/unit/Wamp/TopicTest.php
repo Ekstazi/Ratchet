@@ -40,7 +40,7 @@ class TopicTest extends TestCase  {
     public function testBroadcast() {
         $msg  = 'Hello World!';
         $name = 'Batman';
-        $protocol = json_encode(array(8, $name, $msg));
+        $protocol = json_encode([8, $name, $msg]);
 
         $first  = $this->createWampConnectionMock();
 
@@ -64,7 +64,7 @@ class TopicTest extends TestCase  {
     public function testBroadcastWithExclude() {
         $msg  = 'Hello odd numbers';
         $name = 'Excluding';
-        $protocol = json_encode(array(8, $name, $msg));
+        $protocol = json_encode([8, $name, $msg]);
 
         $first  = $this->createWampConnectionMock();
         $second = $this->createWampConnectionMock();
@@ -85,13 +85,13 @@ class TopicTest extends TestCase  {
         $topic->add($second);
         $topic->add($third);
 
-        $topic->broadcast($msg, array($second->WAMP->sessionId));
+        $topic->broadcast($msg, [$second->WAMP->sessionId]);
     }
 
     public function testBroadcastWithEligible() {
         $msg  = 'Hello white list';
         $name = 'Eligible';
-        $protocol = json_encode(array(8, $name, $msg));
+        $protocol = json_encode([8, $name, $msg]);
 
         $first  = $this->createWampConnectionMock();
         $second = $this->createWampConnectionMock();
@@ -112,7 +112,7 @@ class TopicTest extends TestCase  {
         $topic->add($second);
         $topic->add($third);
 
-        $topic->broadcast($msg, array(), array($first->WAMP->sessionId, $third->WAMP->sessionId));
+        $topic->broadcast($msg, [], [$first->WAMP->sessionId, $third->WAMP->sessionId]);
     }
 
     public function testIterator() {
@@ -123,7 +123,7 @@ class TopicTest extends TestCase  {
         $topic  = new Topic('Joker');
         $topic->add($first)->add($second)->add($third);
 
-        $check = array($first, $second, $third);
+        $check = [$first, $second, $third];
 
         foreach ($topic as $mock) {
             $this->assertNotSame(false, array_search($mock, $check));

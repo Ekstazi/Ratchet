@@ -3,10 +3,10 @@ namespace Ratchet\Mock;
 use Ratchet\AbstractConnectionDecorator;
 
 class ConnectionDecorator extends AbstractConnectionDecorator {
-    public $last = array(
+    public $last = [
         'write' => ''
       , 'end'   => false
-    );
+    ];
 
     public function send($data) {
         $this->last[__FUNCTION__] = $data;

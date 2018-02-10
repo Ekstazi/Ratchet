@@ -34,7 +34,7 @@ class TopicManagerTest extends TestCase  {
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
-        $topic = $method->invokeArgs($this->mngr, array('The Topic'));
+        $topic = $method->invokeArgs($this->mngr, ['The Topic']);
 
         $this->assertInstanceOf(Topic::class, $topic);
     }
@@ -46,7 +46,7 @@ class TopicManagerTest extends TestCase  {
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
-        $topic = $method->invokeArgs($this->mngr, array($name));
+        $topic = $method->invokeArgs($this->mngr, [$name]);
 
         $this->assertEquals($name, $topic->getId());
     }
@@ -56,8 +56,8 @@ class TopicManagerTest extends TestCase  {
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
-        $topic = $method->invokeArgs($this->mngr, array('No copy'));
-        $again = $method->invokeArgs($this->mngr, array('No copy'));
+        $topic = $method->invokeArgs($this->mngr, ['No copy']);
+        $again = $method->invokeArgs($this->mngr, ['No copy']);
 
         $this->assertSame($topic, $again);
     }
@@ -74,10 +74,10 @@ class TopicManagerTest extends TestCase  {
             $this->conn
           , $id
           , $this->isInstanceOf(Topic::class)
-          , array()
+          , []
         );
 
-        $this->mngr->onCall($this->conn, $id, 'new topic', array());
+        $this->mngr->onCall($this->conn, $id, 'new topic', []);
     }
 
     public function testOnSubscribeCreatesTopicObject() {
@@ -95,7 +95,7 @@ class TopicManagerTest extends TestCase  {
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
-        $topic = $method->invokeArgs($this->mngr, array($name));
+        $topic = $method->invokeArgs($this->mngr, [$name]);
 
         $this->mngr->onSubscribe($this->conn, $name);
 
@@ -135,7 +135,7 @@ class TopicManagerTest extends TestCase  {
         $method = $class->getMethod('getTopic');
         $method->setAccessible(true);
 
-        $topic = $method->invokeArgs($this->mngr, array($name));
+        $topic = $method->invokeArgs($this->mngr, [$name]);
 
         $this->mngr->onSubscribe($this->conn, $name);
         $this->mngr->onUnsubscribe($this->conn, $name);
@@ -154,7 +154,7 @@ class TopicManagerTest extends TestCase  {
           , $this->isType('array')
         );
 
-        $this->mngr->onPublish($this->conn, 'topic coverage', $msg, array(), array());
+        $this->mngr->onPublish($this->conn, 'topic coverage', $msg, [], []);
     }
 
     public function testOnCloseBubbles() {
@@ -170,9 +170,9 @@ class TopicManagerTest extends TestCase  {
         $attribute = $class->getProperty('topicLookup');
         $attribute->setAccessible(true);
 
-        $topic = $method->invokeArgs($this->mngr, array($name));
+        $topic = $method->invokeArgs($this->mngr, [$name]);
 
-        return array($topic, $attribute);
+        return [$topic, $attribute];
     }
 
     public function testConnIsRemovedFromTopicOnClose() {
@@ -202,7 +202,7 @@ class TopicManagerTest extends TestCase  {
         list($topic, $attribute) = $this->topicProvider($topicName);
 
         $this->mngr->onSubscribe($this->conn, $topicName);
-        call_user_func_array(array($this->mngr, $methodCall), array($this->conn, $topicName));
+        call_user_func_array([$this->mngr, $methodCall], [$this->conn, $topicName]);
 
         $this->assertCount($expectation, $attribute->getValue($this->mngr));
     }
@@ -219,7 +219,7 @@ class TopicManagerTest extends TestCase  {
     }
 
     public function testGetSubProtocolsBubbles() {
-        $subs = array('hello', 'world');
+        $subs = ['hello', 'world'];
         $app  = $this->createMock(WsWampServerInterface::class);
         $app->expects($this->once())->method('getSubProtocols')->will($this->returnValue($subs));
         $mngr = new TopicManager($app);

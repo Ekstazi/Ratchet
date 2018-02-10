@@ -43,18 +43,18 @@ class FlashPolicyTest extends TestCase  {
     }
 
     public static function siteControl() {
-        return array(
-            array(true, 'all')
-          , array(true, 'none')
-          , array(true, 'master-only')
-          , array(false, 'by-content-type')
-          , array(false, 'by-ftp-filename')
-          , array(false, '')
-          , array(false, 'all ')
-          , array(false, 'asdf')
-          , array(false, '@893830')
-          , array(false, '*')
-        );
+        return [
+            [true, 'all']
+          , [true, 'none']
+          , [true, 'master-only']
+          , [false, 'by-content-type']
+          , [false, 'by-ftp-filename']
+          , [false, '']
+          , [false, 'all ']
+          , [false, 'asdf']
+          , [false, '@893830']
+          , [false, '*']
+        ];
     }
 
     /**
@@ -65,25 +65,25 @@ class FlashPolicyTest extends TestCase  {
     }
 
     public static function URI() {
-        return array(
-            array(true, '*')
-          , array(true, 'example.com')
-          , array(true, 'exam-ple.com')
-          , array(true, '*.example.com')
-          , array(true, 'www.example.com')
-          , array(true, 'dev.dev.example.com')
-          , array(true, 'http://example.com')
-          , array(true, 'https://example.com')
-          , array(true, 'http://*.example.com')
-          , array(false, 'exam*ple.com')
-          , array(true, '127.0.255.1')
-          , array(true, 'localhost')
-          , array(false, 'www.example.*')
-          , array(false, 'www.exa*le.com')
-          , array(false, 'www.example.*com')
-          , array(false, '*.example.*')
-          , array(false, 'gasldf*$#a0sdf0a8sdf')
-        );
+        return [
+            [true, '*']
+          , [true, 'example.com']
+          , [true, 'exam-ple.com']
+          , [true, '*.example.com']
+          , [true, 'www.example.com']
+          , [true, 'dev.dev.example.com']
+          , [true, 'http://example.com']
+          , [true, 'https://example.com']
+          , [true, 'http://*.example.com']
+          , [false, 'exam*ple.com']
+          , [true, '127.0.255.1']
+          , [true, 'localhost']
+          , [false, 'www.example.*']
+          , [false, 'www.exa*le.com']
+          , [false, 'www.example.*com']
+          , [false, '*.example.*']
+          , [false, 'gasldf*$#a0sdf0a8sdf']
+        ];
     }
 
     /**
@@ -94,22 +94,22 @@ class FlashPolicyTest extends TestCase  {
     }
 
     public static function ports() {
-        return array(
-            array(true, '*')
-          , array(true, '80')
-          , array(true, '80,443')
-          , array(true, '507,516-523')
-          , array(true, '507,516-523,333')
-          , array(true, '507,516-523,507,516-523')
-          , array(false, '516-')
-          , array(true, '516-523,11')
-          , array(false, '516,-523,11')
-          , array(false, 'example')
-          , array(false, 'asdf,123')
-          , array(false, '--')
-          , array(false, ',,,')
-          , array(false, '838*')
-        );
+        return [
+            [true, '*']
+          , [true, '80']
+          , [true, '80,443']
+          , [true, '507,516-523']
+          , [true, '507,516-523,333']
+          , [true, '507,516-523,507,516-523']
+          , [false, '516-']
+          , [true, '516-523,11']
+          , [false, '516,-523,11']
+          , [false, 'example']
+          , [false, 'asdf,123']
+          , [false, '--']
+          , [false, ',,,']
+          , [false, '838*']
+        ];
     }
 
     public function testAddAllowedAccessOnlyAcceptsValidPorts() {

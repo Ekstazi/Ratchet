@@ -40,10 +40,10 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
     }
 
     public function classCaseProvider() {
-        return array(
-            array('php', 'Php')
-          , array('php_binary', 'PhpBinary')
-        );
+        return [
+            ['php', 'Php']
+          , ['php_binary', 'PhpBinary']
+        ];
     }
 
     /**
@@ -55,7 +55,7 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
         $method->setAccessible(true);
 
         $component = new SessionProvider($this->createMock($this->getComponentClassString()), $this->createMock(\SessionHandlerInterface::class));
-        $this->assertEquals($out, $method->invokeArgs($component, array($in)));
+        $this->assertEquals($out, $method->invokeArgs($component, [$in]));
     }
 
     /**
@@ -68,13 +68,13 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
 
         $sessionId = md5('testSession');
 
-        $dbOptions = array(
+        $dbOptions = [
             'db_table'    => 'sessions'
           , 'db_id_col'   => 'sess_id'
           , 'db_data_col' => 'sess_data'
           , 'db_time_col' => 'sess_time'
           , 'db_lifetime_col' => 'sess_lifetime'
-        );
+        ];
 
         $pdo = new \PDO("sqlite::memory:");
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
@@ -83,7 +83,7 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
         $pdoHandler = new PdoSessionHandler($pdo, $dbOptions);
         $pdoHandler->write($sessionId, '_sf2_attributes|a:2:{s:5:"hello";s:5:"world";s:4:"last";i:1332872102;}_sf2_flashes|a:0:{}');
 
-        $component  = new SessionProvider($this->createMock($this->getComponentClassString()), $pdoHandler, array('auto_start' => 1));
+        $component  = new SessionProvider($this->createMock($this->getComponentClassString()), $pdoHandler, ['auto_start' => 1]);
         $connection = $this->createMock(ConnectionInterface::class);
 
         $headers = $this->createMock(RequestInterface::class);
@@ -97,8 +97,8 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
     protected function newConn() {
         $conn = $this->createMock(ConnectionInterface::class);
 
-        $headers = $this->createMock(RequestInterface::class, array('getCookie'), array('POST', '/', array()));
-        $headers->expects($this->once())->method('getCookie', array(ini_get('session.name')))->will($this->returnValue(null));
+        $headers = $this->createMock(RequestInterface::class, ['getCookie'], ['POST', '/', []]);
+        $headers->expects($this->once())->method('getCookie', [ini_get('session.name')])->will($this->returnValue(null));
 
         return $conn;
     }

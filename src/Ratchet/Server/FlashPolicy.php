@@ -25,7 +25,7 @@ class FlashPolicy implements MessageComponentInterface {
      * Stores an array of allowed domains and their ports
      * @var array
      */
-    protected $_access = array();
+    protected $_access = [];
 
     /**
      * @var string
@@ -66,7 +66,7 @@ class FlashPolicy implements MessageComponentInterface {
            throw new \UnexpectedValueException('Invalid Port');
         }
 
-        $this->_access[]   = array($domain, $ports, (boolean)$secure);
+        $this->_access[]   = [$domain, $ports, (boolean)$secure];
         $this->_cacheValid = false;
 
         return $this;
@@ -78,7 +78,7 @@ class FlashPolicy implements MessageComponentInterface {
      * @return \Ratchet\Server\FlashPolicy
      */
     public function clearAllowedAccess() {
-        $this->_access      = array();
+        $this->_access      = [];
         $this->_cacheValid = false;
 
         return $this;
@@ -175,7 +175,7 @@ class FlashPolicy implements MessageComponentInterface {
      */
     public function validateSiteControl($permittedCrossDomainPolicies) {
         //'by-content-type' and 'by-ftp-filename' are not available for sockets
-        return (bool)in_array($permittedCrossDomainPolicies, array('none', 'master-only', 'all'));
+        return (bool)in_array($permittedCrossDomainPolicies, ['none', 'master-only', 'all']);
     }
 
     /**
