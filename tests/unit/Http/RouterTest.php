@@ -66,7 +66,7 @@ class RouterTest extends TestCase  {
 
     public function testControllerIsMessageComponentInterface() {
         $this->expectException('\UnexpectedValueException');
-        $this->_matcher->expects($this->any())->method('match')->will($this->returnValue(['_controller' => new \StdClass]));
+        $this->_matcher->expects($this->any())->method('match')->will($this->returnValue(['_controller' => new \stdClass]));
         $this->_router->onOpen($this->_conn, $this->_req);
     }
 

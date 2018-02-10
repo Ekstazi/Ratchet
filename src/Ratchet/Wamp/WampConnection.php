@@ -16,7 +16,7 @@ class WampConnection extends AbstractConnectionDecorator {
     public function __construct(ConnectionInterface $conn) {
         parent::__construct($conn);
 
-        $this->WAMP            = new \StdClass;
+        $this->WAMP            = new \stdClass;
         $this->WAMP->sessionId = str_replace('.', '', uniqid(mt_rand(), true));
         $this->WAMP->prefixes  = [];
 
