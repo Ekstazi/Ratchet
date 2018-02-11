@@ -1,9 +1,9 @@
 <?php
 
-namespace Ratchet\Wamp;
+namespace Reamp\Wamp;
 
 use PHPUnit\Framework\TestCase;
-use Ratchet\ConnectionInterface;
+use Reamp\ConnectionInterface;
 
 /**
  * @covers \Ratchet\Wamp\WampConnection

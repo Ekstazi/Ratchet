@@ -1,8 +1,8 @@
 <?php
 
-namespace Ratchet\Mock;
+namespace Reamp\Mock;
 
-use Ratchet\AbstractConnectionDecorator;
+use Reamp\AbstractConnectionDecorator;
 
 class ConnectionDecorator extends AbstractConnectionDecorator {
     public $last = [

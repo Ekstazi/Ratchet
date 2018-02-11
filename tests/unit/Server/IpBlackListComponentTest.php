@@ -1,10 +1,10 @@
 <?php
 
-namespace Ratchet\Server;
+namespace Reamp\Server;
 
 use PHPUnit\Framework\TestCase;
-use Ratchet\ConnectionInterface;
-use Ratchet\MessageComponentInterface;
+use Reamp\ConnectionInterface;
+use Reamp\MessageComponentInterface;
 
 /**
  * @covers \Ratchet\Server\IpBlackList

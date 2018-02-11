@@ -1,6 +1,6 @@
 <?php
 
-namespace Ratchet\Session\Serialize;
+namespace Reamp\Session\Serialize;
 
 use PHPUnit\Framework\TestCase;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Ratchet\Session\Storage;
+namespace Reamp\Session\Storage;
 
 use PHPUnit\Framework\TestCase;
-use Ratchet\Session\Serialize\PhpHandler;
+use Reamp\Session\Serialize\PhpHandler;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;

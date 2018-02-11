@@ -1,10 +1,10 @@
 <?php
 
-namespace Ratchet\Application\Server;
+namespace Reamp\Application\Server;
 
 use Amp\Socket\ServerSocket;
 use PHPUnit\Framework\TestCase;
-use Ratchet\Server\IoConnection;
+use Reamp\Server\IoConnection;
 
 /**
  * @covers \Ratchet\Server\IoConnection

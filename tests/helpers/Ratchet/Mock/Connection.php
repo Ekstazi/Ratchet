@@ -1,8 +1,8 @@
 <?php
 
-namespace Ratchet\Mock;
+namespace Reamp\Mock;
 
-use Ratchet\ConnectionInterface;
+use Reamp\ConnectionInterface;
 
 class Connection implements ConnectionInterface {
     public $last = [

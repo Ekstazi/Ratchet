@@ -1,10 +1,10 @@
 <?php
 
-namespace Ratchet\Http;
+namespace Reamp\Http;
 
 use Psr\Http\Message\RequestInterface;
-use Ratchet\AbstractMessageComponentTestCase;
-use Ratchet\ConnectionInterface;
+use Reamp\AbstractMessageComponentTestCase;
+use Reamp\ConnectionInterface;
 
 /**
  * @covers \Ratchet\Http\OriginCheck

@@ -1,9 +1,9 @@
 <?php
 
-namespace Ratchet\Server;
+namespace Reamp\Server;
 
 use PHPUnit\Framework\TestCase;
-use Ratchet\ConnectionInterface;
+use Reamp\ConnectionInterface;
 
 class EchoServerTest extends TestCase {
     protected $_conn;

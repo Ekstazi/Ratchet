@@ -1,10 +1,10 @@
 <?php
 
-namespace Ratchet\Application\Server;
+namespace Reamp\Application\Server;
 
 use PHPUnit\Framework\TestCase;
-use Ratchet\ConnectionInterface;
-use Ratchet\Server\FlashPolicy;
+use Reamp\ConnectionInterface;
+use Reamp\Server\FlashPolicy;
 
 /**
  * @covers \Ratchet\Server\FlashPolicy

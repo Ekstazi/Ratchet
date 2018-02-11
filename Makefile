@@ -1,5 +1,5 @@
 # This file is intended to ease the author's development and testing process
-# Users do not need to use `make`; Ratchet does not need to be compiled
+# Users do not need to use `make`; Reamp does not need to be compiled
 
 test:
 	phpunit
@@ -29,7 +29,7 @@ profile:
 	killall php
 
 apidocs:
-	apigen --title Ratchet -d reports/api \
+	apigen --title Reamp -d reports/api \
 		-s src/ \
 		-s vendor/ratchet/rfc6455/src \
 		-s vendor/react/event-loop/src \

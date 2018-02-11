@@ -1,10 +1,10 @@
 <?php
 
-namespace Ratchet\Wamp;
+namespace Reamp\Wamp;
 
 use PHPUnit\Framework\TestCase;
-use Ratchet\Mock\Connection;
-use Ratchet\Mock\WampComponent as TestComponent;
+use Reamp\Mock\Connection;
+use Reamp\Mock\WampComponent as TestComponent;
 
 /**
  * @covers \Ratchet\Wamp\ServerProtocol

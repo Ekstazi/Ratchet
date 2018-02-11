@@ -1,9 +1,9 @@
 <?php
 
-namespace Ratchet;
+namespace Reamp;
 
-use Ratchet\Wamp\WampServerInterface;
-use Ratchet\WebSocket\WsServerInterface;
+use Reamp\Wamp\WampServerInterface;
+use Reamp\WebSocket\WsServerInterface;
 
 class NullComponent implements MessageComponentInterface, WsServerInterface, WampServerInterface {
     public function onOpen(ConnectionInterface $conn) {

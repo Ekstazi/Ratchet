@@ -1,10 +1,10 @@
 <?php
 
-namespace Ratchet\Mock;
+namespace Reamp\Mock;
 
-use Ratchet\ConnectionInterface;
-use Ratchet\Wamp\WampServerInterface;
-use Ratchet\WebSocket\WsServerInterface;
+use Reamp\ConnectionInterface;
+use Reamp\Wamp\WampServerInterface;
+use Reamp\WebSocket\WsServerInterface;
 
 class WampComponent implements WampServerInterface, WsServerInterface {
     public $last = [];

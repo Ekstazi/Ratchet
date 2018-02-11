@@ -1,9 +1,9 @@
 <?php
 
-namespace Ratchet\Http;
+namespace Reamp\Http;
 
-use Ratchet\AbstractMessageComponentTestCase;
-use Ratchet\ConnectionInterface;
+use Reamp\AbstractMessageComponentTestCase;
+use Reamp\ConnectionInterface;
 
 /**
  * @covers \Ratchet\Http\HttpServer

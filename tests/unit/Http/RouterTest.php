@@ -1,15 +1,15 @@
 <?php
 
-namespace Ratchet\Http;
+namespace Reamp\Http;
 
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
-use Ratchet\ConnectionInterface;
-use Ratchet\Mock\Connection;
-use Ratchet\WebSocket\WsServer;
-use Ratchet\WebSocket\WsServerInterface;
+use Reamp\ConnectionInterface;
+use Reamp\Mock\Connection;
+use Reamp\WebSocket\WsServer;
+use Reamp\WebSocket\WsServerInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;

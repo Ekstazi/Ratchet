@@ -1,11 +1,11 @@
 <?php
 
-namespace Ratchet\Mock;
+namespace Reamp\Mock;
 
-use Ratchet\ComponentInterface;
-use Ratchet\ConnectionInterface;
-use Ratchet\MessageComponentInterface;
-use Ratchet\WebSocket\WsServerInterface;
+use Reamp\ComponentInterface;
+use Reamp\ConnectionInterface;
+use Reamp\MessageComponentInterface;
+use Reamp\WebSocket\WsServerInterface;
 
 class Component implements MessageComponentInterface, WsServerInterface {
     public $last = [];

@@ -1,10 +1,10 @@
 <?php
 
-namespace Ratchet\Wamp;
+namespace Reamp\Wamp;
 
 use PHPUnit\Framework\TestCase;
-use Ratchet\ConnectionInterface;
-use Ratchet\Wamp\Stub\WsWampServerInterface;
+use Reamp\ConnectionInterface;
+use Reamp\Wamp\Stub\WsWampServerInterface;
 
 /**
  * @covers \Ratchet\Wamp\TopicManager

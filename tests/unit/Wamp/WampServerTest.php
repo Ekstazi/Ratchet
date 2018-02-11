@@ -1,9 +1,9 @@
 <?php
 
-namespace Ratchet\Wamp;
+namespace Reamp\Wamp;
 
 use PHPUnit\Framework\Constraint\IsInstanceOf;
-use Ratchet\AbstractMessageComponentTestCase;
+use Reamp\AbstractMessageComponentTestCase;
 
 /**
  * @covers \Ratchet\Wamp\WampServer

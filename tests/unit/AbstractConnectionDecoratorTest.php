@@ -1,10 +1,10 @@
 <?php
 
-namespace Ratchet;
+namespace Reamp;
 
 use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
-use Ratchet\Mock\ConnectionDecorator;
+use Reamp\Mock\ConnectionDecorator;
 
 /**
  * @covers \Ratchet\AbstractConnectionDecorator

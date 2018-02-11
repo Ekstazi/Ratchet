@@ -1,9 +1,9 @@
 <?php
 
-namespace Ratchet\Http;
+namespace Reamp\Http;
 
 use PHPUnit\Framework\TestCase;
-use Ratchet\ConnectionInterface;
+use Reamp\ConnectionInterface;
 
 /**
  * @covers \Ratchet\Http\HttpRequestParser

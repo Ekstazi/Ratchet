@@ -1,6 +1,6 @@
 <?php
 
-namespace Ratchet;
+namespace Reamp;
 
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;

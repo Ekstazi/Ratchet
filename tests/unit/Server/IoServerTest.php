@@ -1,14 +1,14 @@
 <?php
 
-namespace Ratchet\Server;
+namespace Reamp\Server;
 
 use Amp\Loop;
 use Amp\Socket\Server;
 use Amp\Socket\ServerSocket;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Ratchet\ConnectionInterface;
-use Ratchet\MessageComponentInterface;
+use Reamp\ConnectionInterface;
+use Reamp\MessageComponentInterface;
 
 /**
  * @covers \Ratchet\Server\IoServer

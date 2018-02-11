@@ -1,12 +1,12 @@
 <?php
 
-namespace Ratchet\Session;
+namespace Reamp\Session;
 
 use Psr\Http\Message\RequestInterface;
-use Ratchet\AbstractMessageComponentTestCase;
-use Ratchet\ConnectionInterface;
-use Ratchet\Http\HttpServerInterface;
-use Ratchet\NullComponent;
+use Reamp\AbstractMessageComponentTestCase;
+use Reamp\ConnectionInterface;
+use Reamp\Http\HttpServerInterface;
+use Reamp\NullComponent;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 

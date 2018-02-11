@@ -1,11 +1,13 @@
 {
-    "name": "cboden/ratchet",
+    "name": "ekstazi/reamp",
     "type": "library",
     "description": "PHP WebSocket library",
     "keywords": [
         "WebSockets",
         "Server",
         "Ratchet",
+        "Reamp",
+        "Amphp",
         "Sockets",
         "WebSocket"
     ],
@@ -30,7 +32,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ratchet\\": "src/Ratchet"
+            "Reamp\\": "src/"
         }
     },
     "require": {
