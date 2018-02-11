@@ -1,11 +1,13 @@
 <?php
+
 namespace Ratchet\Http;
+
 use Psr\Http\Message\RequestInterface;
 use Ratchet\AbstractMessageComponentTestCase;
 use Ratchet\ConnectionInterface;
 
 /**
- * @covers Ratchet\Http\OriginCheck
+ * @covers \Ratchet\Http\OriginCheck
  */
 class OriginCheckTest extends AbstractMessageComponentTestCase {
     protected $_reqStub;

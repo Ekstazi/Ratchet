@@ -1,14 +1,16 @@
 <?php
+
 namespace Ratchet\Wamp;
+
 use PHPUnit\Framework\TestCase;
 use Ratchet\ConnectionInterface;
 
 /**
- * @covers Ratchet\Wamp\Topic
+ * @covers \Ratchet\Wamp\Topic
  */
-class TopicTest extends TestCase  {
+class TopicTest extends TestCase {
     public function testGetId() {
-        $id    = uniqid();
+        $id    = \uniqid();
         $topic = new Topic($id);
 
         $this->assertEquals($id, $topic->getId());
@@ -21,7 +23,7 @@ class TopicTest extends TestCase  {
         $topic->add($this->newConn());
         $topic->add($this->newConn());
 
-        $this->assertEquals(3, count($topic));
+        $this->assertEquals(3, \count($topic));
     }
 
     public function testRemove() {
@@ -34,13 +36,13 @@ class TopicTest extends TestCase  {
 
         $topic->remove($tracked);
 
-        $this->assertEquals(2, count($topic));
+        $this->assertEquals(2, \count($topic));
     }
 
     public function testBroadcast() {
         $msg  = 'Hello World!';
         $name = 'Batman';
-        $protocol = json_encode([8, $name, $msg]);
+        $protocol = \json_encode([8, $name, $msg]);
 
         $first  = $this->createWampConnectionMock();
 
@@ -64,7 +66,7 @@ class TopicTest extends TestCase  {
     public function testBroadcastWithExclude() {
         $msg  = 'Hello odd numbers';
         $name = 'Excluding';
-        $protocol = json_encode([8, $name, $msg]);
+        $protocol = \json_encode([8, $name, $msg]);
 
         $first  = $this->createWampConnectionMock();
         $second = $this->createWampConnectionMock();
@@ -91,7 +93,7 @@ class TopicTest extends TestCase  {
     public function testBroadcastWithEligible() {
         $msg  = 'Hello white list';
         $name = 'Eligible';
-        $protocol = json_encode([8, $name, $msg]);
+        $protocol = \json_encode([8, $name, $msg]);
 
         $first  = $this->createWampConnectionMock();
         $second = $this->createWampConnectionMock();
@@ -126,7 +128,7 @@ class TopicTest extends TestCase  {
         $check = [$first, $second, $third];
 
         foreach ($topic as $mock) {
-            $this->assertNotSame(false, array_search($mock, $check));
+            $this->assertNotFalse(\array_search($mock, $check));
         }
     }
 
@@ -134,7 +136,7 @@ class TopicTest extends TestCase  {
         $name  = 'Bane';
         $topic = new Topic($name);
 
-        $this->assertEquals($name, (string)$topic);
+        $this->assertEquals($name, (string) $topic);
     }
 
     public function testDoesHave() {
@@ -165,15 +167,14 @@ class TopicTest extends TestCase  {
         return new WampConnection($this->createMock(ConnectionInterface::class));
     }
 
-	/**
-	 * @return \PHPUnit\Framework\MockObject\MockObject
-	 */
-	protected function createWampConnectionMock()
-	{
-		return $this
-			->getMockBuilder(WampConnection::class)
-			->setMethods(['send'])
-			->setConstructorArgs([$this->createMock(ConnectionInterface::class)])
-			->getMock();
-	}
+    /**
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function createWampConnectionMock() {
+        return $this
+            ->getMockBuilder(WampConnection::class)
+            ->setMethods(['send'])
+            ->setConstructorArgs([$this->createMock(ConnectionInterface::class)])
+            ->getMock();
+    }
 }

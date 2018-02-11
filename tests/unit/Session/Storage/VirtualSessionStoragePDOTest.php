@@ -1,12 +1,14 @@
 <?php
+
 namespace Ratchet\Session\Storage;
+
 use PHPUnit\Framework\TestCase;
 use Ratchet\Session\Serialize\PhpHandler;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
-class VirtualSessionStoragePDOTest extends TestCase  {
+class VirtualSessionStoragePDOTest extends TestCase {
     /**
      * @var VirtualSessionStorage
      */
@@ -15,7 +17,7 @@ class VirtualSessionStoragePDOTest extends TestCase  {
     protected $_pathToDB;
 
     public function setUp() {
-        if (!extension_loaded('PDO') || !extension_loaded('pdo_sqlite')) {
+        if (!\extension_loaded('PDO') || !\extension_loaded('pdo_sqlite')) {
             return $this->markTestSkipped('Session test requires PDO and pdo_sqlite');
         }
 
@@ -27,7 +29,8 @@ CREATE TABLE `sessions` (
     `sess_lifetime` MEDIUMINT NOT NULL
 );
 SQL;
-        $this->_pathToDB = tempnam(sys_get_temp_dir(), 'SQ3');;
+        $this->_pathToDB = \tempnam(\sys_get_temp_dir(), 'SQ3');
+        ;
         $dsn = 'sqlite:' . $this->_pathToDB;
 
         $pdo = new \PDO($dsn);
@@ -43,7 +46,7 @@ SQL;
     }
 
     public function tearDown() {
-        unlink($this->_pathToDB);
+        \unlink($this->_pathToDB);
     }
 
     public function testStartWithDSN() {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Ratchet\Session\Serialize;
 
 class PhpHandler implements HandlerInterface {
@@ -6,15 +7,15 @@ class PhpHandler implements HandlerInterface {
      * Simply reverse behaviour of unserialize method.
      * {@inheritdoc}
      */
-    function serialize(array $data) {
+    public function serialize(array $data) {
         $preSerialized = [];
         $serialized = '';
 
-        if (count($data)) {
+        if (\count($data)) {
             foreach ($data as $bucket => $bucketData) {
-                $preSerialized[] = $bucket . '|' . serialize($bucketData);
+                $preSerialized[] = $bucket . '|' . \serialize($bucketData);
             }
-            $serialized = implode('', $preSerialized);
+            $serialized = \implode('', $preSerialized);
         }
 
         return $serialized;
@@ -29,19 +30,19 @@ class PhpHandler implements HandlerInterface {
         $returnData = [];
         $offset     = 0;
 
-        while ($offset < strlen($raw)) {
-            if (!strstr(substr($raw, $offset), "|")) {
-                throw new \UnexpectedValueException("invalid data, remaining: " . substr($raw, $offset));
+        while ($offset < \strlen($raw)) {
+            if (!\strstr(\substr($raw, $offset), "|")) {
+                throw new \UnexpectedValueException("invalid data, remaining: " . \substr($raw, $offset));
             }
 
-            $pos     = strpos($raw, "|", $offset);
+            $pos     = \strpos($raw, "|", $offset);
             $num     = $pos - $offset;
-            $varname = substr($raw, $offset, $num);
+            $varname = \substr($raw, $offset, $num);
             $offset += $num + 1;
-            $data    = unserialize(substr($raw, $offset));
+            $data    = \unserialize(\substr($raw, $offset));
 
             $returnData[$varname] = $data;
-            $offset += strlen(serialize($data));
+            $offset += \strlen(\serialize($data));
         }
 
         return $returnData;

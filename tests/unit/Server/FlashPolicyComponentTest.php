@@ -1,14 +1,15 @@
 <?php
+
 namespace Ratchet\Application\Server;
+
 use PHPUnit\Framework\TestCase;
 use Ratchet\ConnectionInterface;
 use Ratchet\Server\FlashPolicy;
 
 /**
- * @covers Ratchet\Server\FlashPolicy
+ * @covers \Ratchet\Server\FlashPolicy
  */
-class FlashPolicyTest extends TestCase  {
-
+class FlashPolicyComponentTest extends TestCase {
     protected $_policy;
 
     public function setUp() {
@@ -44,16 +45,7 @@ class FlashPolicyTest extends TestCase  {
 
     public static function siteControl() {
         return [
-            [true, 'all']
-          , [true, 'none']
-          , [true, 'master-only']
-          , [false, 'by-content-type']
-          , [false, 'by-ftp-filename']
-          , [false, '']
-          , [false, 'all ']
-          , [false, 'asdf']
-          , [false, '@893830']
-          , [false, '*']
+            [true, 'all'], [true, 'none'], [true, 'master-only'], [false, 'by-content-type'], [false, 'by-ftp-filename'], [false, ''], [false, 'all '], [false, 'asdf'], [false, '@893830'], [false, '*']
         ];
     }
 
@@ -66,23 +58,7 @@ class FlashPolicyTest extends TestCase  {
 
     public static function URI() {
         return [
-            [true, '*']
-          , [true, 'example.com']
-          , [true, 'exam-ple.com']
-          , [true, '*.example.com']
-          , [true, 'www.example.com']
-          , [true, 'dev.dev.example.com']
-          , [true, 'http://example.com']
-          , [true, 'https://example.com']
-          , [true, 'http://*.example.com']
-          , [false, 'exam*ple.com']
-          , [true, '127.0.255.1']
-          , [true, 'localhost']
-          , [false, 'www.example.*']
-          , [false, 'www.exa*le.com']
-          , [false, 'www.example.*com']
-          , [false, '*.example.*']
-          , [false, 'gasldf*$#a0sdf0a8sdf']
+            [true, '*'], [true, 'example.com'], [true, 'exam-ple.com'], [true, '*.example.com'], [true, 'www.example.com'], [true, 'dev.dev.example.com'], [true, 'http://example.com'], [true, 'https://example.com'], [true, 'http://*.example.com'], [false, 'exam*ple.com'], [true, '127.0.255.1'], [true, 'localhost'], [false, 'www.example.*'], [false, 'www.exa*le.com'], [false, 'www.example.*com'], [false, '*.example.*'], [false, 'gasldf*$#a0sdf0a8sdf']
         ];
     }
 
@@ -95,20 +71,7 @@ class FlashPolicyTest extends TestCase  {
 
     public static function ports() {
         return [
-            [true, '*']
-          , [true, '80']
-          , [true, '80,443']
-          , [true, '507,516-523']
-          , [true, '507,516-523,333']
-          , [true, '507,516-523,507,516-523']
-          , [false, '516-']
-          , [true, '516-523,11']
-          , [false, '516,-523,11']
-          , [false, 'example']
-          , [false, 'asdf,123']
-          , [false, '--']
-          , [false, ',,,']
-          , [false, '838*']
+            [true, '*'], [true, '80'], [true, '80,443'], [true, '507,516-523'], [true, '507,516-523,333'], [true, '507,516-523,507,516-523'], [false, '516-'], [true, '516-523,11'], [false, '516,-523,11'], [false, 'example'], [false, 'asdf,123'], [false, '--'], [false, ',,,'], [false, '838*']
         ];
     }
 
@@ -141,13 +104,13 @@ class FlashPolicyTest extends TestCase  {
     }
 
     public function testOnOpenExists() {
-        $this->assertTrue(method_exists($this->_policy, 'onOpen'));
+        $this->assertTrue(\method_exists($this->_policy, 'onOpen'));
         $conn = $this->createMock(ConnectionInterface::class);
         $this->_policy->onOpen($conn);
     }
 
     public function testOnCloseExists() {
-        $this->assertTrue(method_exists($this->_policy, 'onClose'));
+        $this->assertTrue(\method_exists($this->_policy, 'onClose'));
         $conn = $this->createMock(ConnectionInterface::class);
         $this->_policy->onClose($conn);
     }

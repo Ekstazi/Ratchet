@@ -1,10 +1,12 @@
 <?php
+
 namespace Ratchet\Http;
+
 use Ratchet\AbstractMessageComponentTestCase;
 use Ratchet\ConnectionInterface;
 
 /**
- * @covers Ratchet\Http\HttpServer
+ * @covers \Ratchet\Http\HttpServer
  */
 class HttpServerTest extends AbstractMessageComponentTestCase {
     public function setUp() {
@@ -46,7 +48,7 @@ class HttpServerTest extends AbstractMessageComponentTestCase {
         $this->_conn->expects($this->once())->method('close');
         $this->_conn->httpHeadersReceived = false;
 
-        $this->_serv->onMessage($this->_conn, str_repeat('a', 5000));
+        $this->_serv->onMessage($this->_conn, \str_repeat('a', 5000));
     }
 
     public function testCloseIfNotEstablished() {

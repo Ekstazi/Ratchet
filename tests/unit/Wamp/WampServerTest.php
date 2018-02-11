@@ -1,10 +1,12 @@
 <?php
+
 namespace Ratchet\Wamp;
+
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use Ratchet\AbstractMessageComponentTestCase;
 
 /**
- * @covers Ratchet\Wamp\WampServer
+ * @covers \Ratchet\Wamp\WampServer
  */
 class WampServerTest extends AbstractMessageComponentTestCase {
     public function getConnectionClassString() {
@@ -23,14 +25,14 @@ class WampServerTest extends AbstractMessageComponentTestCase {
         $published = 'Client published this message';
 
         $this->_app->expects($this->once())->method('onPublish')->with(
-            $this->isExpectedConnection()
-          , new IsInstanceOf(Topic::class)
-          , $published
-          , []
-          , []
+            $this->isExpectedConnection(),
+            new IsInstanceOf(Topic::class),
+            $published,
+            [],
+            []
         );
 
-        $this->_serv->onMessage($this->_conn, json_encode([7, 'topic', $published]));
+        $this->_serv->onMessage($this->_conn, \json_encode([7, 'topic', $published]));
     }
 
     public function testGetSubProtocols() {
@@ -45,6 +47,6 @@ class WampServerTest extends AbstractMessageComponentTestCase {
 
     public function testConnectionClosesOnProtocolError() {
         $this->_conn->expects($this->once())->method('close');
-        $this->_serv->onMessage($this->_conn, json_encode(['valid' => 'json', 'invalid' => 'protocol']));
+        $this->_serv->onMessage($this->_conn, \json_encode(['valid' => 'json', 'invalid' => 'protocol']));
     }
 }

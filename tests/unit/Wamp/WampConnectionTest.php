@@ -1,13 +1,14 @@
 <?php
+
 namespace Ratchet\Wamp;
+
 use PHPUnit\Framework\TestCase;
-use Ratchet\ComponentInterface;
 use Ratchet\ConnectionInterface;
 
 /**
- * @covers Ratchet\Wamp\WampConnection
+ * @covers \Ratchet\Wamp\WampConnection
  */
-class WampConnectionTest extends TestCase  {
+class WampConnectionTest extends TestCase {
     protected $conn;
     protected $mock;
 
@@ -17,39 +18,39 @@ class WampConnectionTest extends TestCase  {
     }
 
     public function testCallResult() {
-        $callId = uniqid();
+        $callId = \uniqid();
         $data   = ['hello' => 'world', 'herp' => 'derp'];
 
-        $this->mock->expects($this->once())->method('send')->with(json_encode([3, $callId, $data]));
+        $this->mock->expects($this->once())->method('send')->with(\json_encode([3, $callId, $data]));
 
         $this->conn->callResult($callId, $data);
     }
 
     public function testCallError() {
-        $callId = uniqid();
+        $callId = \uniqid();
         $uri    = 'http://example.com/end/point';
 
-        $this->mock->expects($this->once())->method('send')->with(json_encode([4, $callId, $uri, '']));
+        $this->mock->expects($this->once())->method('send')->with(\json_encode([4, $callId, $uri, '']));
 
         $this->conn->callError($callId, $uri);
     }
 
     public function testCallErrorWithTopic() {
-        $callId = uniqid();
+        $callId = \uniqid();
         $uri    = 'http://example.com/end/point';
 
-        $this->mock->expects($this->once())->method('send')->with(json_encode([4, $callId, $uri, '']));
+        $this->mock->expects($this->once())->method('send')->with(\json_encode([4, $callId, $uri, '']));
 
         $this->conn->callError($callId, new Topic($uri));
     }
 
     public function testDetailedCallError() {
-        $callId = uniqid();
+        $callId = \uniqid();
         $uri    = 'http://example.com/end/point';
         $desc   = 'beep boop beep';
         $detail = 'Error: Too much awesome';
 
-        $this->mock->expects($this->once())->method('send')->with(json_encode([4, $callId, $uri, $desc, $detail]));
+        $this->mock->expects($this->once())->method('send')->with(\json_encode([4, $callId, $uri, $desc, $detail]));
 
         $this->conn->callError($callId, $uri, $desc, $detail);
     }
@@ -58,7 +59,7 @@ class WampConnectionTest extends TestCase  {
         $shortOut = 'outgoing';
         $longOut  = 'http://example.com/outgoing';
 
-        $this->mock->expects($this->once())->method('send')->with(json_encode([1, $shortOut, $longOut]));
+        $this->mock->expects($this->once())->method('send')->with(\json_encode([1, $shortOut, $longOut]));
 
         $this->conn->prefix($shortOut, $longOut);
     }

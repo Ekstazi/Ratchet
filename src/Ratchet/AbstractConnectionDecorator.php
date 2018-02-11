@@ -1,9 +1,10 @@
 <?php
+
 namespace Ratchet;
 
 /**
  * Wraps ConnectionInterface objects via the decorator pattern but allows
- * parameters to bubble through with magic methods
+ * parameters to bubble through with magic methods.
  * @todo It sure would be nice if I could make most of this a trait...
  */
 abstract class AbstractConnectionDecorator implements ConnectionInterface {
@@ -39,15 +40,11 @@ abstract class AbstractConnectionDecorator implements ConnectionInterface {
         unset($this->wrappedConn->$name);
     }
 
-	public function id()
-	{
-		return $this->wrappedConn->id();
-	}
+    public function id() {
+        return $this->wrappedConn->id();
+    }
 
-	public function getRemoteAddress()
-	{
-		return $this->wrappedConn->getRemoteAddress();
-	}
-
-
+    public function getRemoteAddress() {
+        return $this->wrappedConn->getRemoteAddress();
+    }
 }

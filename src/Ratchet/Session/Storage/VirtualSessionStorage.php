@@ -1,8 +1,10 @@
 <?php
+
 namespace Ratchet\Session\Storage;
-use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-use Ratchet\Session\Storage\Proxy\VirtualProxy;
+
 use Ratchet\Session\Serialize\HandlerInterface;
+use Ratchet\Session\Storage\Proxy\VirtualProxy;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 class VirtualSessionStorage extends NativeSessionStorage {
     /**
@@ -34,7 +36,7 @@ class VirtualSessionStorage extends NativeSessionStorage {
         // pdo_sqlite (and possible pdo_*) as session storage, if you are using a DSN string instead of a \PDO object
         // in the constructor. The method arguments are filled with the values, which are also used by the symfony
         // framework in this case. This must not be the best choice, but it works.
-        $this->saveHandler->open(session_save_path(), session_name());
+        $this->saveHandler->open(\session_save_path(), \session_name());
 
         $rawData     = $this->saveHandler->read($this->saveHandler->getId());
         $sessionData = $this->_serializer->unserialize($rawData);

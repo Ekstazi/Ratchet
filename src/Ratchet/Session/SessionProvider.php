@@ -1,10 +1,12 @@
 <?php
+
 namespace Ratchet\Session;
+
+use Psr\Http\Message\RequestInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\Http\HttpServerInterface;
-use Psr\Http\Message\RequestInterface;
-use Ratchet\Session\Storage\VirtualSessionStorage;
 use Ratchet\Session\Serialize\HandlerInterface;
+use Ratchet\Session\Storage\VirtualSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 
@@ -12,7 +14,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
  * This component will allow access to session data from your website for each user connected
  * Symfony HttpFoundation is required for this component to work
  * Your website must also use Symfony HttpFoundation Sessions to read your sites session data
- * If your are not using at least PHP 5.4 you must include a SessionHandlerInterface stub (is included in Symfony HttpFoundation, loaded w/ composer)
+ * If your are not using at least PHP 5.4 you must include a SessionHandlerInterface stub (is included in Symfony HttpFoundation, loaded w/ composer).
  */
 class SessionProvider implements HttpServerInterface {
     /**
@@ -21,13 +23,13 @@ class SessionProvider implements HttpServerInterface {
     protected $_app;
 
     /**
-     * Selected handler storage assigned by the developer
+     * Selected handler storage assigned by the developer.
      * @var \SessionHandlerInterface
      */
     protected $_handler;
 
     /**
-     * Null storage handler if no previous session was found
+     * Null storage handler if no previous session was found.
      * @var \SessionHandlerInterface
      */
     protected $_null;
@@ -49,15 +51,15 @@ class SessionProvider implements HttpServerInterface {
         $this->_handler = $handler;
         $this->_null    = new NullSessionHandler;
 
-        ini_set('session.auto_start', 0);
-        ini_set('session.cache_limiter', '');
-        ini_set('session.use_cookies', 0);
+        \ini_set('session.auto_start', 0);
+        \ini_set('session.cache_limiter', '');
+        \ini_set('session.use_cookies', 0);
 
         $this->setOptions($options);
 
         if (null === $serializer) {
-            $serialClass = __NAMESPACE__ . "\\Serialize\\{$this->toClassCase(ini_get('session.serialize_handler'))}Handler"; // awesome/terrible hack, eh?
-            if (!class_exists($serialClass)) {
+            $serialClass = __NAMESPACE__ . "\\Serialize\\{$this->toClassCase(\ini_get('session.serialize_handler'))}Handler"; // awesome/terrible hack, eh?
+            if (!\class_exists($serialClass)) {
                 throw new \RuntimeException('Unable to parse session serialize handler');
             }
 
@@ -71,9 +73,9 @@ class SessionProvider implements HttpServerInterface {
      * {@inheritdoc}
      */
     public function onOpen(ConnectionInterface $conn, RequestInterface $request = null) {
-        $sessionName = ini_get('session.name');
+        $sessionName = \ini_get('session.name');
 
-        $id = array_reduce($request->getHeader('Cookie'), function($accumulator, $cookie) use ($sessionName) {
+        $id = \array_reduce($request->getHeader('Cookie'), function ($accumulator, $cookie) use ($sessionName) {
             if ($accumulator) {
                 return $accumulator;
             }
@@ -92,7 +94,7 @@ class SessionProvider implements HttpServerInterface {
 
         $conn->Session = new Session(new VirtualSessionStorage($saveHandler, $id, $this->_serializer));
 
-        if (ini_get('session.auto_start')) {
+        if (\ini_get('session.auto_start')) {
             $conn->Session->start();
         }
 
@@ -102,14 +104,14 @@ class SessionProvider implements HttpServerInterface {
     /**
      * {@inheritdoc}
      */
-    function onMessage(ConnectionInterface $from, $msg) {
+    public function onMessage(ConnectionInterface $from, $msg) {
         return $this->_app->onMessage($from, $msg);
     }
 
     /**
      * {@inheritdoc}
      */
-    function onClose(ConnectionInterface $conn) {
+    public function onClose(ConnectionInterface $conn) {
         // "close" session for Connection
 
         return $this->_app->onClose($conn);
@@ -118,13 +120,13 @@ class SessionProvider implements HttpServerInterface {
     /**
      * {@inheritdoc}
      */
-    function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Exception $e) {
         return $this->_app->onError($conn, $e);
     }
 
     /**
      * Set all the php session. ini options
-     * © Symfony
+     * © Symfony.
      * @param array $options
      * @return array
      */
@@ -142,10 +144,10 @@ class SessionProvider implements HttpServerInterface {
         ];
 
         foreach ($all as $key) {
-            if (!array_key_exists($key, $options)) {
-                $options[$key] = ini_get("session.{$key}");
+            if (!\array_key_exists($key, $options)) {
+                $options[$key] = \ini_get("session.{$key}");
             } else {
-                ini_set("session.{$key}", $options[$key]);
+                \ini_set("session.{$key}", $options[$key]);
             }
         }
 
@@ -157,11 +159,11 @@ class SessionProvider implements HttpServerInterface {
      * @return string
      */
     protected function toClassCase($langDef) {
-        return str_replace(' ', '', ucwords(str_replace('_', ' ', $langDef)));
+        return \str_replace(' ', '', \ucwords(\str_replace('_', ' ', $langDef)));
     }
 
     /**
-     * Taken from Guzzle3
+     * Taken from Guzzle3.
      */
     private static $cookieParts = [
         'domain'      => 'Domain',
@@ -178,19 +180,19 @@ class SessionProvider implements HttpServerInterface {
     ];
 
     /**
-     * Taken from Guzzle3
+     * Taken from Guzzle3.
      */
     private function parseCookie($cookie, $host = null, $path = null, $decode = false) {
         // Explode the cookie string using a series of semicolons
-        $pieces = array_filter(array_map('trim', explode(';', $cookie)));
+        $pieces = \array_filter(\array_map('trim', \explode(';', $cookie)));
 
         // The name of the cookie (first kvp) must include an equal sign.
-        if (empty($pieces) || !strpos($pieces[0], '=')) {
+        if (empty($pieces) || !\strpos($pieces[0], '=')) {
             return false;
         }
 
         // Create the default return array
-        $data = array_merge(array_fill_keys(array_keys(self::$cookieParts), null), [
+        $data = \array_merge(\array_fill_keys(\array_keys(self::$cookieParts), null), [
             'cookies'   => [],
             'data'      => [],
             'path'      => $path ?: '/',
@@ -202,26 +204,25 @@ class SessionProvider implements HttpServerInterface {
 
         // Add the cookie pieces into the parsed data array
         foreach ($pieces as $part) {
+            $cookieParts = \explode('=', $part, 2);
+            $key = \trim($cookieParts[0]);
 
-            $cookieParts = explode('=', $part, 2);
-            $key = trim($cookieParts[0]);
-
-            if (count($cookieParts) == 1) {
+            if (\count($cookieParts) == 1) {
                 // Can be a single value (e.g. secure, httpOnly)
                 $value = true;
             } else {
                 // Be sure to strip wrapping quotes
-                $value = trim($cookieParts[1], " \n\r\t\0\x0B\"");
+                $value = \trim($cookieParts[1], " \n\r\t\0\x0B\"");
                 if ($decode) {
-                    $value = urldecode($value);
+                    $value = \urldecode($value);
                 }
             }
 
             // Only check for non-cookies when cookies have been found
             if (!empty($data['cookies'])) {
                 foreach (self::$cookieParts as $mapValue => $search) {
-                    if (!strcasecmp($search, $key)) {
-                        $data[$mapValue] = $mapValue == 'port' ? array_map('trim', explode(',', $value)) : $value;
+                    if (!\strcasecmp($search, $key)) {
+                        $data[$mapValue] = $mapValue == 'port' ? \array_map('trim', \explode(',', $value)) : $value;
                         $foundNonCookies++;
                         continue 2;
                     }
@@ -235,7 +236,7 @@ class SessionProvider implements HttpServerInterface {
 
         // Calculate the expires date
         if (!$data['expires'] && $data['max_age']) {
-            $data['expires'] = time() + (int) $data['max_age'];
+            $data['expires'] = \time() + (int) $data['max_age'];
         }
 
         return $data;

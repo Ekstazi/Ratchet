@@ -1,5 +1,7 @@
 <?php
+
 namespace Ratchet\Http;
+
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
@@ -9,16 +11,15 @@ use Ratchet\Mock\Connection;
 use Ratchet\WebSocket\WsServer;
 use Ratchet\WebSocket\WsServerInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Matcher\UrlMatcher;
-
 
 /**
- * @covers Ratchet\Http\Router
+ * @covers \Ratchet\Http\Router
  */
-class RouterTest extends TestCase  {
+class RouterTest extends TestCase {
     protected $_router;
     protected $_matcher;
     protected $_conn;
@@ -41,7 +42,7 @@ class RouterTest extends TestCase  {
         $this->_router  = new Router($this->_matcher);
 
         $this->_uri->expects($this->any())->method('getPath')->will($this->returnValue('ws://doesnt.matter/'));
-        $this->_uri->expects($this->any())->method('withQuery')->with($this->callback(function($val) {
+        $this->_uri->expects($this->any())->method('withQuery')->with($this->callback(function ($val) {
             $this->setResult($val);
 
             return true;
@@ -137,10 +138,10 @@ class RouterTest extends TestCase  {
         $request = $this->createMock(RequestInterface::class);
         $uri = new \GuzzleHttp\Psr7\Uri('ws://doesnt.matter/endpoint?hello=world&foo=nope');
 
-        $request->expects($this->any())->method('getUri')->will($this->returnCallback(function() use (&$uri) {
+        $request->expects($this->any())->method('getUri')->will($this->returnCallback(function () use (&$uri) {
             return $uri;
         }));
-        $request->expects($this->any())->method('withUri')->with($this->callback(function($url) use (&$uri) {
+        $request->expects($this->any())->method('withUri')->with($this->callback(function ($url) use (&$uri) {
             $uri = $url;
 
             return true;

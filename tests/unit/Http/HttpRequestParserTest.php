@@ -1,12 +1,14 @@
 <?php
+
 namespace Ratchet\Http;
+
 use PHPUnit\Framework\TestCase;
 use Ratchet\ConnectionInterface;
 
 /**
- * @covers Ratchet\Http\HttpRequestParser
+ * @covers \Ratchet\Http\HttpRequestParser
  */
-class HttpRequestParserTest extends TestCase  {
+class HttpRequestParserTest extends TestCase {
     protected $parser;
 
     public function setUp() {
@@ -15,12 +17,7 @@ class HttpRequestParserTest extends TestCase  {
 
     public function headersProvider() {
         return [
-            [false, "GET / HTTP/1.1\r\nHost: socketo.me\r\n"]
-          , [true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n"]
-          , [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n1"]
-          , [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie✖"]
-          , [true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie✖\r\n\r\n"]
-          , [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie\r\n"]
+            [false, "GET / HTTP/1.1\r\nHost: socketo.me\r\n"], [true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n"], [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\n1"], [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie✖"], [true,  "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie✖\r\n\r\n"], [true, "GET / HTTP/1.1\r\nHost: socketo.me\r\n\r\nHixie\r\n"]
         ];
     }
 

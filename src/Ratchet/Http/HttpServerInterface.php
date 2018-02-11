@@ -1,8 +1,10 @@
 <?php
+
 namespace Ratchet\Http;
-use Ratchet\MessageComponentInterface;
-use Ratchet\ConnectionInterface;
+
 use Psr\Http\Message\RequestInterface;
+use Ratchet\ConnectionInterface;
+use Ratchet\MessageComponentInterface;
 
 interface HttpServerInterface extends MessageComponentInterface {
     /**

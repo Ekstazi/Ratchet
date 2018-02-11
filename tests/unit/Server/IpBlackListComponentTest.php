@@ -1,15 +1,15 @@
 <?php
+
 namespace Ratchet\Server;
+
 use PHPUnit\Framework\TestCase;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
-use Ratchet\Mock\Connection;
-use Ratchet\Server\IpBlackList;
 
 /**
- * @covers Ratchet\Server\IpBlackList
+ * @covers \Ratchet\Server\IpBlackList
  */
-class IpBlackListTest extends TestCase  {
+class IpBlackListComponentTest extends TestCase {
     protected $blocker;
     protected $mock;
 
@@ -85,8 +85,7 @@ class IpBlackListTest extends TestCase  {
             ->blockAddress($unblock)
             ->blockAddress($blockOne)
             ->unblockAddress($unblock)
-            ->blockAddress($blockTwo)
-        ;
+            ->blockAddress($blockTwo);
 
         $this->assertEquals([$blockOne, $blockTwo], $this->blocker->getBlockedAddresses());
     }
@@ -102,10 +101,7 @@ class IpBlackListTest extends TestCase  {
 
     public function addressProvider() {
         return [
-            ['127.0.0.1', '127.0.0.1']
-          , ['localhost', 'localhost']
-          , ['fe80::1%lo0', 'fe80::1%lo0']
-          , ['127.0.0.1', '127.0.0.1:6392']
+            ['127.0.0.1', '127.0.0.1'], ['localhost', 'localhost'], ['fe80::1%lo0', 'fe80::1%lo0'], ['127.0.0.1', '127.0.0.1:6392']
         ];
     }
 
@@ -122,7 +118,7 @@ class IpBlackListTest extends TestCase  {
 
     protected function newConn() {
         $conn = $this->createMock(ConnectionInterface::class);
-		$conn->method('getRemoteAddress')->willReturn('127.0.0.1');
+        $conn->method('getRemoteAddress')->willReturn('127.0.0.1');
 
         return $conn;
     }

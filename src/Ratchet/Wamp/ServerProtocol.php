@@ -1,11 +1,13 @@
 <?php
+
 namespace Ratchet\Wamp;
+
+use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use Ratchet\WebSocket\WsServerInterface;
-use Ratchet\ConnectionInterface;
 
 /**
- * WebSocket Application Messaging Protocol
+ * WebSocket Application Messaging Protocol.
  *
  * @link http://wamp.ws/spec
  * @link https://github.com/oberstet/autobahn-js
@@ -85,15 +87,15 @@ class ServerProtocol implements MessageComponentInterface, WsServerInterface {
     public function onMessage(ConnectionInterface $from, $msg) {
         $from = $this->connections[$from];
 
-        if (null === ($json = @json_decode($msg, true))) {
+        if (null === ($json = @\json_decode($msg, true))) {
             throw new JsonException;
         }
 
-        if (!is_array($json) || $json !== array_values($json)) {
+        if (!\is_array($json) || $json !== \array_values($json)) {
             throw new Exception("Invalid WAMP message format");
         }
 
-        if (isset($json[1]) && !(is_string($json[1]) || is_numeric($json[1]))) {
+        if (isset($json[1]) && !(\is_string($json[1]) || \is_numeric($json[1]))) {
             throw new Exception('Invalid Topic, must be a string');
         }
 
@@ -103,11 +105,11 @@ class ServerProtocol implements MessageComponentInterface, WsServerInterface {
             break;
 
             case static::MSG_CALL:
-                array_shift($json);
-                $callID  = array_shift($json);
-                $procURI = array_shift($json);
+                \array_shift($json);
+                $callID  = \array_shift($json);
+                $procURI = \array_shift($json);
 
-                if (count($json) == 1 && is_array($json[0])) {
+                if (\count($json) == 1 && \is_array($json[0])) {
                     $json = $json[0];
                 }
 
@@ -123,16 +125,16 @@ class ServerProtocol implements MessageComponentInterface, WsServerInterface {
             break;
 
             case static::MSG_PUBLISH:
-                $exclude  = (array_key_exists(3, $json) ? $json[3] : null);
-                if (!is_array($exclude)) {
-                    if (true === (boolean)$exclude) {
+                $exclude  = (\array_key_exists(3, $json) ? $json[3] : null);
+                if (!\is_array($exclude)) {
+                    if (true === (bool) $exclude) {
                         $exclude = [$from->WAMP->sessionId];
                     } else {
                         $exclude = [];
                     }
                 }
 
-                $eligible = (array_key_exists(4, $json) ? $json[4] : []);
+                $eligible = (\array_key_exists(4, $json) ? $json[4] : []);
 
                 $this->_decorating->onPublish($from, $from->getUri($json[1]), $json[2], $exclude, $eligible);
             break;

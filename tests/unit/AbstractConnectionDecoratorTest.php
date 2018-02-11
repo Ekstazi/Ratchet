@@ -1,14 +1,16 @@
 <?php
+
 namespace Ratchet;
+
 use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
 use Ratchet\Mock\ConnectionDecorator;
 
 /**
- * @covers Ratchet\AbstractConnectionDecorator
- * @covers Ratchet\ConnectionInterface
+ * @covers \Ratchet\AbstractConnectionDecorator
+ * @covers \Ratchet\ConnectionInterface
  */
-class AbstractConnectionDecoratorTest extends TestCase  {
+class AbstractConnectionDecoratorTest extends TestCase {
     protected $mock;
     protected $l1;
     protected $l2;

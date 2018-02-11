@@ -1,9 +1,11 @@
 <?php
+
 namespace Ratchet\Mock;
+
 use Ratchet\ComponentInterface;
+use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use Ratchet\WebSocket\WsServerInterface;
-use Ratchet\ConnectionInterface;
 
 class Component implements MessageComponentInterface, WsServerInterface {
     public $last = [];
@@ -11,23 +13,23 @@ class Component implements MessageComponentInterface, WsServerInterface {
     public $protocols = [];
 
     public function __construct(ComponentInterface $app = null) {
-        $this->last[__FUNCTION__] = func_get_args();
+        $this->last[__FUNCTION__] = \func_get_args();
     }
 
     public function onOpen(ConnectionInterface $conn) {
-        $this->last[__FUNCTION__] = func_get_args();
+        $this->last[__FUNCTION__] = \func_get_args();
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {
-        $this->last[__FUNCTION__] = func_get_args();
+        $this->last[__FUNCTION__] = \func_get_args();
     }
 
     public function onClose(ConnectionInterface $conn) {
-        $this->last[__FUNCTION__] = func_get_args();
+        $this->last[__FUNCTION__] = \func_get_args();
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e) {
-        $this->last[__FUNCTION__] = func_get_args();
+        $this->last[__FUNCTION__] = \func_get_args();
     }
 
     public function getSubProtocols() {

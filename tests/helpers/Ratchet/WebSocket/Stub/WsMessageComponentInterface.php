@@ -1,5 +1,7 @@
 <?php
+
 namespace Ratchet\WebSocket\Stub;
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\WebSocket\WsServerInterface;
 

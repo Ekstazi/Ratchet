@@ -1,21 +1,23 @@
 <?php
+
 namespace Ratchet\Session;
+
 use Psr\Http\Message\RequestInterface;
 use Ratchet\AbstractMessageComponentTestCase;
 use Ratchet\ConnectionInterface;
 use Ratchet\Http\HttpServerInterface;
 use Ratchet\NullComponent;
-use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
 /**
- * @covers Ratchet\Session\SessionProvider
- * @covers Ratchet\Session\Storage\VirtualSessionStorage
- * @covers Ratchet\Session\Storage\Proxy\VirtualProxy
+ * @covers \Ratchet\Session\SessionProvider
+ * @covers \Ratchet\Session\Storage\VirtualSessionStorage
+ * @covers \Ratchet\Session\Storage\Proxy\VirtualProxy
  */
-class SessionProviderTest extends AbstractMessageComponentTestCase {
+class SessionComponentTest extends AbstractMessageComponentTestCase {
     public function setUp() {
-        if (!class_exists('Symfony\Component\HttpFoundation\Session\Session')) {
+        if (!\class_exists('Symfony\Component\HttpFoundation\Session\Session')) {
             return $this->markTestSkipped('Dependency of Symfony HttpFoundation failed');
         }
 
@@ -24,7 +26,7 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
     }
 
     public function tearDown() {
-        ini_set('session.serialize_handler', 'php');
+        \ini_set('session.serialize_handler', 'php');
     }
 
     public function getConnectionClassString() {
@@ -41,8 +43,7 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
 
     public function classCaseProvider() {
         return [
-            ['php', 'Php']
-          , ['php_binary', 'PhpBinary']
+            ['php', 'Php'], ['php_binary', 'PhpBinary']
         ];
     }
 
@@ -59,26 +60,22 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
     }
 
     /**
-     * I think I have severely butchered this test...it's not so much of a unit test as it is a full-fledged component test
+     * I think I have severely butchered this test...it's not so much of a unit test as it is a full-fledged component test.
      */
     public function testConnectionValueFromPdo() {
-        if (!extension_loaded('PDO') || !extension_loaded('pdo_sqlite')) {
+        if (!\extension_loaded('PDO') || !\extension_loaded('pdo_sqlite')) {
             return $this->markTestSkipped('Session test requires PDO and pdo_sqlite');
         }
 
-        $sessionId = md5('testSession');
+        $sessionId = \md5('testSession');
 
         $dbOptions = [
-            'db_table'    => 'sessions'
-          , 'db_id_col'   => 'sess_id'
-          , 'db_data_col' => 'sess_data'
-          , 'db_time_col' => 'sess_time'
-          , 'db_lifetime_col' => 'sess_lifetime'
+            'db_table'    => 'sessions', 'db_id_col'   => 'sess_id', 'db_data_col' => 'sess_data', 'db_time_col' => 'sess_time', 'db_lifetime_col' => 'sess_lifetime'
         ];
 
         $pdo = new \PDO("sqlite::memory:");
         $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $pdo->exec(vsprintf("CREATE TABLE %s (%s TEXT NOT NULL PRIMARY KEY, %s BLOB NOT NULL, %s INTEGER NOT NULL, %s INTEGER)", $dbOptions));
+        $pdo->exec(\vsprintf("CREATE TABLE %s (%s TEXT NOT NULL PRIMARY KEY, %s BLOB NOT NULL, %s INTEGER NOT NULL, %s INTEGER)", $dbOptions));
 
         $pdoHandler = new PdoSessionHandler($pdo, $dbOptions);
         $pdoHandler->write($sessionId, '_sf2_attributes|a:2:{s:5:"hello";s:5:"world";s:4:"last";i:1332872102;}_sf2_flashes|a:0:{}');
@@ -87,7 +84,7 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
         $connection = $this->createMock(ConnectionInterface::class);
 
         $headers = $this->createMock(RequestInterface::class);
-        $headers->expects($this->once())->method('getHeader')->will($this->returnValue([ini_get('session.name') . "={$sessionId};"]));
+        $headers->expects($this->once())->method('getHeader')->will($this->returnValue([\ini_get('session.name') . "={$sessionId};"]));
 
         $component->onOpen($connection, $headers);
 
@@ -98,7 +95,7 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
         $conn = $this->createMock(ConnectionInterface::class);
 
         $headers = $this->createMock(RequestInterface::class, ['getCookie'], ['POST', '/', []]);
-        $headers->expects($this->once())->method('getCookie', [ini_get('session.name')])->will($this->returnValue(null));
+        $headers->expects($this->once())->method('getCookie', [\ini_get('session.name')])->will($this->returnValue(null));
 
         return $conn;
     }
@@ -110,11 +107,11 @@ class SessionProviderTest extends AbstractMessageComponentTestCase {
     }
 
     public function testRejectInvalidSeralizers() {
-        if (!function_exists('wddx_serialize_value')) {
+        if (!\function_exists('wddx_serialize_value')) {
             $this->markTestSkipped();
         }
 
-        ini_set('session.serialize_handler', 'wddx');
+        \ini_set('session.serialize_handler', 'wddx');
         $this->expectException('\RuntimeException');
         new SessionProvider($this->createMock($this->getComponentClassString()), $this->createMock(\SessionHandlerInterface::class));
     }

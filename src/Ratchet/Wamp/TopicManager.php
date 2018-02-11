@@ -1,5 +1,7 @@
 <?php
+
 namespace Ratchet\Wamp;
+
 use Ratchet\ConnectionInterface;
 use Ratchet\WebSocket\WsServerInterface;
 
@@ -104,7 +106,7 @@ class TopicManager implements WsServerInterface, WampServerInterface {
      * @return Topic
      */
     protected function getTopic($topic) {
-        if (!array_key_exists($topic, $this->topicLookup)) {
+        if (!\array_key_exists($topic, $this->topicLookup)) {
             $this->topicLookup[$topic] = new Topic($topic);
         }
 

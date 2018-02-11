@@ -1,10 +1,11 @@
 <?php
+
 namespace Ratchet\Server;
+
 use PHPUnit\Framework\TestCase;
 use Ratchet\ConnectionInterface;
-use Ratchet\Server\EchoServer;
 
-class EchoServerTest extends TestCase  {
+class EchoServerTest extends TestCase {
     protected $_conn;
     protected $_comp;
 
@@ -20,9 +21,9 @@ class EchoServerTest extends TestCase  {
     }
 
     public function testErrorClosesConnection() {
-        ob_start();
+        \ob_start();
         $this->_conn->expects($this->once())->method('close');
         $this->_comp->onError($this->_conn, new \Exception);
-        ob_end_clean();
+        \ob_end_clean();
     }
 }

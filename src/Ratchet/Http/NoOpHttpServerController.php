@@ -1,7 +1,9 @@
 <?php
+
 namespace Ratchet\Http;
-use Ratchet\ConnectionInterface;
+
 use Psr\Http\Message\RequestInterface;
+use Ratchet\ConnectionInterface;
 
 class NoOpHttpServerController implements HttpServerInterface {
     public function onOpen(ConnectionInterface $conn, RequestInterface $request = null) {

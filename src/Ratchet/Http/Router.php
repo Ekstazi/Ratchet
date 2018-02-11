@@ -1,11 +1,13 @@
 <?php
+
 namespace Ratchet\Http;
-use Ratchet\ConnectionInterface;
+
+use GuzzleHttp\Psr7 as gPsr;
 use Psr\Http\Message\RequestInterface;
-use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
+use Ratchet\ConnectionInterface;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use GuzzleHttp\Psr7 as gPsr;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 class Router implements HttpServerInterface {
     use CloseResponseTrait;
@@ -47,7 +49,7 @@ class Router implements HttpServerInterface {
             return $this->close($conn, 404);
         }
 
-        if (is_string($route['_controller']) && class_exists($route['_controller'])) {
+        if (\is_string($route['_controller']) && \class_exists($route['_controller'])) {
             $route['_controller'] = new $route['_controller'];
         }
 
@@ -56,12 +58,12 @@ class Router implements HttpServerInterface {
         }
 
         $parameters = [];
-        foreach($route as $key => $value) {
-            if ((is_string($key)) && ('_' !== substr($key, 0, 1))) {
+        foreach ($route as $key => $value) {
+            if ((\is_string($key)) && ('_' !== \substr($key, 0, 1))) {
                 $parameters[$key] = $value;
             }
         }
-        $parameters = array_merge($parameters, gPsr\parse_query($uri->getQuery() ?: ''));
+        $parameters = \array_merge($parameters, gPsr\parse_query($uri->getQuery() ?: ''));
 
         $request = $request->withUri($uri->withQuery(gPsr\build_query($parameters)));
 

@@ -1,11 +1,12 @@
 <?php
+
 namespace Ratchet\Session\Serialize;
 
 class PhpBinaryHandler implements HandlerInterface {
     /**
      * {@inheritdoc}
      */
-    function serialize(array $data) {
+    public function serialize(array $data) {
         throw new \RuntimeException("Serialize PhpHandler:serialize code not written yet, write me!");
     }
 
@@ -17,15 +18,15 @@ class PhpBinaryHandler implements HandlerInterface {
         $returnData = [];
         $offset     = 0;
 
-        while ($offset < strlen($raw)) {
-            $num     = ord($raw[$offset]);
+        while ($offset < \strlen($raw)) {
+            $num     = \ord($raw[$offset]);
             $offset += 1;
-            $varname = substr($raw, $offset, $num);
+            $varname = \substr($raw, $offset, $num);
             $offset += $num;
-            $data    = unserialize(substr($raw, $offset));
+            $data    = \unserialize(\substr($raw, $offset));
 
             $returnData[$varname] = $data;
-            $offset += strlen(serialize($data));
+            $offset += \strlen(\serialize($data));
         }
 
         return $returnData;

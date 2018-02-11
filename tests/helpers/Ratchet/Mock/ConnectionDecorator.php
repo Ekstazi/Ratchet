@@ -1,11 +1,12 @@
 <?php
+
 namespace Ratchet\Mock;
+
 use Ratchet\AbstractConnectionDecorator;
 
 class ConnectionDecorator extends AbstractConnectionDecorator {
     public $last = [
-        'write' => ''
-      , 'end'   => false
+        'write' => '', 'end'   => false
     ];
 
     public function send($data) {

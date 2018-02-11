@@ -1,4 +1,5 @@
 <?php
+
 namespace Ratchet\Session\Serialize;
 
 interface HandlerInterface {
@@ -6,11 +7,11 @@ interface HandlerInterface {
      * @param array
      * @return string
      */
-    function serialize(array $data);
+    public function serialize(array $data);
 
     /**
      * @param string
      * @return array
      */
-    function unserialize($raw);
+    public function unserialize($raw);
 }

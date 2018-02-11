@@ -1,5 +1,7 @@
 <?php
+
 namespace Ratchet\WebSocket;
+
 use Ratchet\RFC6455\Messaging\MessageBuffer;
 
 class ConnContext {

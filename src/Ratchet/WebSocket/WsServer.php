@@ -1,24 +1,26 @@
 <?php
+
 namespace Ratchet\WebSocket;
-use Ratchet\ComponentInterface;
-use Ratchet\ConnectionInterface;
-use Ratchet\MessageComponentInterface as DataComponentInterface;
-use Ratchet\Http\HttpServerInterface;
-use Ratchet\Http\CloseResponseTrait;
-use Psr\Http\Message\RequestInterface;
-use Ratchet\RFC6455\Messaging\MessageInterface;
-use Ratchet\RFC6455\Messaging\FrameInterface;
-use Ratchet\RFC6455\Messaging\Frame;
-use Ratchet\RFC6455\Messaging\MessageBuffer;
-use Ratchet\RFC6455\Messaging\CloseFrameChecker;
-use Ratchet\RFC6455\Handshake\ServerNegotiator;
-use Ratchet\RFC6455\Handshake\RequestVerifier;
+
 use Amp\Loop\Driver as LoopInterface;
 use GuzzleHttp\Psr7 as gPsr;
+use Psr\Http\Message\RequestInterface;
+use Ratchet\ComponentInterface;
+use Ratchet\ConnectionInterface;
+use Ratchet\Http\CloseResponseTrait;
+use Ratchet\Http\HttpServerInterface;
+use Ratchet\MessageComponentInterface as DataComponentInterface;
+use Ratchet\RFC6455\Handshake\RequestVerifier;
+use Ratchet\RFC6455\Handshake\ServerNegotiator;
+use Ratchet\RFC6455\Messaging\CloseFrameChecker;
+use Ratchet\RFC6455\Messaging\Frame;
+use Ratchet\RFC6455\Messaging\FrameInterface;
+use Ratchet\RFC6455\Messaging\MessageBuffer;
+use Ratchet\RFC6455\Messaging\MessageInterface;
 
 /**
  * The adapter to handle WebSocket requests/responses
- * This is a mediator between the Server and your application to handle real-time messaging through a web browser
+ * This is a mediator between the Server and your application to handle real-time messaging through a web browser.
  * @link http://ca.php.net/manual/en/ref.http.php
  * @link http://dev.w3.org/html5/websockets/
  */
@@ -26,7 +28,7 @@ class WsServer implements HttpServerInterface {
     use CloseResponseTrait;
 
     /**
-     * Decorated component
+     * Decorated component.
      * @var \Ratchet\ComponentInterface
      */
     private $delegate;
@@ -67,18 +69,18 @@ class WsServer implements HttpServerInterface {
      */
     public function __construct(ComponentInterface $component) {
         if ($component instanceof MessageComponentInterface) {
-            $this->msgCb = function(ConnectionInterface $conn, MessageInterface $msg) {
+            $this->msgCb = function (ConnectionInterface $conn, MessageInterface $msg) {
                 $this->delegate->onMessage($conn, $msg);
             };
         } elseif ($component instanceof DataComponentInterface) {
-            $this->msgCb = function(ConnectionInterface $conn, MessageInterface $msg) {
+            $this->msgCb = function (ConnectionInterface $conn, MessageInterface $msg) {
                 $this->delegate->onMessage($conn, $msg->getPayload());
             };
         } else {
             throw new \UnexpectedValueException('Expected instance of \Ratchet\WebSocket\MessageComponentInterface or \Ratchet\MessageComponentInterface');
         }
 
-        if (bin2hex('✓') !== 'e29c93') {
+        if (\bin2hex('✓') !== 'e29c93') {
             throw new \DomainException('Bad encoding, unicode character ✓ did not match expected value. Ensure charset UTF-8 and check ini val mbstring.func_autoload');
         }
 
@@ -93,10 +95,10 @@ class WsServer implements HttpServerInterface {
             $this->handshakeNegotiator->setSupportedSubProtocols($component->getSubProtocols());
         }
 
-        $this->pongReceiver = function() {};
+        $this->pongReceiver = function () {};
 
         $reusableUnderflowException = new \UnderflowException;
-        $this->ueFlowFactory = function() use ($reusableUnderflowException) {
+        $this->ueFlowFactory = function () use ($reusableUnderflowException) {
             return $reusableUnderflowException;
         };
     }
@@ -126,11 +128,11 @@ class WsServer implements HttpServerInterface {
 
         $streamer = new MessageBuffer(
             $this->closeFrameChecker,
-            function(MessageInterface $msg) use ($wsConn) {
+            function (MessageInterface $msg) use ($wsConn) {
                 $cb = $this->msgCb;
                 $cb($wsConn, $msg);
             },
-            function(FrameInterface $frame) use ($wsConn) {
+            function (FrameInterface $frame) use ($wsConn) {
                 $this->onControlFrame($frame, $wsConn);
             },
             true,
@@ -196,23 +198,23 @@ class WsServer implements HttpServerInterface {
     }
 
     public function enableKeepAlive(LoopInterface $loop, $interval = 30) {
-        $lastPing = new Frame(uniqid(), true, Frame::OP_PING);
+        $lastPing = new Frame(\uniqid(), true, Frame::OP_PING);
         $pingedConnections = new \SplObjectStorage;
         $splClearer = new \SplObjectStorage;
 
-        $this->pongReceiver = function(FrameInterface $frame, $wsConn) use ($pingedConnections, &$lastPing) {
+        $this->pongReceiver = function (FrameInterface $frame, $wsConn) use ($pingedConnections, &$lastPing) {
             if ($frame->getPayload() === $lastPing->getPayload()) {
                 $pingedConnections->detach($wsConn);
             }
         };
 
-        $loop->repeat((int)$interval * 1000, function() use ($pingedConnections, &$lastPing, $splClearer) {
+        $loop->repeat((int) $interval * 1000, function () use ($pingedConnections, &$lastPing, $splClearer) {
             foreach ($pingedConnections as $wsConn) {
                 $wsConn->close();
             }
             $pingedConnections->removeAllExcept($splClearer);
 
-            $lastPing = new Frame(uniqid(), true, Frame::OP_PING);
+            $lastPing = new Frame(\uniqid(), true, Frame::OP_PING);
 
             foreach ($this->connections as $key => $conn) {
                 $wsConn  = $this->connections[$conn]->connection;
@@ -221,5 +223,5 @@ class WsServer implements HttpServerInterface {
                 $pingedConnections->attach($wsConn);
             }
         });
-   }
+    }
 }

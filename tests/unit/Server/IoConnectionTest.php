@@ -1,13 +1,15 @@
 <?php
+
 namespace Ratchet\Application\Server;
+
 use Amp\Socket\ServerSocket;
 use PHPUnit\Framework\TestCase;
 use Ratchet\Server\IoConnection;
 
 /**
- * @covers Ratchet\Server\IoConnection
+ * @covers \Ratchet\Server\IoConnection
  */
-class IoConnectionTest extends TestCase  {
+class IoConnectionTest extends TestCase {
     protected $sock;
     protected $conn;
 

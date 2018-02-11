@@ -1,13 +1,15 @@
 <?php
+
 namespace Ratchet\Wamp;
+
 use PHPUnit\Framework\TestCase;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\Stub\WsWampServerInterface;
 
 /**
- * @covers Ratchet\Wamp\TopicManager
+ * @covers \Ratchet\Wamp\TopicManager
  */
-class TopicManagerTest extends TestCase  {
+class TopicManagerTest extends TestCase {
     private $mock;
 
     /**
@@ -68,13 +70,13 @@ class TopicManagerTest extends TestCase  {
     }
 
     public function testOnCall() {
-        $id = uniqid();
+        $id = \uniqid();
 
         $this->mock->expects($this->once())->method('onCall')->with(
-            $this->conn
-          , $id
-          , $this->isInstanceOf(Topic::class)
-          , []
+            $this->conn,
+            $id,
+            $this->isInstanceOf(Topic::class),
+            []
         );
 
         $this->mngr->onCall($this->conn, $id, 'new topic', []);
@@ -82,7 +84,8 @@ class TopicManagerTest extends TestCase  {
 
     public function testOnSubscribeCreatesTopicObject() {
         $this->mock->expects($this->once())->method('onSubscribe')->with(
-            $this->conn, $this->isInstanceOf(Topic::class)
+            $this->conn,
+            $this->isInstanceOf(Topic::class)
         );
 
         $this->mngr->onSubscribe($this->conn, 'new topic');
@@ -112,7 +115,8 @@ class TopicManagerTest extends TestCase  {
     public function testUnsubscribeEvent() {
         $name = 'in and out';
         $this->mock->expects($this->once())->method('onUnsubscribe')->with(
-            $this->conn, $this->isInstanceOf(Topic::class)
+            $this->conn,
+            $this->isInstanceOf(Topic::class)
         );
 
         $this->mngr->onSubscribe($this->conn, $name);
@@ -123,7 +127,7 @@ class TopicManagerTest extends TestCase  {
         $name = 'getting sleepy';
         $this->mock->expects($this->exactly(1))->method('onUnsubscribe');
 
-        $this->mngr->onSubscribe($this->conn,   $name);
+        $this->mngr->onSubscribe($this->conn, $name);
         $this->mngr->onUnsubscribe($this->conn, $name);
         $this->mngr->onUnsubscribe($this->conn, $name);
     }
@@ -147,11 +151,11 @@ class TopicManagerTest extends TestCase  {
         $msg = 'Cover all the code!';
 
         $this->mock->expects($this->once())->method('onPublish')->with(
-            $this->conn
-          , $this->isInstanceOf(Topic::class)
-          , $msg
-          , $this->isType('array')
-          , $this->isType('array')
+            $this->conn,
+            $this->isInstanceOf(Topic::class),
+            $msg,
+            $this->isType('array'),
+            $this->isType('array')
         );
 
         $this->mngr->onPublish($this->conn, 'topic coverage', $msg, [], []);
@@ -189,8 +193,7 @@ class TopicManagerTest extends TestCase  {
 
     public static function topicConnExpectationProvider() {
         return [
-            [ 'onClose', 0]
-          , ['onUnsubscribe', 0]
+            [ 'onClose', 0], ['onUnsubscribe', 0]
         ];
     }
 
@@ -202,7 +205,7 @@ class TopicManagerTest extends TestCase  {
         list($topic, $attribute) = $this->topicProvider($topicName);
 
         $this->mngr->onSubscribe($this->conn, $topicName);
-        call_user_func_array([$this->mngr, $methodCall], [$this->conn, $topicName]);
+        \call_user_func_array([$this->mngr, $methodCall], [$this->conn, $topicName]);
 
         $this->assertCount($expectation, $attribute->getValue($this->mngr));
     }
