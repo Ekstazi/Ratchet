@@ -2,8 +2,8 @@
 
 namespace Reamp\WebSocket;
 
-use Reamp\ConnectionInterface;
 use Ratchet\RFC6455\Messaging\MessageInterface;
+use Reamp\ConnectionInterface;
 
 interface MessageCallableInterface {
     public function onMessage(ConnectionInterface $conn, MessageInterface $msg);

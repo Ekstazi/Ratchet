@@ -2,9 +2,9 @@
 
 namespace Reamp\WebSocket;
 
-use Reamp\AbstractConnectionDecorator;
 use Ratchet\RFC6455\Messaging\DataInterface;
 use Ratchet\RFC6455\Messaging\Frame;
+use Reamp\AbstractConnectionDecorator;
 
 /**
  * {@inheritdoc}

@@ -5,11 +5,6 @@ namespace Reamp\WebSocket;
 use Amp\Loop\Driver as LoopInterface;
 use GuzzleHttp\Psr7 as gPsr;
 use Psr\Http\Message\RequestInterface;
-use Reamp\ComponentInterface;
-use Reamp\ConnectionInterface;
-use Reamp\Http\CloseResponseTrait;
-use Reamp\Http\HttpServerInterface;
-use Reamp\MessageComponentInterface as DataComponentInterface;
 use Ratchet\RFC6455\Handshake\RequestVerifier;
 use Ratchet\RFC6455\Handshake\ServerNegotiator;
 use Ratchet\RFC6455\Messaging\CloseFrameChecker;
@@ -17,6 +12,11 @@ use Ratchet\RFC6455\Messaging\Frame;
 use Ratchet\RFC6455\Messaging\FrameInterface;
 use Ratchet\RFC6455\Messaging\MessageBuffer;
 use Ratchet\RFC6455\Messaging\MessageInterface;
+use Reamp\ComponentInterface;
+use Reamp\ConnectionInterface;
+use Reamp\Http\CloseResponseTrait;
+use Reamp\Http\HttpServerInterface;
+use Reamp\MessageComponentInterface as DataComponentInterface;
 
 /**
  * The adapter to handle WebSocket requests/responses
