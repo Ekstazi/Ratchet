@@ -81,8 +81,8 @@ class ServerProtocol implements MessageComponentInterface, WsServerInterface {
 
     /**
      * {@inheritdoc}
-     * @throws \Ratchet\Wamp\Exception
-     * @throws \Ratchet\Wamp\JsonException
+     * @throws \Reamp\Wamp\Exception
+     * @throws \Reamp\Wamp\JsonException
      */
     public function onMessage(ConnectionInterface $from, $msg) {
         $from = $this->connections[$from];

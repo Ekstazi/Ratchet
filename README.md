@@ -1,3 +1,20 @@
+# ReAmp
+What is ReAmp ? It is port of RatchEt to amphp/amp. It was created as fork of original project but add some new features:
+ * Use different namespace
+ * Use amphp by default 
+ * Php7 support
+ * Phpunit 6
+ * Code style
+ 
+There still lack of features but will be done in future:
+ * http request body support (post/put/create) 
+ * http request pipeline support 
+ * psr logging support 
+ * better parsing similar to amp/aerys style
+ * support async and promises in components 
+
+Because code base is similar to Ratchet documentation can be found on original site.
+
 # Ratchet
 
 [![Build Status](https://secure.travis-ci.org/ratchetphp/Ratchet.png?branch=master)](http://travis-ci.org/ratchetphp/Ratchet)
@@ -28,8 +45,8 @@ Need help?  Have a question?  Want to provide feedback?  Write a message on the 
 
 ```php
 <?php
-use Ratchet\MessageComponentInterface;
-use Ratchet\ConnectionInterface;
+use Reamp\MessageComponentInterface;
+use Reamp\ConnectionInterface;
 
     // Make sure composer dependencies have been installed
     require __DIR__ . '/vendor/autoload.php';

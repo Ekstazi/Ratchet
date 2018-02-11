@@ -15,7 +15,7 @@ class OriginCheck implements HttpServerInterface {
     use CloseResponseTrait;
 
     /**
-     * @var \Ratchet\MessageComponentInterface
+     * @var \Reamp\MessageComponentInterface
      */
     protected $_component;
 

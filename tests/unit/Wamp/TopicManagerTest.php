@@ -7,18 +7,18 @@ use Reamp\ConnectionInterface;
 use Reamp\Wamp\Stub\WsWampServerInterface;
 
 /**
- * @covers \Ratchet\Wamp\TopicManager
+ * @covers \Reamp\Wamp\TopicManager
  */
 class TopicManagerTest extends TestCase {
     private $mock;
 
     /**
-     * @var \Ratchet\Wamp\TopicManager
+     * @var \Reamp\Wamp\TopicManager
      */
     private $mngr;
 
     /**
-     * @var \Ratchet\ConnectionInterface
+     * @var \Reamp\ConnectionInterface
      */
     private $conn;
 

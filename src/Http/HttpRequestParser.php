@@ -22,7 +22,7 @@ class HttpRequestParser implements MessageInterface {
     public $maxSize = 4096;
 
     /**
-     * @param \Ratchet\ConnectionInterface $context
+     * @param \Reamp\ConnectionInterface $context
      * @param string                       $data Data stream to buffer
      * @return \Psr\Http\Message\RequestInterface
      * @throws \OverflowException If the message buffer has become too large

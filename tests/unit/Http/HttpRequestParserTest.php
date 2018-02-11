@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
 
 /**
- * @covers \Ratchet\Http\HttpRequestParser
+ * @covers \Reamp\Http\HttpRequestParser
  */
 class HttpRequestParserTest extends TestCase {
     protected $parser;

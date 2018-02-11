@@ -7,9 +7,9 @@ use Reamp\Mock\Connection;
 use Reamp\Mock\WampComponent as TestComponent;
 
 /**
- * @covers \Ratchet\Wamp\ServerProtocol
- * @covers \Ratchet\Wamp\WampServerInterface
- * @covers \Ratchet\Wamp\WampConnection
+ * @covers \Reamp\Wamp\ServerProtocol
+ * @covers \Reamp\Wamp\WampServerInterface
+ * @covers \Reamp\Wamp\WampConnection
  */
 class ServerProtocolTest extends TestCase {
     protected $_comp;

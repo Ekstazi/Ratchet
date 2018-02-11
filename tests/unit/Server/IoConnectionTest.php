@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Reamp\Server\IoConnection;
 
 /**
- * @covers \Ratchet\Server\IoConnection
+ * @covers \Reamp\Server\IoConnection
  */
 class IoConnectionTest extends TestCase {
     protected $sock;

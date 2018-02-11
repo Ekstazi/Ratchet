@@ -7,7 +7,7 @@ use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
 
 /**
- * @covers \Ratchet\Http\OriginCheck
+ * @covers \Reamp\Http\OriginCheck
  */
 class OriginCheckTest extends AbstractMessageComponentTestCase {
     protected $_reqStub;

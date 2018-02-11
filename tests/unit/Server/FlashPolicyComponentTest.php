@@ -7,7 +7,7 @@ use Reamp\ConnectionInterface;
 use Reamp\Server\FlashPolicy;
 
 /**
- * @covers \Ratchet\Server\FlashPolicy
+ * @covers \Reamp\Server\FlashPolicy
  */
 class FlashPolicyComponentTest extends TestCase {
     protected $_policy;

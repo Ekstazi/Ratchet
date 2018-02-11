@@ -6,7 +6,7 @@ use PHPUnit\Framework\Constraint\IsInstanceOf;
 use Reamp\AbstractMessageComponentTestCase;
 
 /**
- * @covers \Ratchet\Wamp\WampServer
+ * @covers \Reamp\Wamp\WampServer
  */
 class WampServerTest extends AbstractMessageComponentTestCase {
     public function getConnectionClassString() {

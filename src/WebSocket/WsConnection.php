@@ -3,8 +3,8 @@
 namespace Reamp\WebSocket;
 
 use Reamp\AbstractConnectionDecorator;
-use Reamp\RFC6455\Messaging\DataInterface;
-use Reamp\RFC6455\Messaging\Frame;
+use Ratchet\RFC6455\Messaging\DataInterface;
+use Ratchet\RFC6455\Messaging\Frame;
 
 /**
  * {@inheritdoc}

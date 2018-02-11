@@ -7,7 +7,7 @@ use Reamp\ConnectionInterface;
 use Reamp\MessageComponentInterface;
 
 /**
- * @covers \Ratchet\Server\IpBlackList
+ * @covers \Reamp\Server\IpBlackList
  */
 class IpBlackListComponentTest extends TestCase {
     protected $blocker;

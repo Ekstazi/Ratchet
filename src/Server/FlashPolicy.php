@@ -77,7 +77,7 @@ class FlashPolicy implements MessageComponentInterface {
     /**
      * Removes all domains from the allowed access list.
      *
-     * @return \Ratchet\Server\FlashPolicy
+     * @return \Reamp\Server\FlashPolicy
      */
     public function clearAllowedAccess() {
         $this->_access      = [];

@@ -6,7 +6,7 @@ use Reamp\ConnectionInterface;
 use Reamp\MessageComponentInterface;
 
 /**
- * A simple Ratchet application that will reply to all messages with the message it received.
+ * A simple ReAmp/Ratchet application that will reply to all messages with the message it received.
  */
 class EchoServer implements MessageComponentInterface {
     public function onOpen(ConnectionInterface $conn) {

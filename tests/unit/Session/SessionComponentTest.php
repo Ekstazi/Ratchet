@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
 /**
- * @covers \Ratchet\Session\SessionProvider
- * @covers \Ratchet\Session\Storage\VirtualSessionStorage
- * @covers \Ratchet\Session\Storage\Proxy\VirtualProxy
+ * @covers \Reamp\Session\SessionProvider
+ * @covers \Reamp\Session\Storage\VirtualSessionStorage
+ * @covers \Reamp\Session\Storage\Proxy\VirtualProxy
  */
 class SessionComponentTest extends AbstractMessageComponentTestCase {
     public function setUp() {

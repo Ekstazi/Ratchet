@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
 
 /**
- * @covers \Ratchet\Wamp\Topic
+ * @covers \Reamp\Wamp\Topic
  */
 class TopicTest extends TestCase {
     public function testGetId() {

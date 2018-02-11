@@ -9,7 +9,7 @@ use Reamp\ConnectionInterface;
 trait CloseResponseTrait {
     /**
      * Close a connection with an HTTP response.
-     * @param \Ratchet\ConnectionInterface $conn
+     * @param \Reamp\ConnectionInterface $conn
      * @param int                          $code HTTP status code
      * @return null
      */

@@ -3,7 +3,7 @@
 namespace Reamp;
 
 /**
- * This is the interface to build a Ratchet application with.
+ * This is the interface to build a ReAmp/Ratchet application with.
  * It implements the decorator pattern to build an application stack.
  */
 interface ComponentInterface {

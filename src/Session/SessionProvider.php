@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
  */
 class SessionProvider implements HttpServerInterface {
     /**
-     * @var \Ratchet\MessageComponentInterface
+     * @var \Reamp\MessageComponentInterface
      */
     protected $_app;
 
@@ -35,15 +35,15 @@ class SessionProvider implements HttpServerInterface {
     protected $_null;
 
     /**
-     * @var \Ratchet\Session\Serialize\HandlerInterface
+     * @var \Reamp\Session\Serialize\HandlerInterface
      */
     protected $_serializer;
 
     /**
-     * @param \Ratchet\Http\HttpServerInterface           $app
+     * @param \Reamp\Http\HttpServerInterface           $app
      * @param \SessionHandlerInterface                    $handler
      * @param array                                       $options
-     * @param \Ratchet\Session\Serialize\HandlerInterface $serializer
+     * @param \Reamp\Session\Serialize\HandlerInterface $serializer
      * @throws \RuntimeException
      */
     public function __construct(HttpServerInterface $app, \SessionHandlerInterface $handler, array $options = [], HandlerInterface $serializer = null) {

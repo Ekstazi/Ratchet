@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 
 class VirtualSessionStorage extends NativeSessionStorage {
     /**
-     * @var \Ratchet\Session\Serialize\HandlerInterface
+     * @var \Reamp\Session\Serialize\HandlerInterface
      */
     protected $_serializer;
 
     /**
      * @param \SessionHandlerInterface                    $handler
      * @param string                                      $sessionId The ID of the session to retrieve
-     * @param \Ratchet\Session\Serialize\HandlerInterface $serializer
+     * @param \Reamp\Session\Serialize\HandlerInterface $serializer
      */
     public function __construct(\SessionHandlerInterface $handler, $sessionId, HandlerInterface $serializer) {
         $this->setSaveHandler($handler);

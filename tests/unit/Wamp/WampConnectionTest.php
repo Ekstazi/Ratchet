@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
 
 /**
- * @covers \Ratchet\Wamp\WampConnection
+ * @covers \Reamp\Wamp\WampConnection
  */
 class WampConnectionTest extends TestCase {
     protected $conn;

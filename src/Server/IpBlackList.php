@@ -12,12 +12,12 @@ class IpBlackList implements MessageComponentInterface {
     protected $_blacklist = [];
 
     /**
-     * @var \Ratchet\MessageComponentInterface
+     * @var \Reamp\MessageComponentInterface
      */
     protected $_decorating;
 
     /**
-     * @param \Ratchet\MessageComponentInterface $component
+     * @param \Reamp\MessageComponentInterface $component
      */
     public function __construct(MessageComponentInterface $component) {
         $this->_decorating = $component;

@@ -10,13 +10,13 @@ use Reamp\ConnectionInterface;
 use Reamp\Http\CloseResponseTrait;
 use Reamp\Http\HttpServerInterface;
 use Reamp\MessageComponentInterface as DataComponentInterface;
-use Reamp\RFC6455\Handshake\RequestVerifier;
-use Reamp\RFC6455\Handshake\ServerNegotiator;
-use Reamp\RFC6455\Messaging\CloseFrameChecker;
-use Reamp\RFC6455\Messaging\Frame;
-use Reamp\RFC6455\Messaging\FrameInterface;
-use Reamp\RFC6455\Messaging\MessageBuffer;
-use Reamp\RFC6455\Messaging\MessageInterface;
+use Ratchet\RFC6455\Handshake\RequestVerifier;
+use Ratchet\RFC6455\Handshake\ServerNegotiator;
+use Ratchet\RFC6455\Messaging\CloseFrameChecker;
+use Ratchet\RFC6455\Messaging\Frame;
+use Ratchet\RFC6455\Messaging\FrameInterface;
+use Ratchet\RFC6455\Messaging\MessageBuffer;
+use Ratchet\RFC6455\Messaging\MessageInterface;
 
 /**
  * The adapter to handle WebSocket requests/responses
@@ -29,7 +29,7 @@ class WsServer implements HttpServerInterface {
 
     /**
      * Decorated component.
-     * @var \Ratchet\ComponentInterface
+     * @var \Reamp\ComponentInterface
      */
     private $delegate;
 
@@ -64,7 +64,7 @@ class WsServer implements HttpServerInterface {
     private $msgCb;
 
     /**
-     * @param \Ratchet\WebSocket\MessageComponentInterface|\Ratchet\MessageComponentInterface $component Your application to run with WebSockets
+     * @param \Reamp\WebSocket\MessageComponentInterface|\Reamp\MessageComponentInterface $component Your application to run with WebSockets
      * @note If you want to enable sub-protocols have your component implement WsServerInterface as well
      */
     public function __construct(ComponentInterface $component) {
@@ -77,7 +77,7 @@ class WsServer implements HttpServerInterface {
                 $this->delegate->onMessage($conn, $msg->getPayload());
             };
         } else {
-            throw new \UnexpectedValueException('Expected instance of \Ratchet\WebSocket\MessageComponentInterface or \Ratchet\MessageComponentInterface');
+            throw new \UnexpectedValueException('Expected instance of \Reamp\WebSocket\MessageComponentInterface or \Reamp\MessageComponentInterface');
         }
 
         if (\bin2hex('✓') !== 'e29c93') {

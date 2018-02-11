@@ -7,8 +7,8 @@ use PHPUnit\Framework\TestCase;
 use Reamp\Mock\ConnectionDecorator;
 
 /**
- * @covers \Ratchet\AbstractConnectionDecorator
- * @covers \Ratchet\ConnectionInterface
+ * @covers \Reamp\AbstractConnectionDecorator
+ * @covers \Reamp\ConnectionInterface
  */
 class AbstractConnectionDecoratorTest extends TestCase {
     protected $mock;

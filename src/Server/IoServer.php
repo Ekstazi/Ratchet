@@ -20,20 +20,20 @@ class IoServer {
     public $loop;
 
     /**
-     * @var \Ratchet\MessageComponentInterface
+     * @var \Reamp\MessageComponentInterface
      */
     public $app;
 
     /**
-     * The socket server the Ratchet Application is run off of.
+     * The socket server the ReAmp Application is run off of.
      * @var ServerInterface
      */
     public $socket;
 
     /**
-     * @param \Ratchet\MessageComponentInterface $app The Ratchet application stack to host
-     * @param ServerInterface $socket The React socket server to run the Ratchet application off of
-     * @param LoopInterface|null $loop The React looper to run the Ratchet application off of
+     * @param \Reamp\MessageComponentInterface $app The ReAmp/Ratchet application stack to host
+     * @param ServerInterface $socket The amp socket server to run the ReAmp/Ratchet application off of
+     * @param LoopInterface|null $loop The amp looper to run the ReAmp/Ratchet application off of
      */
     public function __construct(MessageComponentInterface $app, ServerInterface $socket, LoopInterface $loop = null) {
         if (false === \strpos(PHP_VERSION, "hiphop")) {
@@ -49,7 +49,7 @@ class IoServer {
     }
 
     /**
-     * @param  \Ratchet\MessageComponentInterface $component The application that I/O will call when events are received
+     * @param  \Reamp\MessageComponentInterface $component The application that I/O will call when events are received
      * @param  int $port The port to server sockets on
      * @param  string $address The address to receive sockets on (0.0.0.0 means receive connections from any)
      * @return IoServer

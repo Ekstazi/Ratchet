@@ -6,7 +6,7 @@ use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
 
 /**
- * @covers \Ratchet\Http\HttpServer
+ * @covers \Reamp\Http\HttpServer
  */
 class HttpServerTest extends AbstractMessageComponentTestCase {
     public function setUp() {

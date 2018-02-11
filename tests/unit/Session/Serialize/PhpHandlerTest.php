@@ -5,7 +5,7 @@ namespace Reamp\Session\Serialize;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Ratchet\Session\Serialize\PhpHandler
+ * @covers \Reamp\Session\Serialize\PhpHandler
  */
 class PhpHandlerTest extends TestCase {
     protected $_handler;

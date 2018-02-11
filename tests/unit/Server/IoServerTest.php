@@ -11,7 +11,7 @@ use Reamp\ConnectionInterface;
 use Reamp\MessageComponentInterface;
 
 /**
- * @covers \Ratchet\Server\IoServer
+ * @covers \Reamp\Server\IoServer
  */
 class IoServerTest extends TestCase {
 

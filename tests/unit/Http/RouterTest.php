@@ -17,7 +17,7 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 
 /**
- * @covers \Ratchet\Http\Router
+ * @covers \Reamp\Http\Router
  */
 class RouterTest extends TestCase {
     protected $_router;

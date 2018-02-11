@@ -3,10 +3,10 @@
 namespace Reamp;
 
 /**
- * The version of Ratchet being used.
+ * The version of Reamp(Ratchet) being used.
  * @var string
  */
-const VERSION = 'Reamp(Ratchet/0.4.1)';
+const VERSION = 'Reamp (Ratchet/0.4.1)';
 
 /**
  * A proxy object representing a connection to the application
@@ -16,7 +16,7 @@ interface ConnectionInterface {
     /**
      * Send data to the connection.
      * @param  string $data
-     * @return \Ratchet\ConnectionInterface
+     * @return \Reamp\ConnectionInterface
      */
     public function send($data);
 

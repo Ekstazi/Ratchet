@@ -5,7 +5,7 @@
   , "outdir": "reports/rfc"
 
   , "servers": [
-       {"agent": "Ratchet", "url": "ws://127.0.0.1:8000", "options": {"version": 18}}
+       {"agent": "ReAmp", "url": "ws://127.0.0.1:8000", "options": {"version": 18}}
     ]
 
   , "cases": ["*"]

@@ -2,11 +2,11 @@
 
 namespace Reamp\WebSocket;
 
-use Reamp\RFC6455\Messaging\MessageBuffer;
+use Ratchet\RFC6455\Messaging\MessageBuffer;
 
 class ConnContext {
     /**
-     * @var \Ratchet\WebSocket\WsConnection
+     * @var \Reamp\WebSocket\WsConnection
      */
     public $connection;
 

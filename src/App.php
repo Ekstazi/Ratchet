@@ -29,12 +29,12 @@ class App {
     public $routes;
 
     /**
-     * @var \Ratchet\Server\IoServer
+     * @var \Reamp\Server\IoServer
      */
     public $flashServer;
 
     /**
-     * @var \Ratchet\Server\IoServer
+     * @var \Reamp\Server\IoServer
      */
     protected $_server;
 

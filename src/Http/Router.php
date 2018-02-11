@@ -26,7 +26,7 @@ class Router implements HttpServerInterface {
 
     /**
      * {@inheritdoc}
-     * @throws \UnexpectedValueException If a controller is not \Ratchet\Http\HttpServerInterface
+     * @throws \UnexpectedValueException If a controller is not \Reamp\Http\HttpServerInterface
      */
     public function onOpen(ConnectionInterface $conn, RequestInterface $request = null) {
         if (null === $request) {
@@ -54,7 +54,7 @@ class Router implements HttpServerInterface {
         }
 
         if (!($route['_controller'] instanceof HttpServerInterface)) {
-            throw new \UnexpectedValueException('All routes must implement Ratchet\Http\HttpServerInterface');
+            throw new \UnexpectedValueException('All routes must implement Reamp\Http\HttpServerInterface');
         }
 
         $parameters = [];
