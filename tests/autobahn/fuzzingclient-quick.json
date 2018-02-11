@@ -5,10 +5,10 @@
   , "outdir": "reports/rfc"
 
   , "servers": [
-       {"agent": "Ratchet", "url": "ws://localhost:8000", "options": {"version": 18}}
+       {"agent": "Ratchet", "url": "ws://127.0.0.1:8000", "options": {"version": 18}}
     ]
 
-  , "cases": ["9.6.1"]
+  , "cases": ["*"]
   , "exclude-cases": []
   , "exclude-agent-cases": {}
 }

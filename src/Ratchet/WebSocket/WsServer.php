@@ -206,7 +206,7 @@ class WsServer implements HttpServerInterface {
             }
         };
 
-        $loop->repeat((int)$interval, function() use ($pingedConnections, &$lastPing, $splClearer) {
+        $loop->repeat((int)$interval * 1000, function() use ($pingedConnections, &$lastPing, $splClearer) {
             foreach ($pingedConnections as $wsConn) {
                 $wsConn->close();
             }

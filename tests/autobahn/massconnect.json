@@ -1,0 +1,20 @@
+{
+    "options": {
+        "failByDrop": false,
+        "connections": 1000,
+        "batchsize": 100,
+        "batchdelay": 10,
+        "retrydelay": 10
+    },
+    "outdir": "reports/massconnect",
+    "servers": [
+        {
+            "agent": "Ratchet",
+            "url": "ws://127.0.0.1:8000/",
+            "desc": "Reamp",
+            "options": {
+                "version": 18
+            }
+        }
+    ]
+}
