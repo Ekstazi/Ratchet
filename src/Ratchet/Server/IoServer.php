@@ -1,11 +1,11 @@
 <?php
 namespace Ratchet\Server;
 
+use Amp\Loop;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
 use Amp\Loop\Driver as LoopInterface;
 use Amp\Socket\Server as ServerInterface;
-use Amp\Loop\DriverFactory as LoopFactory;
 use Amp\Socket\ServerSocket as Connection;
 /**
  * Creates an open-ended socket to listen on a port for incoming connections.
@@ -56,7 +56,7 @@ class IoServer
 	 */
 	public static function factory(MessageComponentInterface $component, $port = 80, $address = '0.0.0.0')
 	{
-		$loop = (new LoopFactory)->create();
+		$loop = Loop::get();
 		$socket = \Amp\Socket\listen($address . ':' . $port);
 
 		return new static($component, $socket, $loop);
@@ -68,6 +68,7 @@ class IoServer
 	 */
 	public function run()
 	{
+		// @todo move to constructor
 		if (null === $this->loop) {
 			throw new \RuntimeException("A React Loop was not provided during instantiation");
 		}
@@ -92,10 +93,12 @@ class IoServer
 		$decorated = new IoConnection($conn);
 
 		$this->app->onOpen($decorated);
+		yield $decorated->flushAll();
 
 		try {
 			while ($data = yield $conn->read()) {
 				$this->handleData($data, $decorated);
+				yield $decorated->flushAll();
 			}
 			$this->handleEnd($decorated);
 		} catch (\Throwable $e) {

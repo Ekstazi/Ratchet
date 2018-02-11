@@ -1,5 +1,6 @@
 <?php
 namespace Ratchet\Server;
+use Amp\Promise;
 use Ratchet\ConnectionInterface;
 use Amp\Socket\ServerSocket as AmpConn;
 
@@ -12,6 +13,7 @@ class IoConnection implements ConnectionInterface {
      */
     protected $conn;
 
+	protected $promises = [];
 
     /**
      * @param AmpConn $conn
@@ -24,8 +26,7 @@ class IoConnection implements ConnectionInterface {
      * {@inheritdoc}
      */
     public function send($data) {
-        $this->conn->write($data);
-
+        $this->promises[] = $this->conn->write($data);
         return $this;
     }
 
@@ -33,7 +34,7 @@ class IoConnection implements ConnectionInterface {
      * {@inheritdoc}
      */
     public function close() {
-        $this->conn->end();
+        $this->promises[] = $this->conn->end();
     }
 
     public function id()
@@ -46,5 +47,10 @@ class IoConnection implements ConnectionInterface {
 		return $this->conn->getRemoteAddress();
 	}
 
-
+	public function flushAll():Promise
+	{
+		$active = $this->promises;
+		$this->promises = [];
+		return \Amp\Promise\all($active);
+	}
 }

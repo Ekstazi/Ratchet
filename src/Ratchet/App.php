@@ -1,8 +1,7 @@
 <?php
 namespace Ratchet;
+use Amp\Loop;
 use Amp\Loop\Driver as LoopInterface;
-use Amp\Loop\DriverFactory as LoopFactory;
-use Amp\Socket\Server as Reactor;
 use Ratchet\Http\HttpServerInterface;
 use Ratchet\Http\OriginCheck;
 use Ratchet\Wamp\WampServerInterface;
@@ -66,7 +65,7 @@ class App {
         }
 
         if (null === $loop) {
-            $loop = (new LoopFactory)->create();
+            $loop = Loop::get();
         }
 
         $this->httpHost = $httpHost;
