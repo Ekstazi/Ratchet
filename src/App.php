@@ -11,6 +11,7 @@ use Reamp\Http\Router;
 use Reamp\Server\IoServer;
 use Reamp\Wamp\WampServer;
 use Reamp\Wamp\WampServerInterface;
+use Reamp\WebSocket\MessageComponentInterface;
 use Reamp\WebSocket\WsServer;
 use Reamp\MessageComponentInterface as DataComponentInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
