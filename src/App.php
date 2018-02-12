@@ -28,10 +28,6 @@ class App {
      */
     public $routes;
 
-    /**
-     * @var \Reamp\Server\IoServer
-     */
-    public $flashServer;
 
     /**
      * @var \Reamp\Server\IoServer
@@ -78,17 +74,6 @@ class App {
         $this->routes  = new RouteCollection;
         $this->_server = new IoServer(new HttpServer(new Router(new UrlMatcher($this->routes, new RequestContext))), $socket, $loop);
 
-        $policy = new FlashPolicy;
-        $policy->addAllowedAccess($httpHost, 80);
-        $policy->addAllowedAccess($httpHost, $port);
-
-        if (80 == $port) {
-            $flashUri = '0.0.0.0:843';
-        } else {
-            $flashUri = 8843;
-        }
-        $flashSock = \Amp\Socket\listen($flashUri);
-        $this->flashServer = new IoServer($policy, $flashSock);
     }
 
     /**
@@ -122,13 +107,6 @@ class App {
         }
         if ('*' !== $allowedOrigins[0]) {
             $decorated = new OriginCheck($decorated, $allowedOrigins);
-        }
-
-        //allow origins in flash policy server
-        if (empty($this->flashServer) === false) {
-            foreach ($allowedOrigins as $allowedOrgin) {
-                $this->flashServer->app->addAllowedAccess($allowedOrgin, $this->port);
-            }
         }
 
         $this->routes->add(
