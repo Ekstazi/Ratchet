@@ -8,11 +8,11 @@ use Reamp\Http\HttpServer;
 use Reamp\Http\HttpServerInterface;
 use Reamp\Http\OriginCheck;
 use Reamp\Http\Router;
-use Reamp\Server\FlashPolicy;
 use Reamp\Server\IoServer;
 use Reamp\Wamp\WampServer;
 use Reamp\Wamp\WampServerInterface;
 use Reamp\WebSocket\WsServer;
+use Reamp\MessageComponentInterface as DataComponentInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
@@ -90,7 +90,7 @@ class App {
         } elseif ($controller instanceof WampServerInterface) {
             $decorated = new WsServer(new WampServer($controller));
             $decorated->enableKeepAlive($this->_server->loop);
-        } elseif ($controller instanceof MessageComponentInterface) {
+        } elseif ($controller instanceof MessageComponentInterface || $controller instanceof DataComponentInterface) {
             $decorated = new WsServer($controller);
             $decorated->enableKeepAlive($this->_server->loop);
         } else {
