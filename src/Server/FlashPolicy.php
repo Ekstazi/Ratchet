@@ -2,6 +2,7 @@
 
 namespace Reamp\Server;
 
+use Amp\Promise;
 use Reamp\ConnectionInterface;
 use Reamp\MessageComponentInterface;
 
@@ -115,14 +116,15 @@ class FlashPolicy implements MessageComponentInterface {
     /**
      * {@inheritdoc}
      */
-    public function onMessage(ConnectionInterface $from, $msg) {
+    public function onMessage(ConnectionInterface $from, $msg): Promise {
         if (!$this->_cacheValid) {
             $this->_cache      = $this->renderPolicy()->asXML();
             $this->_cacheValid = true;
         }
 
         $from->send($this->_cache . "\0");
-        $from->close();
+        // close flush all data in socket
+        return $from->close();
     }
 
     /**
@@ -134,8 +136,8 @@ class FlashPolicy implements MessageComponentInterface {
     /**
      * {@inheritdoc}
      */
-    public function onError(ConnectionInterface $conn, \Exception $e) {
-        $conn->close();
+    public function onError(ConnectionInterface $conn, \Exception $e): Promise {
+        return $conn->close();
     }
 
     /**

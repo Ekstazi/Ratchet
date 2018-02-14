@@ -41,6 +41,7 @@ class OriginCheck implements HttpServerInterface {
             return $this->close($conn, 403);
         }
 
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_component->onOpen($conn, $request);
     }
 
@@ -48,6 +49,7 @@ class OriginCheck implements HttpServerInterface {
      * {@inheritdoc}
      */
     public function onMessage(ConnectionInterface $from, $msg) {
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_component->onMessage($from, $msg);
     }
 
@@ -55,6 +57,7 @@ class OriginCheck implements HttpServerInterface {
      * {@inheritdoc}
      */
     public function onClose(ConnectionInterface $conn) {
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_component->onClose($conn);
     }
 
@@ -62,6 +65,7 @@ class OriginCheck implements HttpServerInterface {
      * {@inheritdoc}
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_component->onError($conn, $e);
     }
 }

@@ -1,11 +1,12 @@
 <?php
+use Amp\Promise;
 use Reamp\ConnectionInterface;
 
 require \dirname(\dirname(\dirname(__DIR__))) . '/vendor/autoload.php';
 
 class BinaryEcho implements \Reamp\WebSocket\MessageComponentInterface {
-    public function onMessage(ConnectionInterface $from, \Ratchet\RFC6455\Messaging\MessageInterface $msg) {
-        $from->send($msg);
+    public function onMessage(ConnectionInterface $from, \Ratchet\RFC6455\Messaging\MessageInterface $msg): Promise {
+        return $from->send($msg);
     }
 
     public function onOpen(ConnectionInterface $conn) {

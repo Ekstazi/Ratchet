@@ -2,6 +2,7 @@
 
 namespace Reamp\Wamp;
 
+use Amp\Promise;
 use Reamp\AbstractConnectionDecorator;
 use Reamp\ConnectionInterface;
 use Reamp\Wamp\ServerProtocol as WAMP;
@@ -22,6 +23,7 @@ class WampConnection extends AbstractConnectionDecorator {
         $this->WAMP->sessionId = \str_replace('.', '', \uniqid(\mt_rand(), true));
         $this->WAMP->prefixes  = [];
 
+        // another send will flush this buffer
         $this->send(\json_encode([WAMP::MSG_WELCOME, $this->WAMP->sessionId, 1, \Reamp\VERSION]));
     }
 
@@ -31,7 +33,7 @@ class WampConnection extends AbstractConnectionDecorator {
      * @param array $data an object or array
      * @return WampConnection
      */
-    public function callResult($id, $data = []) {
+    public function callResult($id, $data = []): Promise {
         return $this->send(\json_encode([WAMP::MSG_CALL_RESULT, $id, $data]));
     }
 
@@ -43,7 +45,7 @@ class WampConnection extends AbstractConnectionDecorator {
      * @param string $details An optional human readable detail message to send back
      * @return WampConnection
      */
-    public function callError($id, $errorUri, $desc = '', $details = null) {
+    public function callError($id, $errorUri, $desc = '', $details = null): Promise {
         if ($errorUri instanceof Topic) {
             $errorUri = (string) $errorUri;
         }
@@ -62,7 +64,7 @@ class WampConnection extends AbstractConnectionDecorator {
      * @param mixed  $msg   Data to send with the event.  Anything that is json'able
      * @return WampConnection
      */
-    public function event($topic, $msg) {
+    public function event($topic, $msg): Promise {
         return $this->send(\json_encode([WAMP::MSG_EVENT, (string) $topic, $msg]));
     }
 
@@ -71,7 +73,7 @@ class WampConnection extends AbstractConnectionDecorator {
      * @param string $uri
      * @return WampConnection
      */
-    public function prefix($curie, $uri) {
+    public function prefix($curie, $uri): Promise {
         $this->WAMP->prefixes[$curie] = (string) $uri;
 
         return $this->send(\json_encode([WAMP::MSG_PREFIX, $curie, (string) $uri]));
@@ -101,16 +103,14 @@ class WampConnection extends AbstractConnectionDecorator {
     /**
      * @internal
      */
-    public function send($data) {
-        $this->getConnection()->send($data);
-
-        return $this;
+    public function send($data): Promise {
+        return $this->getConnection()->send($data);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function close($opt = null) {
-        $this->getConnection()->close($opt);
+    public function close($opt = null): Promise {
+        return $this->getConnection()->close($opt);
     }
 }

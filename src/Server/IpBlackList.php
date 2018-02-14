@@ -82,7 +82,7 @@ class IpBlackList implements MessageComponentInterface {
         if ($this->isBlocked($conn->getRemoteAddress())) {
             return $conn->close();
         }
-
+        // simply proxy result of handler
         return $this->_decorating->onOpen($conn);
     }
 
@@ -98,7 +98,8 @@ class IpBlackList implements MessageComponentInterface {
      */
     public function onClose(ConnectionInterface $conn) {
         if (!$this->isBlocked($conn->getRemoteAddress())) {
-            $this->_decorating->onClose($conn);
+            // simply proxy result of handler
+            return $this->_decorating->onClose($conn);
         }
     }
 
@@ -107,7 +108,8 @@ class IpBlackList implements MessageComponentInterface {
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
         if (!$this->isBlocked($conn->getRemoteAddress())) {
-            $this->_decorating->onError($conn, $e);
+            // simply proxy result of handler
+            return $this->_decorating->onError($conn, $e);
         }
     }
 }

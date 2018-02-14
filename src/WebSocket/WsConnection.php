@@ -2,6 +2,9 @@
 
 namespace Reamp\WebSocket;
 
+use Amp\Coroutine;
+use Amp\Promise;
+use Amp\Success;
 use Ratchet\RFC6455\Messaging\DataInterface;
 use Ratchet\RFC6455\Messaging\Frame;
 use Reamp\AbstractConnectionDecorator;
@@ -14,30 +17,39 @@ class WsConnection extends AbstractConnectionDecorator {
     /**
      * {@inheritdoc}
      */
-    public function send($msg) {
+    public function send($msg): Promise {
         if (!$this->WebSocket->closing) {
             if (!($msg instanceof DataInterface)) {
                 $msg = new Frame($msg);
             }
 
-            $this->getConnection()->send($msg->getContents());
+            return $this->getConnection()->send($msg->getContents());
         }
 
-        return $this;
+        return new Success();
     }
 
     /**
      * @param int|\Ratchet\RFC6455\Messaging\DataInterface
+     * @return Promise
      */
-    public function close($code = 1000) {
+    public function close($code = 1000): Promise {
         if ($this->WebSocket->closing) {
-            return;
+            return new Success();
         }
 
+        return new Coroutine($this->closeWebSocket($code));
+    }
+
+    /**
+     * @param $code
+     * @return \Generator
+     */
+    protected function closeWebSocket($code): \Generator {
         if ($code instanceof DataInterface) {
-            $this->send($code);
+            yield $this->send($code);
         } else {
-            $this->send(new Frame(\pack('n', $code), true, Frame::OP_CLOSE));
+            yield $this->send(new Frame(\pack('n', $code), true, Frame::OP_CLOSE));
         }
 
         $this->getConnection()->close();

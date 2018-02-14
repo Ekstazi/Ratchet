@@ -2,6 +2,7 @@
 
 namespace Reamp\Server;
 
+use Amp\Promise;
 use Reamp\ConnectionInterface;
 use Reamp\MessageComponentInterface;
 
@@ -12,14 +13,14 @@ class EchoServer implements MessageComponentInterface {
     public function onOpen(ConnectionInterface $conn) {
     }
 
-    public function onMessage(ConnectionInterface $from, $msg) {
-        $from->send($msg);
+    public function onMessage(ConnectionInterface $from, $msg): Promise {
+        return $from->send($msg);
     }
 
     public function onClose(ConnectionInterface $conn) {
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e) {
-        $conn->close();
+    public function onError(ConnectionInterface $conn, \Exception $e): Promise {
+        return $conn->close();
     }
 }

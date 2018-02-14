@@ -76,7 +76,8 @@ class ServerProtocol implements MessageComponentInterface, WsServerInterface {
         $decor = new WampConnection($conn);
         $this->connections->attach($conn, $decor);
 
-        $this->_decorating->onOpen($decor);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->_decorating->onOpen($decor);
     }
 
     /**
@@ -113,16 +114,16 @@ class ServerProtocol implements MessageComponentInterface, WsServerInterface {
                     $json = $json[0];
                 }
 
-                $this->_decorating->onCall($from, $callID, $from->getUri($procURI), $json);
-            break;
+                // proxy component handler onOpen so it can use async or sync context
+                return $this->_decorating->onCall($from, $callID, $from->getUri($procURI), $json);
 
             case static::MSG_SUBSCRIBE:
-                $this->_decorating->onSubscribe($from, $from->getUri($json[1]));
-            break;
+                // proxy component handler onOpen so it can use async or sync context
+                return $this->_decorating->onSubscribe($from, $from->getUri($json[1]));
 
             case static::MSG_UNSUBSCRIBE:
-                $this->_decorating->onUnSubscribe($from, $from->getUri($json[1]));
-            break;
+                // proxy component handler onOpen so it can use async or sync context
+                return $this->_decorating->onUnSubscribe($from, $from->getUri($json[1]));
 
             case static::MSG_PUBLISH:
                 $exclude  = (\array_key_exists(3, $json) ? $json[3] : null);
@@ -136,8 +137,8 @@ class ServerProtocol implements MessageComponentInterface, WsServerInterface {
 
                 $eligible = (\array_key_exists(4, $json) ? $json[4] : []);
 
-                $this->_decorating->onPublish($from, $from->getUri($json[1]), $json[2], $exclude, $eligible);
-            break;
+                // proxy component handler onOpen so it can use async or sync context
+                return $this->_decorating->onPublish($from, $from->getUri($json[1]), $json[2], $exclude, $eligible);
 
             default:
                 throw new Exception('Invalid WAMP message type');
@@ -151,13 +152,15 @@ class ServerProtocol implements MessageComponentInterface, WsServerInterface {
         $decor = $this->connections[$conn];
         $this->connections->detach($conn);
 
-        $this->_decorating->onClose($decor);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->_decorating->onClose($decor);
     }
 
     /**
      * {@inheritdoc}
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_decorating->onError($this->connections[$conn], $e);
     }
 }

@@ -15,8 +15,6 @@ class IoConnection implements ConnectionInterface {
      */
     protected $conn;
 
-    protected $promises = [];
-
     /**
      * @param AmpConn $conn
      */
@@ -27,16 +25,15 @@ class IoConnection implements ConnectionInterface {
     /**
      * {@inheritdoc}
      */
-    public function send($data) {
-        $this->promises[] = $this->conn->write($data);
-        return $this;
+    public function send($data): Promise {
+        return $this->conn->write($data);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function close() {
-        $this->promises[] = $this->conn->end();
+    public function close(): Promise {
+        return $this->conn->end();
     }
 
     public function id() {
@@ -45,11 +42,5 @@ class IoConnection implements ConnectionInterface {
 
     public function getRemoteAddress() {
         return $this->conn->getRemoteAddress();
-    }
-
-    public function flushAll(): Promise {
-        $active = $this->promises;
-        $this->promises = [];
-        return \Amp\Promise\all($active);
     }
 }

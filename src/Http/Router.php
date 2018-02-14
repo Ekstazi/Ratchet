@@ -68,14 +68,16 @@ class Router implements HttpServerInterface {
         $request = $request->withUri($uri->withQuery(gPsr\build_query($parameters)));
 
         $conn->controller = $route['_controller'];
-        $conn->controller->onOpen($conn, $request);
+        // proxy component handler onOpen so it can use async or sync context
+        return $conn->controller->onOpen($conn, $request);
     }
 
     /**
      * {@inheritdoc}
      */
     public function onMessage(ConnectionInterface $from, $msg) {
-        $from->controller->onMessage($from, $msg);
+        // proxy component handler onOpen so it can use async or sync context
+        return $from->controller->onMessage($from, $msg);
     }
 
     /**
@@ -83,7 +85,8 @@ class Router implements HttpServerInterface {
      */
     public function onClose(ConnectionInterface $conn) {
         if (isset($conn->controller)) {
-            $conn->controller->onClose($conn);
+            // proxy component handler onOpen so it can use async or sync context
+            return $conn->controller->onClose($conn);
         }
     }
 
@@ -92,7 +95,8 @@ class Router implements HttpServerInterface {
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
         if (isset($conn->controller)) {
-            $conn->controller->onError($conn, $e);
+            // proxy component handler onOpen so it can use async or sync context
+            return $conn->controller->onError($conn, $e);
         }
     }
 }

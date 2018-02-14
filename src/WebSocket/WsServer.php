@@ -70,11 +70,11 @@ class WsServer implements HttpServerInterface {
     public function __construct(ComponentInterface $component) {
         if ($component instanceof MessageComponentInterface) {
             $this->msgCb = function (ConnectionInterface $conn, MessageInterface $msg) {
-                $this->delegate->onMessage($conn, $msg);
+                return \Amp\call([$this->delegate, 'onMessage'], $conn, $msg);
             };
         } elseif ($component instanceof DataComponentInterface) {
             $this->msgCb = function (ConnectionInterface $conn, MessageInterface $msg) {
-                $this->delegate->onMessage($conn, $msg->getPayload());
+                return \Amp\call([$this->delegate, 'onMessage'], $conn, $msg->getPayload());
             };
         } else {
             throw new \UnexpectedValueException('Expected instance of \Reamp\WebSocket\MessageComponentInterface or \Reamp\MessageComponentInterface');
@@ -141,6 +141,7 @@ class WsServer implements HttpServerInterface {
 
         $this->connections->attach($conn, new ConnContext($wsConn, $streamer));
 
+        // proxy component handler onOpen so it can use async or sync context
         return $this->delegate->onOpen($wsConn);
     }
 
@@ -163,7 +164,8 @@ class WsServer implements HttpServerInterface {
             $context = $this->connections[$conn];
             $this->connections->detach($conn);
 
-            $this->delegate->onClose($context->connection);
+            // proxy component handler onOpen so it can use async or sync context
+            return $this->delegate->onClose($context->connection);
         }
     }
 
@@ -172,10 +174,10 @@ class WsServer implements HttpServerInterface {
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
         if ($this->connections->contains($conn)) {
-            $this->delegate->onError($this->connections[$conn]->connection, $e);
-        } else {
-            $conn->close();
+            // proxy component handler onOpen so it can use async or sync context
+            return $this->delegate->onError($this->connections[$conn]->connection, $e);
         }
+        return $conn->close();
     }
 
     public function onControlFrame(FrameInterface $frame, WsConnection $conn) {

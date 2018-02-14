@@ -2,6 +2,7 @@
 
 namespace Reamp\Mock;
 
+use Amp\Promise;
 use Reamp\AbstractConnectionDecorator;
 
 class ConnectionDecorator extends AbstractConnectionDecorator {
@@ -9,15 +10,15 @@ class ConnectionDecorator extends AbstractConnectionDecorator {
         'write' => '', 'end'   => false
     ];
 
-    public function send($data) {
+    public function send($data): Promise {
         $this->last[__FUNCTION__] = $data;
 
-        $this->getConnection()->send($data);
+        return $this->getConnection()->send($data);
     }
 
-    public function close() {
+    public function close(): Promise {
         $this->last[__FUNCTION__] = true;
 
-        $this->getConnection()->close();
+        return $this->getConnection()->close();
     }
 }

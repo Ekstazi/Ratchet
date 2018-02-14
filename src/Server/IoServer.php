@@ -2,8 +2,10 @@
 
 namespace Reamp\Server;
 
+use Amp\Coroutine;
 use Amp\Loop;
 use Amp\Loop\Driver as LoopInterface;
+use Amp\Promise;
 use Amp\Socket\Server as ServerInterface;
 use Amp\Socket\ServerSocket as Connection;
 use Reamp\ConnectionInterface;
@@ -73,7 +75,8 @@ class IoServer {
 
         $this->loop->defer(function () {
             while ($connection = yield $this->socket->accept()) {
-                \Amp\asyncCall([$this, 'handleConnect'], $connection);
+                $this->handleConnect($connection);
+                //\Amp\asyncCall([$this, 'handleConnect'], $connection);
             }
         });
 
@@ -83,36 +86,57 @@ class IoServer {
     }
 
     /**
-     * Triggered when a new connection is received from React.
+     * Triggered when a new connection is received from Amp.
      * @param Connection $conn
+     * @return Promise
      */
-    public function handleConnect($conn) {
+    public function handleConnect($conn): Promise {
+        return new Coroutine($this->onConnect($conn));
+    }
+
+    /**
+     * Triggered when a new connection is received from Amp.
+     * @param Connection $conn
+     * @return \Generator
+     */
+    protected function onConnect($conn): \Generator {
         $decorated = new IoConnection($conn);
 
-        $this->app->onOpen($decorated);
-        yield $decorated->flushAll();
+        // message component can use promises or amp style coroutines.
+        yield \Amp\call([$this->app, 'onOpen'], $decorated);
 
         try {
             while ($data = yield $conn->read()) {
-                $this->handleData($data, $decorated);
-                yield $decorated->flushAll();
+                yield $this->handleData($data, $decorated);
             }
-            $this->handleEnd($decorated);
+            yield $this->handleEnd($decorated);
         } catch (\Throwable $e) {
-            $this->handleError($e, $decorated);
+            yield $this->handleError($e, $decorated);
         }
     }
 
     /**
-     * Data has been received from React.
+     * Data has been received from Amp.
      * @param string $data
      * @param ConnectionInterface $conn
+     * @return Promise
      */
-    public function handleData($data, $conn) {
+    public function handleData($data, $conn): Promise {
+        return new Coroutine($this->onData($data, $conn));
+    }
+
+    /**
+     * Data has been received from Amp.
+     * @param string $data
+     * @param ConnectionInterface $conn
+     * @return  \Generator
+     */
+    protected function onData($data, $conn): \Generator {
         try {
-            $this->app->onMessage($conn, $data);
+            // message component can use promises or amp style coroutines.
+            yield \Amp\call([$this->app, 'onMessage'], $conn, $data);
         } catch (\Exception $e) {
-            $this->handleError($e, $conn);
+            yield $this->handleError($e, $conn);
         }
     }
 
@@ -120,20 +144,34 @@ class IoServer {
      * An error has occurred, let the listening application know.
      * @param \Throwable $e
      * @param ConnectionInterface $conn
+     * @return Promise
+     *
      */
-    public function handleError(\Throwable $e, $conn) {
-        $this->app->onError($conn, $e);
+    public function handleError(\Throwable $e, $conn): Promise {
+        // message component can use promises or amp style coroutines.
+        return \Amp\call([$this->app, 'onError'], $conn, $e);
     }
 
     /**
      * A connection has been closed by React.
      * @param ConnectionInterface $conn
+     * @return Promise
      */
-    public function handleEnd($conn) {
+    public function handleEnd($conn): Promise {
+        return new Coroutine($this->onClose($conn));
+    }
+
+    /**
+     * A connection has been closed by React.
+     * @param ConnectionInterface $conn
+     * @return \Generator
+     */
+    protected function onClose($conn): \Generator {
         try {
-            $this->app->onClose($conn);
+            // message component can use promises or amp style coroutines.
+            yield \Amp\call([$this->app, 'onClose'], $conn);
         } catch (\Exception $e) {
-            $this->handleError($e, $conn);
+            yield $this->handleError($e, $conn);
         }
 
         unset($conn);

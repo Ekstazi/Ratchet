@@ -49,11 +49,12 @@ class HttpServer implements MessageComponentInterface {
             }
 
             $from->httpHeadersReceived = true;
-
+            // proxy component handler onOpen so it can use async or sync context
             return $this->_httpServer->onOpen($from, $request);
         }
 
-        $this->_httpServer->onMessage($from, $msg);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->_httpServer->onMessage($from, $msg);
     }
 
     /**
@@ -61,7 +62,8 @@ class HttpServer implements MessageComponentInterface {
      */
     public function onClose(ConnectionInterface $conn) {
         if ($conn->httpHeadersReceived) {
-            $this->_httpServer->onClose($conn);
+            // proxy component handler onOpen so it can use async or sync context
+            return $this->_httpServer->onClose($conn);
         }
     }
 
@@ -70,9 +72,9 @@ class HttpServer implements MessageComponentInterface {
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
         if ($conn->httpHeadersReceived) {
-            $this->_httpServer->onError($conn, $e);
-        } else {
-            $this->close($conn, 500);
+            // proxy component handler onOpen so it can use async or sync context
+            return $this->_httpServer->onError($conn, $e);
         }
+        return $this->close($conn, 500);
     }
 }

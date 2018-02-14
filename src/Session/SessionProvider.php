@@ -98,6 +98,7 @@ class SessionProvider implements HttpServerInterface {
             $conn->Session->start();
         }
 
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_app->onOpen($conn, $request);
     }
 
@@ -105,6 +106,7 @@ class SessionProvider implements HttpServerInterface {
      * {@inheritdoc}
      */
     public function onMessage(ConnectionInterface $from, $msg) {
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_app->onMessage($from, $msg);
     }
 
@@ -114,6 +116,7 @@ class SessionProvider implements HttpServerInterface {
     public function onClose(ConnectionInterface $conn) {
         // "close" session for Connection
 
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_app->onClose($conn);
     }
 
@@ -121,6 +124,7 @@ class SessionProvider implements HttpServerInterface {
      * {@inheritdoc}
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
+        // proxy component handler onOpen so it can use async or sync context
         return $this->_app->onError($conn, $e);
     }
 

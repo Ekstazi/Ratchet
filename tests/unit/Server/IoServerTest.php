@@ -129,7 +129,7 @@ class IoServerTest extends TestCase {
         $this->server->handleError($err, $decor);
     }
 
-    public function onErrorCalledWhenExceptionThrown() {
+    public function testonErrorCalledWhenExceptionThrown() {
         $this->markTestIncomplete("Need to learn how to throw an exception from a mock");
 
         $conn = $this->createMock(ServerSocket::class);

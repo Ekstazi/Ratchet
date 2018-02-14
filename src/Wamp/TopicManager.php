@@ -25,14 +25,16 @@ class TopicManager implements WsServerInterface, WampServerInterface {
      */
     public function onOpen(ConnectionInterface $conn) {
         $conn->WAMP->subscriptions = new \SplObjectStorage;
-        $this->app->onOpen($conn);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->app->onOpen($conn);
     }
 
     /**
      * {@inheritdoc}
      */
     public function onCall(ConnectionInterface $conn, $id, $topic, array $params) {
-        $this->app->onCall($conn, $id, $this->getTopic($topic), $params);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->app->onCall($conn, $id, $this->getTopic($topic), $params);
     }
 
     /**
@@ -47,7 +49,8 @@ class TopicManager implements WsServerInterface, WampServerInterface {
 
         $this->topicLookup[$topic]->add($conn);
         $conn->WAMP->subscriptions->attach($topicObj);
-        $this->app->onSubscribe($conn, $topicObj);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->app->onSubscribe($conn, $topicObj);
     }
 
     /**
@@ -62,32 +65,37 @@ class TopicManager implements WsServerInterface, WampServerInterface {
 
         $this->cleanTopic($topicObj, $conn);
 
-        $this->app->onUnsubscribe($conn, $topicObj);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->app->onUnsubscribe($conn, $topicObj);
     }
 
     /**
      * {@inheritdoc}
      */
     public function onPublish(ConnectionInterface $conn, $topic, $event, array $exclude, array $eligible) {
-        $this->app->onPublish($conn, $this->getTopic($topic), $event, $exclude, $eligible);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->app->onPublish($conn, $this->getTopic($topic), $event, $exclude, $eligible);
     }
 
     /**
      * {@inheritdoc}
      */
     public function onClose(ConnectionInterface $conn) {
-        $this->app->onClose($conn);
+        $result = $this->app->onClose($conn);
 
         foreach ($this->topicLookup as $topic) {
             $this->cleanTopic($topic, $conn);
         }
+        // proxy component handler onOpen so it can use async or sync context
+        return $result;
     }
 
     /**
      * {@inheritdoc}
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
-        $this->app->onError($conn, $e);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->app->onError($conn, $e);
     }
 
     /**

@@ -6,6 +6,8 @@ namespace Reamp;
  * The version of Reamp(Ratchet) being used.
  * @var string
  */
+use Amp\Promise;
+
 const VERSION = 'Reamp (Ratchet/0.4.1)';
 
 /**
@@ -16,14 +18,14 @@ interface ConnectionInterface {
     /**
      * Send data to the connection.
      * @param  string $data
-     * @return \Reamp\ConnectionInterface
+     * @return Promise
      */
-    public function send($data);
+    public function send($data): Promise;
 
     /**
      * Close the connection.
      */
-    public function close();
+    public function close(): Promise;
 
     /**
      * @return int Connection id

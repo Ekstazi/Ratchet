@@ -29,8 +29,4 @@ class IoConnectionTest extends TestCase {
         $this->sock->expects($this->once())->method('write')->with($msg);
         $this->conn->send($msg);
     }
-
-    public function testSendReturnsSelf() {
-        $this->assertSame($this->conn, $this->conn->send('fluent interface'));
-    }
 }

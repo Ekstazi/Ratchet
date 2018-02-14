@@ -32,7 +32,8 @@ class WampServer implements MessageComponentInterface, WsServerInterface {
      * {@inheritdoc}
      */
     public function onOpen(ConnectionInterface $conn) {
-        $this->wampProtocol->onOpen($conn);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->wampProtocol->onOpen($conn);
     }
 
     /**
@@ -40,9 +41,11 @@ class WampServer implements MessageComponentInterface, WsServerInterface {
      */
     public function onMessage(ConnectionInterface $conn, $msg) {
         try {
-            $this->wampProtocol->onMessage($conn, $msg);
+            // @todo may be need to wrap in amp call
+            // proxy component handler onOpen so it can use async or sync context
+            return $this->wampProtocol->onMessage($conn, $msg);
         } catch (Exception $we) {
-            $conn->close(1007);
+            return $conn->close(1007);
         }
     }
 
@@ -50,14 +53,16 @@ class WampServer implements MessageComponentInterface, WsServerInterface {
      * {@inheritdoc}
      */
     public function onClose(ConnectionInterface $conn) {
-        $this->wampProtocol->onClose($conn);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->wampProtocol->onClose($conn);
     }
 
     /**
      * {@inheritdoc}
      */
     public function onError(ConnectionInterface $conn, \Exception $e) {
-        $this->wampProtocol->onError($conn, $e);
+        // proxy component handler onOpen so it can use async or sync context
+        return $this->wampProtocol->onError($conn, $e);
     }
 
     /**

@@ -8,12 +8,12 @@ use Reamp\Http\HttpServer;
 use Reamp\Http\HttpServerInterface;
 use Reamp\Http\OriginCheck;
 use Reamp\Http\Router;
+use Reamp\MessageComponentInterface as DataComponentInterface;
 use Reamp\Server\IoServer;
 use Reamp\Wamp\WampServer;
 use Reamp\Wamp\WampServerInterface;
 use Reamp\WebSocket\MessageComponentInterface;
 use Reamp\WebSocket\WsServer;
-use Reamp\MessageComponentInterface as DataComponentInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
@@ -74,7 +74,6 @@ class App {
 
         $this->routes  = new RouteCollection;
         $this->_server = new IoServer(new HttpServer(new Router(new UrlMatcher($this->routes, new RequestContext))), $socket, $loop);
-
     }
 
     /**
