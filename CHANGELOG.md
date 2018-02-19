@@ -15,6 +15,7 @@ CHANGELOG
   * Router use ServerRequestInterface::queryParams insteadof Uri::query
   * cookie support
   * support final data in close
+  * ConnectionInterface doesn not forgot id and address
 
 * 0.1 
   * Port ioserver to amphp
