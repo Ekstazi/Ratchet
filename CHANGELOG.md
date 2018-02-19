@@ -7,7 +7,15 @@ CHANGELOG
 * "BF": Bug fix
 
 ---
-* amphp 
+* 0.1.1-dev
+  * support async in ComponentInterface
+  * ConnectionInterface now async also
+  * use ServerRequestInterface insteadof RequestInterface
+  * App no longer support flash policy
+  * Router use ServerRequestInterface::queryParams insteadof Uri::query
+  * cookie support
+
+* 0.1 
   * Port ioserver to amphp
   * Update phpunit
   * add code style file
