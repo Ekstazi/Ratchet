@@ -15,11 +15,20 @@ class IoConnection implements ConnectionInterface {
      */
     protected $conn;
 
+    private $id;
+
+    private $remoteAddress;
+
+    private $localAddress;
+
     /**
      * @param AmpConn $conn
      */
     public function __construct(AmpConn $conn) {
         $this->conn = $conn;
+        $this->id = (int) $this->conn->getResource();
+        $this->remoteAddress = $this->conn->getRemoteAddress();
+        $this->localAddress = $this->conn->getLocalAddress();
     }
 
     /**
@@ -37,14 +46,14 @@ class IoConnection implements ConnectionInterface {
     }
 
     public function id() {
-        return (int) $this->conn->getResource();
+        return (int) $this->id;
     }
 
     public function getRemoteAddress() {
-        return $this->conn->getRemoteAddress();
+        return $this->remoteAddress;
     }
 
     public function getLocalAddress() {
-        return $this->conn->getLocalAddress();
+        return $this->localAddress;
     }
 }
