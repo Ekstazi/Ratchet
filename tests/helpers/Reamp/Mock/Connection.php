@@ -18,7 +18,10 @@ class Connection implements ConnectionInterface {
         return new Success();
     }
 
-    public function close(): Promise {
+    public function close($data = null): Promise {
+        if ($data) {
+            $this->send($data);
+        }
         $this->last[__FUNCTION__] = true;
         return new Success();
     }

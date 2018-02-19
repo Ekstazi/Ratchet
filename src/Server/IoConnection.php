@@ -32,8 +32,8 @@ class IoConnection implements ConnectionInterface {
     /**
      * {@inheritdoc}
      */
-    public function close(): Promise {
-        return $this->conn->end();
+    public function close($data = null): Promise {
+        return $this->conn->end($data ?? '');
     }
 
     public function id() {

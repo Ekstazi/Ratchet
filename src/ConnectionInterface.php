@@ -24,8 +24,10 @@ interface ConnectionInterface {
 
     /**
      * Close the connection.
+     * @param string $data
+     * @return Promise
      */
-    public function close(): Promise;
+    public function close($data = null): Promise;
 
     /**
      * @return int Connection id

@@ -16,7 +16,10 @@ class ConnectionDecorator extends AbstractConnectionDecorator {
         return $this->getConnection()->send($data);
     }
 
-    public function close(): Promise {
+    public function close($data = null): Promise {
+        if ($data) {
+            $this->send($data);
+        }
         $this->last[__FUNCTION__] = true;
 
         return $this->getConnection()->close();

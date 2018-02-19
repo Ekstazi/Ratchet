@@ -14,6 +14,7 @@ CHANGELOG
   * App no longer support flash policy
   * Router use ServerRequestInterface::queryParams insteadof Uri::query
   * cookie support
+  * support final data in close
 
 * 0.1 
   * Port ioserver to amphp
