@@ -36,4 +36,6 @@ interface ConnectionInterface {
      * @return string Remote address
      */
     public function getRemoteAddress();
+
+    public function getLocalAddress();
 }

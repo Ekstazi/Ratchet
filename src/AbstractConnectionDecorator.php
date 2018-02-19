@@ -47,4 +47,8 @@ abstract class AbstractConnectionDecorator implements ConnectionInterface {
     public function getRemoteAddress() {
         return $this->wrappedConn->getRemoteAddress();
     }
+
+    public function getLocalAddress() {
+        return $this->wrappedConn->getLocalAddress();
+    }
 }

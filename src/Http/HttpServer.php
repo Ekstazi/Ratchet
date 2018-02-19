@@ -57,6 +57,8 @@ class HttpServer implements MessageComponentInterface {
         return $this->_httpServer->onMessage($from, $msg);
     }
 
+
+
     /**
      * {@inheritdoc}
      */

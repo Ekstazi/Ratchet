@@ -30,4 +30,8 @@ class Connection implements ConnectionInterface {
     public function getRemoteAddress() {
         return $this->remoteAddress;
     }
+
+    public function getLocalAddress() {
+        return '0.0.0.0';
+    }
 }

@@ -43,4 +43,8 @@ class IoConnection implements ConnectionInterface {
     public function getRemoteAddress() {
         return $this->conn->getRemoteAddress();
     }
+
+    public function getLocalAddress() {
+        return $this->conn->getLocalAddress();
+    }
 }
