@@ -42,13 +42,25 @@ class RouterTest extends TestCase {
         $this->_router  = new Router($this->_matcher);
 
         $this->_uri->expects($this->any())->method('getPath')->will($this->returnValue('ws://doesnt.matter/'));
-        $this->_uri->expects($this->any())->method('withQuery')->with($this->callback(function ($val) {
-            $this->setResult($val);
 
+        $query = [];
+        $this->_uri->expects($this->any())->method('withQuery')->with($this->callback(function ($val) use (&$query) {
+            $query = $val;
             return true;
         }))->will($this->returnSelf());
-        $this->_uri->expects($this->any())->method('getQuery')->will($this->returnCallback([$this, 'getResult']));
+        $this->_uri->expects($this->any())->method('getQuery')->will($this->returnCallback(function () use (&$query) {
+            return $query;
+        }));
         $this->_req->expects($this->any())->method('withUri')->will($this->returnSelf());
+
+        $queryParams = [];
+        $this->_req->expects($this->any())->method('getQueryParams')->will($this->returnCallback(function () use (&$queryParams) {
+            return $queryParams;
+        }));
+        $this->_req->expects($this->any())->method('withQueryParams')->with($this->callback(function ($params) use (&$queryParams) {
+            $queryParams = $params;
+            return true;
+        }))->will($this->returnSelf());
     }
 
     public function testFourOhFour() {
@@ -125,7 +137,7 @@ class RouterTest extends TestCase {
 
         $router->onOpen($conn, $this->_req);
 
-        $this->assertEquals('foo=bar&baz=qux', $this->_req->getUri()->getQuery());
+        $this->assertEquals(\GuzzleHttp\Psr7\parse_query('foo=bar&baz=qux'), $this->_req->getQueryParams());
     }
 
     public function testQueryParams() {
@@ -137,12 +149,17 @@ class RouterTest extends TestCase {
         $conn    = $this->createMock(Connection::class);
         $request = $this->createMock(ServerRequestInterface::class);
         $uri = new \GuzzleHttp\Psr7\Uri('ws://doesnt.matter/endpoint?hello=world&foo=nope');
+        $queryParams = \GuzzleHttp\Psr7\parse_query($uri->getQuery());
+
+        $request->expects($this->any())->method('getQueryParams')->will($this->returnCallback(function () use (&$queryParams) {
+            return $queryParams;
+        }));
 
         $request->expects($this->any())->method('getUri')->will($this->returnCallback(function () use (&$uri) {
             return $uri;
         }));
-        $request->expects($this->any())->method('withUri')->with($this->callback(function ($url) use (&$uri) {
-            $uri = $url;
+        $request->expects($this->any())->method('withQueryParams')->with($this->callback(function ($params) use (&$queryParams) {
+            $queryParams = $params;
 
             return true;
         }))->will($this->returnSelf());
@@ -150,7 +167,7 @@ class RouterTest extends TestCase {
         $router = new Router($this->_matcher);
         $router->onOpen($conn, $request);
 
-        $this->assertEquals('foo=nope&baz=qux&hello=world', $request->getUri()->getQuery());
+        $this->assertEquals(\GuzzleHttp\Psr7\parse_query('foo=nope&baz=qux&hello=world'), $request->getQueryParams());
         $this->assertEquals('ws', $request->getUri()->getScheme());
         $this->assertEquals('doesnt.matter', $request->getUri()->getHost());
     }

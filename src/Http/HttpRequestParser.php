@@ -95,7 +95,8 @@ class HttpRequestParser implements MessageInterface {
                     // Do not assume this is HTTPS when this happens to be port 443
                     // detecting HTTPS is left up to the socket layer (TLS detection)
                     // i.e. server params
-                    ->withScheme(($serverParams['HTTPS'] ?? null) ? 'https' : 'http')
+                    // @todo support ws scheme
+                    //->withScheme(($serverParams['HTTPS'] ?? null) ? 'https' : 'http')
                     // always sanitize Host header because it contains critical routing information
                     ->withUserInfo('', '')
             );

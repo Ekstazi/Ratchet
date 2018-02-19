@@ -2,7 +2,6 @@
 
 namespace Reamp\Http;
 
-use GuzzleHttp\Psr7 as gPsr;
 use Psr\Http\Message\ServerRequestInterface;
 use Reamp\ConnectionInterface;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
@@ -63,9 +62,9 @@ class Router implements HttpServerInterface {
                 $parameters[$key] = $value;
             }
         }
-        $parameters = \array_merge($parameters, gPsr\parse_query($uri->getQuery() ?: ''));
+        $parameters = \array_merge($parameters, $request->getQueryParams());
 
-        $request = $request->withUri($uri->withQuery(gPsr\build_query($parameters)));
+        $request = $request->withQueryParams($parameters);
 
         $conn->controller = $route['_controller'];
         // proxy component handler onOpen so it can use async or sync context
