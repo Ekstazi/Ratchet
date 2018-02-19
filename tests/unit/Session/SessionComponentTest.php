@@ -2,7 +2,7 @@
 
 namespace Reamp\Session;
 
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
 use Reamp\Http\HttpServerInterface;
@@ -83,7 +83,7 @@ class SessionComponentTest extends AbstractMessageComponentTestCase {
         $component  = new SessionProvider($this->createMock($this->getComponentClassString()), $pdoHandler, ['auto_start' => 1]);
         $connection = $this->createMock(ConnectionInterface::class);
 
-        $headers = $this->createMock(RequestInterface::class);
+        $headers = $this->createMock(ServerRequestInterface::class);
         $headers->expects($this->once())->method('getHeader')->will($this->returnValue([\ini_get('session.name') . "={$sessionId};"]));
 
         $component->onOpen($connection, $headers);
@@ -94,7 +94,7 @@ class SessionComponentTest extends AbstractMessageComponentTestCase {
     protected function newConn() {
         $conn = $this->createMock(ConnectionInterface::class);
 
-        $headers = $this->createMock(RequestInterface::class, ['getCookie'], ['POST', '/', []]);
+        $headers = $this->createMock(ServerRequestInterface::class, ['getCookie'], ['POST', '/', []]);
         $headers->expects($this->once())->method('getCookie', [\ini_get('session.name')])->will($this->returnValue(null));
 
         return $conn;
@@ -117,7 +117,7 @@ class SessionComponentTest extends AbstractMessageComponentTestCase {
     }
 
     protected function doOpen($conn) {
-        $request = $this->createMock(RequestInterface::class);
+        $request = $this->createMock(ServerRequestInterface::class);
         $request->expects($this->any())->method('getHeader')->will($this->returnValue([]));
 
         $this->_serv->onOpen($conn, $request);

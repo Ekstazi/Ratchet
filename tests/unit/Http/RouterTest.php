@@ -4,7 +4,7 @@ namespace Reamp\Http;
 
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Reamp\ConnectionInterface;
 use Reamp\Mock\Connection;
@@ -29,7 +29,7 @@ class RouterTest extends TestCase {
     public function setUp() {
         $this->_conn = $this->createMock(ConnectionInterface::class);
         $this->_uri  = $this->createMock(UriInterface::class);
-        $this->_req  = $this->createMock(RequestInterface::class);
+        $this->_req  = $this->createMock(ServerRequestInterface::class);
         $this->_req
             ->expects($this->any())
             ->method('getUri')
@@ -135,7 +135,7 @@ class RouterTest extends TestCase {
         );
 
         $conn    = $this->createMock(Connection::class);
-        $request = $this->createMock(RequestInterface::class);
+        $request = $this->createMock(ServerRequestInterface::class);
         $uri = new \GuzzleHttp\Psr7\Uri('ws://doesnt.matter/endpoint?hello=world&foo=nope');
 
         $request->expects($this->any())->method('getUri')->will($this->returnCallback(function () use (&$uri) {

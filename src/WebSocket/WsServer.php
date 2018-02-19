@@ -4,7 +4,7 @@ namespace Reamp\WebSocket;
 
 use Amp\Loop\Driver as LoopInterface;
 use GuzzleHttp\Psr7 as gPsr;
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Ratchet\RFC6455\Handshake\RequestVerifier;
 use Ratchet\RFC6455\Handshake\ServerNegotiator;
 use Ratchet\RFC6455\Messaging\CloseFrameChecker;
@@ -106,7 +106,7 @@ class WsServer implements HttpServerInterface {
     /**
      * {@inheritdoc}
      */
-    public function onOpen(ConnectionInterface $conn, RequestInterface $request = null) {
+    public function onOpen(ConnectionInterface $conn, ServerRequestInterface $request = null) {
         if (null === $request) {
             throw new \UnexpectedValueException('$request can not be null');
         }

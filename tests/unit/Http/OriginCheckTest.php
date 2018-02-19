@@ -2,7 +2,7 @@
 
 namespace Reamp\Http;
 
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
 
@@ -13,7 +13,7 @@ class OriginCheckTest extends AbstractMessageComponentTestCase {
     protected $_reqStub;
 
     public function setUp() {
-        $this->_reqStub = $this->createMock(RequestInterface::class);
+        $this->_reqStub = $this->createMock(ServerRequestInterface::class);
         $this->_reqStub->expects($this->any())->method('getHeader')->will($this->returnValue(['localhost']));
 
         parent::setUp();

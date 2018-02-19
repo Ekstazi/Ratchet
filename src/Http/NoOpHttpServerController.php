@@ -2,11 +2,11 @@
 
 namespace Reamp\Http;
 
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Reamp\ConnectionInterface;
 
 class NoOpHttpServerController implements HttpServerInterface {
-    public function onOpen(ConnectionInterface $conn, RequestInterface $request = null) {
+    public function onOpen(ConnectionInterface $conn, ServerRequestInterface $request = null) {
     }
 
     public function onMessage(ConnectionInterface $from, $msg) {

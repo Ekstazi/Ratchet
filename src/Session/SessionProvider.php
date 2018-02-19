@@ -2,7 +2,7 @@
 
 namespace Reamp\Session;
 
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Reamp\ConnectionInterface;
 use Reamp\Http\HttpServerInterface;
 use Reamp\Session\Serialize\HandlerInterface;
@@ -72,7 +72,7 @@ class SessionProvider implements HttpServerInterface {
     /**
      * {@inheritdoc}
      */
-    public function onOpen(ConnectionInterface $conn, RequestInterface $request = null) {
+    public function onOpen(ConnectionInterface $conn, ServerRequestInterface $request = null) {
         $sessionName = \ini_get('session.name');
 
         $id = \array_reduce($request->getHeader('Cookie'), function ($accumulator, $cookie) use ($sessionName) {

@@ -27,7 +27,7 @@ class HttpRequestParser implements MessageInterface {
     /**
      * @param \Reamp\ConnectionInterface $context
      * @param string $data Data stream to buffer
-     * @return \Psr\Http\Message\RequestInterface
+     * @return \Psr\Http\Message\ServerRequestInterface
      * @throws \OverflowException If the message buffer has become too large
      */
     public function onMessage(ConnectionInterface $context, $data) {
@@ -62,7 +62,7 @@ class HttpRequestParser implements MessageInterface {
     /**
      * @param string $headers
      * @param array $serverParams
-     * @return \Psr\Http\Message\RequestInterface
+     * @return \Psr\Http\Message\ServerRequestInterface
      */
     public function parse($headers, $serverParams = []) {
         $request = gPsr\parse_request($headers);

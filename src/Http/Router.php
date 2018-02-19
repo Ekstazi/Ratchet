@@ -3,7 +3,7 @@
 namespace Reamp\Http;
 
 use GuzzleHttp\Psr7 as gPsr;
-use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Reamp\ConnectionInterface;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -28,7 +28,7 @@ class Router implements HttpServerInterface {
      * {@inheritdoc}
      * @throws \UnexpectedValueException If a controller is not \Reamp\Http\HttpServerInterface
      */
-    public function onOpen(ConnectionInterface $conn, RequestInterface $request = null) {
+    public function onOpen(ConnectionInterface $conn, ServerRequestInterface $request = null) {
         if (null === $request) {
             throw new \UnexpectedValueException('$request can not be null');
         }
