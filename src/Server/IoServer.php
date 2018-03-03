@@ -36,7 +36,7 @@ class IoServer {
      * @param \Reamp\MessageComponentInterface $app The ReAmp/Ratchet application stack to host
      * @param ServerInterface $socket The amp socket server to run the ReAmp/Ratchet application off of
      */
-    public function __construct(MessageComponentInterface $app, ServerInterface $socket, LoopInterface $loop = null) {
+    public function __construct(MessageComponentInterface $app, ServerInterface $socket) {
         if (false === \strpos(PHP_VERSION, "hiphop")) {
             \gc_enable();
         }
@@ -44,9 +44,14 @@ class IoServer {
         \set_time_limit(0);
         \ob_implicit_flush();
 
-        $this->loop = $loop;
         $this->app = $app;
         $this->socket = $socket;
+
+		\Amp\asyncCall(function () {
+			while ($connection = yield $this->socket->accept()) {
+				$this->handleConnect($connection);
+			}
+		});
     }
 
     /**
@@ -56,10 +61,9 @@ class IoServer {
      * @return IoServer
      */
     public static function factory(MessageComponentInterface $component, $port = 80, $address = '0.0.0.0') {
-        $loop = Loop::get();
         $socket = \Amp\Socket\listen($address . ':' . $port);
 
-        return new static($component, $socket, $loop);
+        return new static($component, $socket);
     }
 
     /**
@@ -67,20 +71,9 @@ class IoServer {
      * @throws \RuntimeException If a loop was not previously specified
      */
     public function run() {
-        // @todo move to constructor
-        if (null === $this->loop) {
-            throw new \RuntimeException("A React Loop was not provided during instantiation");
-        }
-
-        $this->loop->defer(function () {
-            while ($connection = yield $this->socket->accept()) {
-                $this->handleConnect($connection);
-                //\Amp\asyncCall([$this, 'handleConnect'], $connection);
-            }
-        });
 
         // @codeCoverageIgnoreStart
-        $this->loop->run();
+        Loop::run();
         // @codeCoverageIgnoreEnd
     }
 

@@ -202,7 +202,7 @@ class WsServer implements HttpServerInterface {
         $this->handshakeNegotiator->setStrictSubProtocolCheck($enable);
     }
 
-    public function enableKeepAlive(LoopInterface $loop, $interval = 30) {
+    public function enableKeepAlive($interval = 30) {
         $lastPing = new Frame(\uniqid(), true, Frame::OP_PING);
         $pingedConnections = new \SplObjectStorage;
         $splClearer = new \SplObjectStorage;

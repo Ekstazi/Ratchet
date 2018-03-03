@@ -35,12 +35,11 @@ class IoServerTest extends TestCase {
     public function setUp() {
         $this->app = $this->createMock(MessageComponentInterface::class);
 
-        $loop = Loop::get();
         $this->reactor = \Amp\Socket\listen('0.0.0.0:0');
 
         $uri = $this->reactor->getAddress();
         $this->port = \parse_url((\strpos($uri, '://') === false ? 'tcp://' : '') . $uri, PHP_URL_PORT);
-        $this->server = new IoServer($this->app, $this->reactor, $loop);
+        $this->server = new IoServer($this->app, $this->reactor);
     }
 
     public function testOnOpen() {
@@ -110,13 +109,6 @@ class IoServerTest extends TestCase {
 
     public function testFactory() {
         $this->assertInstanceOf(IoServer::class, IoServer::factory($this->app, 0));
-    }
-
-    public function testNoLoopProvidedError() {
-        $this->expectException('RuntimeException');
-
-        $io = new IoServer($this->app, $this->reactor);
-        $io->run();
     }
 
     public function testOnErrorPassesException() {

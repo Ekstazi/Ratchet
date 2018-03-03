@@ -20,7 +20,6 @@ class BinaryEcho implements \Reamp\WebSocket\MessageComponentInterface {
 }
 
     $port = $argc > 1 ? $argv[1] : 8000;
-    $loop = \Amp\Loop::get();
     $sock = \Amp\Socket\listen('0.0.0.0:' . $port);
 
     $wsServer = new Reamp\WebSocket\WsServer(new BinaryEcho);
@@ -31,5 +30,5 @@ class BinaryEcho implements \Reamp\WebSocket\MessageComponentInterface {
 
     $app = new Reamp\Http\HttpServer($wsServer);
 
-    $server = new Reamp\Server\IoServer($app, $sock, $loop);
+    $server = new Reamp\Server\IoServer($app, $sock);
     $server->run();
