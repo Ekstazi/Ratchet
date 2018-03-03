@@ -31,4 +31,4 @@ class BinaryEcho implements \Reamp\WebSocket\MessageComponentInterface {
     $app = new Reamp\Http\HttpServer($wsServer);
 
     $server = new Reamp\Server\IoServer($app, $sock);
-    $server->run();
+    $server::run();

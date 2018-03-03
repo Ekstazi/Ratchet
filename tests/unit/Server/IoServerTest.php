@@ -51,7 +51,7 @@ class IoServerTest extends TestCase {
         Loop::defer(function () {
             $client = \stream_socket_client("tcp://localhost:{$this->port}");
         });
-        $this->server->run();
+        IoServer::run();
         //$this->server->loop->tick();
 
         //$this->assertTrue(is_string($this->app->last['onOpen'][0]->remoteAddress));
@@ -84,7 +84,7 @@ class IoServerTest extends TestCase {
             \socket_shutdown($client, 0);
             \socket_close($client);
         });
-        $this->server->run();
+        IoServer::run();
     }
 
     public function testOnClose() {
@@ -104,7 +104,7 @@ class IoServerTest extends TestCase {
             \socket_shutdown($client, 0);
             \socket_close($client);
         });
-        $this->server->run();
+		IoServer::run();
     }
 
     public function testFactory() {

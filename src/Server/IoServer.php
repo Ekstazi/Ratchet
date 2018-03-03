@@ -67,10 +67,9 @@ class IoServer {
     }
 
     /**
-     * Run the application by entering the event loop.
-     * @throws \RuntimeException If a loop was not previously specified
+     * Run all application instances.
      */
-    public function run() {
+    public static function run() {
 
         // @codeCoverageIgnoreStart
         Loop::run();

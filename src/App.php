@@ -121,9 +121,9 @@ class App {
     }
 
     /**
-     * Run the server by entering the event loop.
+     * Run all server instances
      */
-    public function run() {
-        $this->_server->run();
+    public static function run() {
+        IoServer::run();
     }
 }
