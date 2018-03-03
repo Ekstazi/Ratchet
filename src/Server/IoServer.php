@@ -4,7 +4,6 @@ namespace Reamp\Server;
 
 use Amp\Coroutine;
 use Amp\Loop;
-use Amp\Loop\Driver as LoopInterface;
 use Amp\Promise;
 use Amp\Socket\Server as ServerInterface;
 use Amp\Socket\ServerSocket as Connection;
@@ -16,10 +15,6 @@ use Reamp\MessageComponentInterface;
  * Events are delegated through this to attached applications.
  */
 class IoServer {
-    /**
-     * @var LoopInterface
-     */
-    public $loop;
 
     /**
      * @var \Reamp\MessageComponentInterface
