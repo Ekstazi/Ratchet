@@ -2,10 +2,7 @@
 
 namespace Reamp\WebSocket;
 
-use Amp\Coroutine;
-use Amp\Delayed;
 use Amp\Loop;
-use Amp\Loop\Driver as LoopInterface;
 use GuzzleHttp\Psr7 as gPsr;
 use Psr\Http\Message\ServerRequestInterface;
 use Ratchet\RFC6455\Handshake\RequestVerifier;

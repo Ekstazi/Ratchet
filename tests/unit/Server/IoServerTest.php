@@ -104,7 +104,7 @@ class IoServerTest extends TestCase {
             \socket_shutdown($client, 0);
             \socket_close($client);
         });
-		IoServer::run();
+        IoServer::run();
     }
 
     public function testFactory() {

@@ -2,8 +2,6 @@
 
 namespace Reamp;
 
-use Amp\Loop;
-use Amp\Loop\Driver as LoopInterface;
 use Reamp\Http\HttpServer;
 use Reamp\Http\HttpServerInterface;
 use Reamp\Http\OriginCheck;
@@ -121,7 +119,7 @@ class App {
     }
 
     /**
-     * Run all server instances
+     * Run all server instances.
      */
     public static function run() {
         IoServer::run();

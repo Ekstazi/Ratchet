@@ -47,11 +47,11 @@ class IoServer {
         $this->app = $app;
         $this->socket = $socket;
 
-		\Amp\asyncCall(function () {
-			while ($connection = yield $this->socket->accept()) {
-				$this->handleConnect($connection);
-			}
-		});
+        \Amp\asyncCall(function () {
+            while ($connection = yield $this->socket->accept()) {
+                $this->handleConnect($connection);
+            }
+        });
     }
 
     /**
