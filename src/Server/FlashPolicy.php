@@ -136,7 +136,7 @@ class FlashPolicy implements MessageComponentInterface {
     /**
      * {@inheritdoc}
      */
-    public function onError(ConnectionInterface $conn, \Exception $e): Promise {
+    public function onError(ConnectionInterface $conn, \Throwable $e): Promise {
         return $conn->close();
     }
 

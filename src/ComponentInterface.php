@@ -25,8 +25,8 @@ interface ComponentInterface {
      * If there is an error with one of the sockets, or somewhere in the application where an Exception is thrown,
      * the Exception is sent back down the stack, handled by the Server and bubbled back up the application through this method.
      * @param  ConnectionInterface $conn
-     * @param  \Exception          $e
-     * @throws \Exception
+     * @param  \Throwable          $e
+     * @throws \Throwable
      */
-    public function onError(ConnectionInterface $conn, \Exception $e);
+    public function onError(ConnectionInterface $conn, \Throwable $e);
 }

@@ -123,7 +123,7 @@ class SessionProvider implements HttpServerInterface {
     /**
      * {@inheritdoc}
      */
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Throwable $e) {
         // proxy component handler onOpen so it can use async or sync context
         return $this->_app->onError($conn, $e);
     }

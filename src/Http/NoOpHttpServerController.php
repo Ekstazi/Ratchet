@@ -15,6 +15,6 @@ class NoOpHttpServerController implements HttpServerInterface {
     public function onClose(ConnectionInterface $conn) {
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Throwable $e) {
     }
 }

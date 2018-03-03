@@ -106,7 +106,7 @@ class IpBlackList implements MessageComponentInterface {
     /**
      * {@inheritdoc}
      */
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Throwable $e) {
         if (!$this->isBlocked($conn->getRemoteAddress())) {
             // simply proxy result of handler
             return $this->_decorating->onError($conn, $e);

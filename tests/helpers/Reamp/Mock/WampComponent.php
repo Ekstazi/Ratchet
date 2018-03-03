@@ -39,7 +39,7 @@ class WampComponent implements WampServerInterface, WsServerInterface {
         $this->last[__FUNCTION__] = \func_get_args();
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Throwable $e) {
         $this->last[__FUNCTION__] = \func_get_args();
     }
 }

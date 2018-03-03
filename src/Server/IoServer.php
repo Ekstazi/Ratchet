@@ -126,7 +126,7 @@ class IoServer {
         try {
             // message component can use promises or amp style coroutines.
             yield \Amp\call([$this->app, 'onMessage'], $conn, $data);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             yield $this->handleError($e, $conn);
         }
     }
@@ -161,7 +161,7 @@ class IoServer {
         try {
             // message component can use promises or amp style coroutines.
             yield \Amp\call([$this->app, 'onClose'], $conn);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             yield $this->handleError($e, $conn);
         }
 

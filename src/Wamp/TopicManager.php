@@ -93,7 +93,7 @@ class TopicManager implements WsServerInterface, WampServerInterface {
     /**
      * {@inheritdoc}
      */
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Throwable $e) {
         // proxy component handler onOpen so it can use async or sync context
         return $this->app->onError($conn, $e);
     }

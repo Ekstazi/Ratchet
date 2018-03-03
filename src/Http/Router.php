@@ -92,7 +92,7 @@ class Router implements HttpServerInterface {
     /**
      * {@inheritdoc}
      */
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Throwable $e) {
         if (isset($conn->controller)) {
             // proxy component handler onOpen so it can use async or sync context
             return $conn->controller->onError($conn, $e);

@@ -172,7 +172,7 @@ class WsServer implements HttpServerInterface {
     /**
      * {@inheritdoc}
      */
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Throwable $e) {
         if ($this->connections->contains($conn)) {
             // proxy component handler onOpen so it can use async or sync context
             return $this->delegate->onError($this->connections[$conn]->connection, $e);

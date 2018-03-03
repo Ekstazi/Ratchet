@@ -15,7 +15,7 @@ class NullComponent implements MessageComponentInterface, WsServerInterface, Wam
     public function onClose(ConnectionInterface $conn) {
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e) {
+    public function onError(ConnectionInterface $conn, \Throwable $e) {
     }
 
     public function onCall(ConnectionInterface $conn, $id, $topic, array $params) {

@@ -20,7 +20,7 @@ class EchoServer implements MessageComponentInterface {
     public function onClose(ConnectionInterface $conn) {
     }
 
-    public function onError(ConnectionInterface $conn, \Exception $e): Promise {
+    public function onError(ConnectionInterface $conn, \Throwable $e): Promise {
         return $conn->close();
     }
 }
