@@ -89,10 +89,10 @@ class WsServer implements HttpServerInterface {
 
         $this->closeFrameChecker   = new CloseFrameChecker;
         $this->handshakeNegotiator = new ServerNegotiator(new RequestVerifier);
-        $this->handshakeNegotiator->setStrictSubProtocolCheck(true);
 
-        if ($component instanceof WsServerInterface) {
-            $this->handshakeNegotiator->setSupportedSubProtocols($component->getSubProtocols());
+        if ($component instanceof WsServerInterface && $protocols = $component->getSubProtocols()) {
+			$this->handshakeNegotiator->setStrictSubProtocolCheck(true);;
+			$this->handshakeNegotiator->setSupportedSubProtocols($protocols);
         }
 
         $this->pongReceiver = function () {};
