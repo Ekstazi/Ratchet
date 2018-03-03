@@ -140,7 +140,15 @@ class IoServer {
      */
     public function handleError(\Throwable $e, $conn): Promise {
         // message component can use promises or amp style coroutines.
-        return \Amp\call([$this->app, 'onError'], $conn, $e);
+        return new Coroutine($this->onError($e, $conn));
+    }
+
+    protected function onError(\Throwable $e, $conn) {
+        try {
+            yield \Amp\call([$this->app, 'onError'], $conn, $e);
+        } catch (\Throwable $e) {
+            // nothing to do
+        }
     }
 
     /**

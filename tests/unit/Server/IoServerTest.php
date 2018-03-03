@@ -6,6 +6,7 @@ use Amp\Loop;
 use Amp\Socket\Server;
 use Amp\Socket\ServerSocket;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub\Exception;
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
 use Reamp\MessageComponentInterface;
@@ -121,15 +122,35 @@ class IoServerTest extends TestCase {
         $this->server->handleError($err, $decor);
     }
 
-    public function testonErrorCalledWhenExceptionThrown() {
-        $this->markTestIncomplete("Need to learn how to throw an exception from a mock");
+    public function testOnFatalErrorPassesException() {
+        //$conn = $this->createMock(ServerSocket::class);
+        $decor = $this->createMock(ConnectionInterface::class);
+        $err = new \Error(\Throwable::class);
 
-        $conn = $this->createMock(ServerSocket::class);
+        $this->app->expects($this->once())->method('onError')->with($decor, $err);
+
+        $this->server->handleError($err, $decor);
+    }
+
+
+    public function testOnErrorCalledWhenExceptionThrown() {
+        $conn = $this->createMock(ConnectionInterface::class);
         $this->server->handleConnect($conn);
 
         $e = new \Exception;
-        $this->app->expects($this->once())->method('onMessage')->with($this->isInstanceOf(ConnectionInterface::class), 'f')->will($e);
-        $this->app->expects($this->once())->method('onError')->with($this->instanceOf(ConnectionInterface::class, $e));
+        $this->app->expects($this->once())->method('onMessage')->with($this->isInstanceOf(ConnectionInterface::class), 'f')->willThrowException($e);
+        $this->app->expects($this->once())->method('onError')->with($this->isInstanceOf(ConnectionInterface::class), $e);
+
+        $this->server->handleData('f', $conn);
+    }
+
+    public function testOnErrorCalledWhenErrorThrown() {
+        $conn = $this->createMock(ConnectionInterface::class);
+        $this->server->handleConnect($conn);
+
+        $e = new \Error();
+        $this->app->expects($this->once())->method('onMessage')->with($this->isInstanceOf(ConnectionInterface::class), 'f')->will(new Exception($e));
+        $this->app->expects($this->once())->method('onError')->with($this->isInstanceOf(ConnectionInterface::class), $e);
 
         $this->server->handleData('f', $conn);
     }

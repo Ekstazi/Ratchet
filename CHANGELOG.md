@@ -16,6 +16,9 @@ CHANGELOG
   * cookie support
   * support final data in close
   * ConnectionInterface doesn not forgot id and address
+  * Continue to work even on fatal errors
+  * no need to use event loop as param for IoServer.
+  * IoServer::run and App::run now static
 
 * 0.1 
   * Port ioserver to amphp

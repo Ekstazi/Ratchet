@@ -10,14 +10,14 @@ interface ComponentInterface {
     /**
      * When a new connection is opened it will be passed to this method.
      * @param  ConnectionInterface $conn The socket/connection that just connected to your application
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function onOpen(ConnectionInterface $conn);
 
     /**
      * This is called before or after a socket is closed (depends on how it's closed).  SendMessage to $conn will not result in an error if it has already been closed.
      * @param  ConnectionInterface $conn The socket/connection that is closing/closed
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function onClose(ConnectionInterface $conn);
 
