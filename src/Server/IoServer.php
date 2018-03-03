@@ -35,7 +35,6 @@ class IoServer {
     /**
      * @param \Reamp\MessageComponentInterface $app The ReAmp/Ratchet application stack to host
      * @param ServerInterface $socket The amp socket server to run the ReAmp/Ratchet application off of
-     * @param LoopInterface|null $loop The amp looper to run the ReAmp/Ratchet application off of
      */
     public function __construct(MessageComponentInterface $app, ServerInterface $socket, LoopInterface $loop = null) {
         if (false === \strpos(PHP_VERSION, "hiphop")) {

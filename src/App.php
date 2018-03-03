@@ -89,10 +89,10 @@ class App {
             $decorated = $controller;
         } elseif ($controller instanceof WampServerInterface) {
             $decorated = new WsServer(new WampServer($controller));
-            $decorated->enableKeepAlive($this->_server->loop);
+            $decorated->enableKeepAlive();
         } elseif ($controller instanceof MessageComponentInterface || $controller instanceof DataComponentInterface) {
             $decorated = new WsServer($controller);
-            $decorated->enableKeepAlive($this->_server->loop);
+            $decorated->enableKeepAlive();
         } else {
             $decorated = $controller;
         }

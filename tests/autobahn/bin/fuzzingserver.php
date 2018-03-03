@@ -27,7 +27,7 @@ class BinaryEcho implements \Reamp\WebSocket\MessageComponentInterface {
     // This is enabled to test https://github.com/ratchetphp/Ratchet/issues/430
     // The time is left at 10 minutes so that it will not try to every ping anything
     // This causes the Ratchet server to crash on test 2.7
-    $wsServer->enableKeepAlive($loop, 600);
+    $wsServer->enableKeepAlive(600);
 
     $app = new Reamp\Http\HttpServer($wsServer);
 

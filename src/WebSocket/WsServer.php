@@ -2,6 +2,9 @@
 
 namespace Reamp\WebSocket;
 
+use Amp\Coroutine;
+use Amp\Delayed;
+use Amp\Loop;
 use Amp\Loop\Driver as LoopInterface;
 use GuzzleHttp\Psr7 as gPsr;
 use Psr\Http\Message\ServerRequestInterface;
@@ -210,7 +213,7 @@ class WsServer implements HttpServerInterface {
             }
         };
 
-        $loop->repeat((int) $interval * 1000, function () use ($pingedConnections, &$lastPing, $splClearer) {
+        Loop::repeat((int) $interval * 1000, function () use ($pingedConnections, &$lastPing, $splClearer) {
             foreach ($pingedConnections as $wsConn) {
                 $wsConn->close();
             }

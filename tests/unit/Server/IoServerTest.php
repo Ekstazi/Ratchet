@@ -48,8 +48,8 @@ class IoServerTest extends TestCase {
 
 
         //$this->reactor->close();
-        $this->server->loop->delay(100, [$this->reactor, 'close']);
-        $this->server->loop->defer(function () {
+        Loop::delay(100, [$this->reactor, 'close']);
+        Loop::defer(function () {
             $client = \stream_socket_client("tcp://localhost:{$this->port}");
         });
         $this->server->run();
@@ -72,8 +72,8 @@ class IoServerTest extends TestCase {
         \socket_set_option($client, SOL_SOCKET, SO_SNDBUF, 4096);
         \socket_set_block($client);
 
-        $this->server->loop->delay(100, [$this->reactor, 'close']);
-        $this->server->loop->defer(function () use ($client, $msg) {
+        Loop::delay(100, [$this->reactor, 'close']);
+        Loop::defer(function () use ($client, $msg) {
             \socket_connect($client, 'localhost', $this->port);
 
             //$this->server->loop->tick();
@@ -96,8 +96,8 @@ class IoServerTest extends TestCase {
         \socket_set_option($client, SOL_SOCKET, SO_SNDBUF, 4096);
         \socket_set_block($client);
 
-        $this->server->loop->delay(100, [$this->reactor, 'close']);
-        $this->server->loop->defer(function () use ($client) {
+        Loop::delay(100, [$this->reactor, 'close']);
+        Loop::defer(function () use ($client) {
             \socket_connect($client, 'localhost', $this->port);
 
 
