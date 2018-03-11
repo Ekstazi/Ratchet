@@ -1,9 +1,10 @@
 <?php
 
-namespace Reamp\Http;
+namespace tests\Http;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
+use Reamp\Http\HttpRequestParser;
 
 /**
  * @covers \Reamp\Http\HttpRequestParser
@@ -12,7 +13,7 @@ class HttpRequestParserTest extends TestCase {
     protected $parser;
 
     public function setUp() {
-        $this->parser = new HttpRequestParser;
+        $this->parser = new HttpRequestParser();
     }
 
     public function headersProvider() {

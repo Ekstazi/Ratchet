@@ -1,12 +1,14 @@
 <?php
 
-namespace Reamp\Http;
+namespace tests\Http;
 
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ServerRequestInterface;
 use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
+use Reamp\Http\HttpServerInterface;
+use Reamp\Http\OriginCheck;
 
 /**
  * @covers \Reamp\Http\OriginCheck

@@ -1,12 +1,14 @@
 <?php
 
-namespace Reamp\Http;
+namespace tests\Http;
 
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Reamp\ConnectionInterface;
+use Reamp\Http\HttpServer;
+use Reamp\Http\Router;
 use Reamp\Mock\Connection;
 use Reamp\WebSocket\WsServer;
 use Reamp\WebSocket\WsServerInterface;
