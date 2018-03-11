@@ -6,9 +6,11 @@
  * Time: 0:41.
  */
 
-namespace Reamp\Logger;
+namespace tests\Logger;
 
 use Reamp\AbstractMessageComponentTestCase;
+use Reamp\Logger\MessageLoggedConnection;
+use Reamp\Logger\MessageLogger;
 use Reamp\MessageComponentInterface;
 use Reamp\Mock\Logger;
 

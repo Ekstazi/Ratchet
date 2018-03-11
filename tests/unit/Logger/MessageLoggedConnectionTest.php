@@ -1,8 +1,9 @@
 <?php
 
-namespace Reamp\Logger;
+namespace tests\Logger;
 
 use PHPUnit\Framework\TestCase;
+use Reamp\Logger\MessageLoggedConnection;
 use Reamp\Mock\Connection;
 use Reamp\Mock\Logger;
 

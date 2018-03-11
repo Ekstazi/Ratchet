@@ -6,9 +6,10 @@
  * Time: 11:37.
  */
 
-namespace Reamp\Logger;
+namespace tests\Logger;
 
 use PHPUnit\Framework\TestCase;
+use Reamp\Logger\WsMessageLogger;
 use Reamp\Mock\Component;
 
 class WsMessageLoggerTest extends TestCase {
