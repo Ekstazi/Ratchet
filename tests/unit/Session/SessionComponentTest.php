@@ -7,6 +7,7 @@ use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
 use Reamp\Http\HttpServerInterface;
 use Reamp\NullComponent;
+use Reamp\Session\SessionProvider;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
 
@@ -17,7 +18,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
  */
 class SessionComponentTest extends AbstractMessageComponentTestCase {
     public function setUp() {
-        if (!\class_exists('Symfony\Component\HttpFoundation\Session\Session')) {
+        if (!\class_exists(\Symfony\Component\HttpFoundation\Session\Session::class)) {
             return $this->markTestSkipped('Dependency of Symfony HttpFoundation failed');
         }
 

@@ -1,8 +1,9 @@
 <?php
 
-namespace Reamp\Session\Serialize;
+namespace tests\Session\Serialize;
 
 use PHPUnit\Framework\TestCase;
+use Reamp\Session\Serialize\PhpHandler;
 
 /**
  * @covers \Reamp\Session\Serialize\PhpHandler
@@ -11,7 +12,7 @@ class PhpHandlerTest extends TestCase {
     protected $_handler;
 
     public function setUp() {
-        $this->_handler = new PhpHandler;
+        $this->_handler = new PhpHandler();
     }
 
     public function serializedProvider() {

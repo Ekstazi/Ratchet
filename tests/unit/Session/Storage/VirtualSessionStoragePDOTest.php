@@ -1,9 +1,10 @@
 <?php
 
-namespace Reamp\Session\Storage;
+namespace tests\Session\Storage;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\Session\Serialize\PhpHandler;
+use Reamp\Session\Storage\VirtualSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
