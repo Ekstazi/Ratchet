@@ -1,9 +1,11 @@
 <?php
 
-namespace Reamp;
+namespace tests;
 
 use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
+use Reamp\AbstractConnectionDecorator;
+use Reamp\ConnectionInterface;
 use Reamp\Mock\ConnectionDecorator;
 
 /**
