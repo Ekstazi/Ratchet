@@ -8,7 +8,6 @@ CHANGELOG
 
 ---
 * 0.1.1-dev
-  * implement logger component
   * support async in ComponentInterface
   * ConnectionInterface now async also
   * use ServerRequestInterface insteadof RequestInterface
@@ -20,7 +19,8 @@ CHANGELOG
   * Continue to work even on fatal errors
   * no need to use event loop as param for IoServer.
   * IoServer::run and App::run now static
-
+  * implement logger component
+  * fix bug with empty origin in OriginCheck
 * 0.1 
   * Port ioserver to amphp
   * Update phpunit
