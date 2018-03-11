@@ -8,6 +8,7 @@ CHANGELOG
 
 ---
 * 0.1.1-dev
+  * implement logger component
   * support async in ComponentInterface
   * ConnectionInterface now async also
   * use ServerRequestInterface insteadof RequestInterface
