@@ -1,10 +1,15 @@
 <?php
 
-namespace Reamp\Wamp;
+namespace tests\Wamp;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\Mock\Connection;
 use Reamp\Mock\WampComponent as TestComponent;
+use Reamp\Wamp\Exception;
+use Reamp\Wamp\JsonException;
+use Reamp\Wamp\ServerProtocol;
+use Reamp\Wamp\WampConnection;
+use Reamp\Wamp\WampServerInterface;
 
 /**
  * @covers \Reamp\Wamp\ServerProtocol

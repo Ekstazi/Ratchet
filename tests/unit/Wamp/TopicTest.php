@@ -1,9 +1,11 @@
 <?php
 
-namespace Reamp\Wamp;
+namespace tests\Wamp;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
+use Reamp\Wamp\Topic;
+use Reamp\Wamp\WampConnection;
 
 /**
  * @covers \Reamp\Wamp\Topic

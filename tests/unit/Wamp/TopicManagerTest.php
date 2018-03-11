@@ -1,10 +1,13 @@
 <?php
 
-namespace Reamp\Wamp;
+namespace tests\Wamp;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
 use Reamp\Wamp\Stub\WsWampServerInterface;
+use Reamp\Wamp\Topic;
+use Reamp\Wamp\TopicManager;
+use Reamp\Wamp\WampServerInterface;
 
 /**
  * @covers \Reamp\Wamp\TopicManager
