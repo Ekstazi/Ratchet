@@ -37,7 +37,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Reamp\\": "tests/helpers"
+            "tests\\": "tests/"
         }
     },
     "require": {

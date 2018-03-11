@@ -1,9 +1,10 @@
 <?php
 
-namespace Reamp;
+namespace tests\helpers;
 
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
+use Reamp\ConnectionInterface;
 
 abstract class AbstractMessageComponentTestCase extends TestCase {
     protected $_app;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Reamp\Mock;
+namespace tests\helpers\Mock;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;

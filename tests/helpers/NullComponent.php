@@ -1,7 +1,9 @@
 <?php
 
-namespace Reamp;
+namespace tests\helpers;
 
+use Reamp\ConnectionInterface;
+use Reamp\MessageComponentInterface;
 use Reamp\Wamp\WampServerInterface;
 use Reamp\WebSocket\WsServerInterface;
 

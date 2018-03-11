@@ -4,10 +4,10 @@ namespace tests\Wamp;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
-use Reamp\Wamp\Stub\WsWampServerInterface;
 use Reamp\Wamp\Topic;
 use Reamp\Wamp\TopicManager;
 use Reamp\Wamp\WampServerInterface;
+use tests\helpers\Wamp\Stub\WsWampServerInterface;
 
 /**
  * @covers \Reamp\Wamp\TopicManager

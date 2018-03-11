@@ -4,8 +4,8 @@ namespace tests\Logger;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\Logger\MessageLoggedConnection;
-use Reamp\Mock\Connection;
-use Reamp\Mock\Logger;
+use tests\helpers\Mock\Connection;
+use tests\helpers\Mock\Logger;
 
 class MessageLoggedConnectionTest extends TestCase {
     /**

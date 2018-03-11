@@ -8,11 +8,11 @@
 
 namespace tests\Logger;
 
-use Reamp\AbstractMessageComponentTestCase;
 use Reamp\Logger\MessageLoggedConnection;
 use Reamp\Logger\MessageLogger;
 use Reamp\MessageComponentInterface;
-use Reamp\Mock\Logger;
+use tests\helpers\AbstractMessageComponentTestCase;
+use tests\helpers\Mock\Logger;
 
 class MessageLoggerTest extends AbstractMessageComponentTestCase {
     /**

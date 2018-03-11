@@ -3,13 +3,13 @@
 namespace tests\Session;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
 use Reamp\Http\HttpServerInterface;
-use Reamp\NullComponent;
 use Reamp\Session\SessionProvider;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
+use tests\helpers\AbstractMessageComponentTestCase;
+use tests\helpers\NullComponent;
 
 /**
  * @covers \Reamp\Session\SessionProvider

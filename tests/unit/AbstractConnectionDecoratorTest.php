@@ -6,7 +6,7 @@ use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
 use Reamp\AbstractConnectionDecorator;
 use Reamp\ConnectionInterface;
-use Reamp\Mock\ConnectionDecorator;
+use tests\helpers\Mock\ConnectionDecorator;
 
 /**
  * @covers \Reamp\AbstractConnectionDecorator

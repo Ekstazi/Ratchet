@@ -9,7 +9,6 @@ use Psr\Http\Message\UriInterface;
 use Reamp\ConnectionInterface;
 use Reamp\Http\HttpServer;
 use Reamp\Http\Router;
-use Reamp\Mock\Connection;
 use Reamp\WebSocket\WsServer;
 use Reamp\WebSocket\WsServerInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -17,6 +16,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
+use tests\helpers\Mock\Connection;
 
 /**
  * @covers \Reamp\Http\Router

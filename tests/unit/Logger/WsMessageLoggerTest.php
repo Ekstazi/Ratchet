@@ -10,7 +10,7 @@ namespace tests\Logger;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\Logger\WsMessageLogger;
-use Reamp\Mock\Component;
+use tests\helpers\Mock\Component;
 
 class WsMessageLoggerTest extends TestCase {
     public function testGetSubProtocols() {

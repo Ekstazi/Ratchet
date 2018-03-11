@@ -3,11 +3,11 @@
 namespace tests\Wamp;
 
 use PHPUnit\Framework\Constraint\IsInstanceOf;
-use Reamp\AbstractMessageComponentTestCase;
 use Reamp\Wamp\Topic;
 use Reamp\Wamp\WampConnection;
 use Reamp\Wamp\WampServer;
 use Reamp\Wamp\WampServerInterface;
+use tests\helpers\AbstractMessageComponentTestCase;
 
 /**
  * @covers \Reamp\Wamp\WampServer

@@ -1,6 +1,6 @@
 <?php
 
-namespace Reamp\Wamp\Stub;
+namespace tests\helpers\Wamp\Stub;
 
 use Reamp\Wamp\WampServerInterface;
 use Reamp\WebSocket\WsServerInterface;

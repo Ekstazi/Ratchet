@@ -5,10 +5,10 @@ namespace tests\Http;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ServerRequestInterface;
-use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
 use Reamp\Http\HttpServerInterface;
 use Reamp\Http\OriginCheck;
+use tests\helpers\AbstractMessageComponentTestCase;
 
 /**
  * @covers \Reamp\Http\OriginCheck

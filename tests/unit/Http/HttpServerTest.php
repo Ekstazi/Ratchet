@@ -2,10 +2,10 @@
 
 namespace tests\Http;
 
-use Reamp\AbstractMessageComponentTestCase;
 use Reamp\ConnectionInterface;
 use Reamp\Http\HttpServer;
 use Reamp\Http\HttpServerInterface;
+use tests\helpers\AbstractMessageComponentTestCase;
 
 /**
  * @covers \Reamp\Http\HttpServer
