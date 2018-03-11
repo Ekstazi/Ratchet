@@ -35,6 +35,11 @@
             "Reamp\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Reamp\\": "tests/helpers"
+        }
+    },
     "require": {
         "php": ">=7.0",
         "ratchet/rfc6455": "^0.2",

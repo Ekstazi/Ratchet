@@ -1,10 +1,11 @@
 <?php
 
-namespace Reamp\Server;
+namespace tests\Server;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
 use Reamp\MessageComponentInterface;
+use Reamp\Server\IpBlackList;
 
 /**
  * @covers \Reamp\Server\IpBlackList

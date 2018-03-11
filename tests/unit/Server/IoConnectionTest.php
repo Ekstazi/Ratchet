@@ -1,6 +1,6 @@
 <?php
 
-namespace Reamp\Application\Server;
+namespace tests\Server;
 
 use Amp\Socket\ServerSocket;
 use PHPUnit\Framework\TestCase;

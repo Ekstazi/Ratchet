@@ -1,9 +1,10 @@
 <?php
 
-namespace Reamp\Server;
+namespace tests\Server;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
+use Reamp\Server\EchoServer;
 
 class EchoServerTest extends TestCase {
     protected $_conn;
@@ -11,7 +12,7 @@ class EchoServerTest extends TestCase {
 
     public function setUp() {
         $this->_conn = $this->createMock(ConnectionInterface::class);
-        $this->_comp = new EchoServer;
+        $this->_comp = new EchoServer();
     }
 
     public function testMessageEchod() {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Reamp\Application\Server;
+namespace tests\Server;
 
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;

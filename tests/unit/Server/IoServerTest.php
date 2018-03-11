@@ -1,15 +1,15 @@
 <?php
 
-namespace Reamp\Server;
+namespace tests\Server;
 
 use Amp\Loop;
 use Amp\Socket\Server;
-use Amp\Socket\ServerSocket;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub\Exception;
 use PHPUnit\Framework\TestCase;
 use Reamp\ConnectionInterface;
 use Reamp\MessageComponentInterface;
+use Reamp\Server\IoServer;
 
 /**
  * @covers \Reamp\Server\IoServer
@@ -113,7 +113,6 @@ class IoServerTest extends TestCase {
     }
 
     public function testOnErrorPassesException() {
-        //$conn = $this->createMock(ServerSocket::class);
         $decor = $this->createMock(ConnectionInterface::class);
         $err = new \Exception("Nope");
 
@@ -123,7 +122,6 @@ class IoServerTest extends TestCase {
     }
 
     public function testOnFatalErrorPassesException() {
-        //$conn = $this->createMock(ServerSocket::class);
         $decor = $this->createMock(ConnectionInterface::class);
         $err = new \Error(\Throwable::class);
 
