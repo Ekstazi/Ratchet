@@ -1,6 +1,6 @@
 <?php
 
-namespace Reamp\Session;
+namespace tests\Session;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Reamp\AbstractMessageComponentTestCase;
